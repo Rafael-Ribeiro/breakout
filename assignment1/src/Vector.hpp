@@ -1,7 +1,5 @@
 #pragma once
 
-#include <string.h>
-#include <cassert>
 #include <iostream>
 #include <utility>
 
@@ -94,7 +92,7 @@ Vector<T>& Vector<T>::operator = (const Vector<T>& o)
 }
 
 template <class T>
-Vector<T>& Vector<T>::operator = (Vector<T>&& o)
+Vector<T>& Vector<T>::operator =(Vector<T>&& o)
 {
 	this->len = o.len;
 	this->capacity = o.capacity;
@@ -106,7 +104,7 @@ Vector<T>& Vector<T>::operator = (Vector<T>&& o)
 }
 
 template <class T>
-bool Vector<T>::operator == (const Vector<T>& o) const
+bool Vector<T>::operator ==(const Vector<T>& o) const
 {
 	if (this == &o)
 		return true;
@@ -128,8 +126,10 @@ T& Vector<T>::operator [](unsigned int x)
 	{
 		if (x >= this->capacity)
 		{
-			do {
+			do
+			{
 				this->capacity *= 2;
+
 			} while (x >= this->capacity);
 
 			T* newdata = new T[this->capacity];
@@ -160,7 +160,8 @@ std::ostream& operator << (std::ostream& c, const Vector<U>& v)
 
 		for (unsigned int i = 1; i < v.len; i++)
 			c << " " << v.data[i];
+
 	}
 
-	c << std::endl;
+	return c;
 }

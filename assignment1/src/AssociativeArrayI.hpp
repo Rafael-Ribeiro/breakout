@@ -45,7 +45,8 @@ AssociativeArrayI<K,V>::AssociativeArrayI(AssociativeArrayI<K,V>&& o)
 template <class K, class V>
 AssociativeArrayI<K,V>& AssociativeArrayI<K,V>::operator =(const AssociativeArrayI<K,V>& o)
 {
-	return super::operator=(o);
+	super::operator=(o);
+	return *this;
 }
 
 template <class K, class V>

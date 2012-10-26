@@ -77,7 +77,7 @@ V& AssociativeArrayC<K,V>::operator [](const K& key)
 template<class Q, class W>
 std::ostream& operator << (std::ostream& c, const AssociativeArrayC<Q,W>& a)
 {
-	c << a.data;
+	return c << a.data;
 }
 
 template <class K, class V>

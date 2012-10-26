@@ -8,6 +8,5 @@ using AssociativeArray = AssociativeArrayI<K,V>;
 template<class K, class V>
 std::ostream& operator << (std::ostream& c, const std::pair<K,V>& p)
 {
-	c << "(" << p.first << ", " << p.second << ")";
+	return c << "(" << p.first << ", " << p.second << ")";
 }
-
