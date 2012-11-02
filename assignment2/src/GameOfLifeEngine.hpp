@@ -21,6 +21,8 @@ public:
 	void resize(const size_t &rows, const size_t &cols);
 	void step();
 
+	void toggle(const size_t &row, const size_t &col);
+
 	const size_t &rows() const;
 	const size_t &cols() const;
 

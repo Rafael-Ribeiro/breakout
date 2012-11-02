@@ -1,12 +1,16 @@
 #include <QWidget>
 #include <QDialog>
 #include <QVBoxLayout>
+#include <QFormLayout>
 #include <QToolBar>
 #include <QTimer>
 #include <QAction>
 #include <QIcon>
+#include <QSpinBox>
+#include <QPushButton>
 
 #include "GameOfLifeField.hpp"
+#include "GameOfLifeResizeDialog.hpp"
 
 class GameOfLifeApp
 	: public QWidget
@@ -21,7 +25,8 @@ public:
 	QSize sizeHint() const;
 
 private:
-	QDialog resize_dialog;
+	GameOfLifeResizeDialog resize_dialog;
+
 	QVBoxLayout layout;
 	QToolBar toolbar;
 	GameOfLifeField field;
@@ -40,4 +45,7 @@ private slots:
 	void resize();
 	void clear();
 	void random();
+
+public slots:
+	void resize_ok(const size_t &width, const size_t &height);
 };

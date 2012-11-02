@@ -1,10 +1,15 @@
 #include "../GameOfLifeApp.hpp"
 
 GameOfLifeApp::GameOfLifeApp(QWidget *parent)
-	: super(parent), resize_dialog(this), layout(this), toolbar(this), field(this), timer(this), playing(false)
+	:
+		super(parent),
+		resize_dialog(this),
+		layout(this),
+		toolbar(this),
+		field(this),
+		timer(this),
+		playing(false)
 {
-
-
 	this->action_play_pause = this->toolbar.addAction(QIcon::fromTheme("media-playback-start"), "Play");
 	this->action_step = this->toolbar.addAction(QIcon::fromTheme("media-skip-forward"), "Step");
 	this->action_resize = this->toolbar.addAction(QIcon::fromTheme("zoom-fit-best"), "Resize");
@@ -23,6 +28,11 @@ GameOfLifeApp::GameOfLifeApp(QWidget *parent)
 	this->setLayout(&this->layout);
 
 	connect(&this->timer, SIGNAL(timeout()), &this->field, SLOT(step()));
+	connect
+	(
+		&this->resize_dialog, SIGNAL(ok(const size_t&, const size_t&)),
+		this, SLOT(resize_ok(const size_t&, const size_t&))
+	);
 
 	this->setWindowTitle("Game of Life");
 }
@@ -72,8 +82,12 @@ void GameOfLifeApp::step()
 
 void GameOfLifeApp::resize()
 {
-	// TODO
 	this->resize_dialog.exec();
+}
+
+void GameOfLifeApp::resize_ok(const size_t &width, const size_t &height)
+{
+	this->field.setSize(width, height);
 }
 
 void GameOfLifeApp::clear()

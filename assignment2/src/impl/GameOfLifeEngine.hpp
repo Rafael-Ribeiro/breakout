@@ -37,6 +37,8 @@ void GameOfLifeEngine::resize(const size_t &rows, const size_t &cols)
 {
 	this->front->resize(rows, cols);
 	this->back->resize(rows, cols);
+
+	this->clear();
 }
 
 void GameOfLifeEngine::step()
@@ -90,6 +92,11 @@ void GameOfLifeEngine::step()
 	}
 
 	std::swap(this->front, this->back);
+}
+
+void GameOfLifeEngine::toggle(const size_t &row, const size_t &col)
+{
+	(*this->front)[row][col] = !(*this->front)[row][col];
 }
 
 const size_t& GameOfLifeEngine::rows() const

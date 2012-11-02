@@ -14,11 +14,13 @@ INCLUDEPATH += . impl
 HEADERS += GameOfLifeEngine.hpp \
            GameOfLifeApp.hpp \
            GameOfLifeField.hpp \
+           GameOfLifeResizeDialog.hpp \
            Matrix.hpp \
            Vector.hpp \
            impl/GameOfLifeEngine.hpp \
            impl/GameOfLifeApp.hpp \
            impl/GameOfLifeField.hpp \
+           impl/GameOfLifeResizeDialog.hpp \
            impl/Matrix.hpp \
            impl/Vector.hpp
 SOURCES += impl.cpp main.cpp

@@ -6,6 +6,7 @@
 #include <QTimer>
 #include <QSize>
 #include <QPainter>
+#include <QMouseEvent>
 
 #include "GameOfLifeEngine.hpp"
 
@@ -25,16 +26,17 @@ public:
 
 	void clear();
 	void random();
+	void setSize(const size_t &width, const size_t &height);
 
 protected:
 	virtual void paintEvent(QPaintEvent *event);
+	virtual void mousePressEvent(QMouseEvent *e);
 
 private:
 	GameOfLifeEngine engine;
 
 public slots:
 	void step();
-
 };
 
 #endif

@@ -61,7 +61,17 @@ void GameOfLifeField::paintEvent(QPaintEvent *event)
 				GameOfLifeField::CELL_SIZE,
 				this->engine[i][j] ? black : white
 			);
+}
 
+void GameOfLifeField::mousePressEvent(QMouseEvent *e)
+{
+	QPoint pos = e->pos();
+
+	size_t x = (pos.x() - 1) / (GameOfLifeField::CELL_SIZE + 1);
+	size_t y = (pos.y() - 1) / (GameOfLifeField::CELL_SIZE + 1);
+
+	this->engine.toggle(y, x);
+	this->update();
 }
 
 void GameOfLifeField::step()
@@ -79,5 +89,12 @@ void GameOfLifeField::clear()
 void GameOfLifeField::random()
 {
 	this->engine.random();
+	this->update();
+}
+
+void GameOfLifeField::setSize(const size_t &width, const size_t &height)
+{
+	this->engine.resize(width, height);
+	this->resize(this->minimumSizeHint());
 	this->update();
 }
