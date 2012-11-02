@@ -1,0 +1,83 @@
+#include "../GameOfLifeField.hpp"
+
+const size_t GameOfLifeField::CELL_SIZE = 10;
+
+GameOfLifeField::GameOfLifeField(QWidget *parent)
+	: super(parent)
+{
+}
+
+QSize GameOfLifeField::minimumSizeHint() const
+{
+	return QSize
+	(
+		(GameOfLifeField::CELL_SIZE + 1) * this->engine.cols() + 1,
+		(GameOfLifeField::CELL_SIZE + 1) * this->engine.rows() + 1
+	);
+}
+
+QSize GameOfLifeField::sizeHint() const
+{
+	return this->minimumSize();
+}
+
+void GameOfLifeField::paintEvent(QPaintEvent *event)
+{
+	super::paintEvent(event);
+
+	QPainter painter(this);
+
+	QColor black("black");
+	QColor white("white");
+
+	painter.setPen(black);
+
+	for (size_t i = 0; i <= this->engine.rows(); i++)
+		painter.drawLine
+		(
+			(GameOfLifeField::CELL_SIZE + 1) * i,
+			0,
+			(GameOfLifeField::CELL_SIZE + 1) * i,
+			(GameOfLifeField::CELL_SIZE + 1) * this->engine.cols() + 1
+		);
+
+	for (size_t j = 0; j <= this->engine.cols(); j++)
+		painter.drawLine
+		(
+			0,
+			(GameOfLifeField::CELL_SIZE + 1) * j,
+			(GameOfLifeField::CELL_SIZE + 1) * this->engine.rows() + 1,
+			(GameOfLifeField::CELL_SIZE + 1) * j
+		);
+
+
+	for (size_t i = 0; i < this->engine.rows(); i++)
+		for (size_t j = 0; j < this->engine.cols(); j++)
+			painter.fillRect
+			(
+				(GameOfLifeField::CELL_SIZE + 1) * j + 1,
+				(GameOfLifeField::CELL_SIZE + 1) * i + 1,
+				GameOfLifeField::CELL_SIZE,
+				GameOfLifeField::CELL_SIZE,
+				this->engine[i][j] ? black : white
+			);
+
+}
+
+void GameOfLifeField::step()
+{
+	this->engine.step();
+	this->update();
+}
+
+void GameOfLifeField::clear()
+{
+	this->engine.clear();
+	this->update();
+}
+
+void GameOfLifeField::random()
+{
+	this->engine.random();
+	this->update();
+}

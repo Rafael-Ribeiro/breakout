@@ -7,6 +7,8 @@ GameOfLifeEngine::GameOfLifeEngine(const size_t &rows, const size_t &cols)
 {
 	this->front = new Matrix<bool>(rows, cols);
 	this->back = new Matrix<bool>(rows, cols);
+
+	this->clear();
 }
 
 GameOfLifeEngine::~GameOfLifeEngine()
@@ -20,6 +22,14 @@ void GameOfLifeEngine::clear()
 	for (size_t i = 0; i < this->front->rows(); i++)
 		for (size_t j = 0; j < this->front->cols(); j++)
 			(*this->front)[i][j] = false;
+
+}
+
+void GameOfLifeEngine::random()
+{
+	for (size_t i = 0; i < this->front->rows(); i++)
+		for (size_t j = 0; j < this->front->cols(); j++)
+			(*this->front)[i][j] = rand() & 1;
 
 }
 
@@ -80,6 +90,16 @@ void GameOfLifeEngine::step()
 	}
 
 	std::swap(this->front, this->back);
+}
+
+const size_t& GameOfLifeEngine::rows() const
+{
+	return this->front->rows();
+}
+
+const size_t& GameOfLifeEngine::cols() const
+{
+	return this->front->cols();
 }
 
 const Vector<bool>& GameOfLifeEngine::operator [](const size_t &row) const

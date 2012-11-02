@@ -1,13 +1,17 @@
 #include <QtGui>
+#include <cstdlib>
+#include <ctime>
 
-#include "GameOfLifeUI.hpp"
+#include "GameOfLifeApp.hpp"
 
 int main(int argc, char *argv[])
 {
-	QApplication app(argc, argv);
+	srand(time(NULL));
 
-	GameOfLifeUI ui;
-	ui.show();
+	QApplication qapp(argc, argv);
 
-	return app.exec();
+	GameOfLifeApp app;
+	app.show();
+
+	return qapp.exec();
 }

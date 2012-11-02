@@ -1,6 +1,7 @@
 #ifndef GAMEOFLIFEENGINE_HPP
 #define GAMEOFLIFEENGINE_HPP
 
+#include <cstdlib>
 #include <utility>
 
 #include "Matrix.hpp"
@@ -16,8 +17,12 @@ public:
 	virtual ~GameOfLifeEngine();
 
 	void clear();
+	void random();
 	void resize(const size_t &rows, const size_t &cols);
 	void step();
+
+	const size_t &rows() const;
+	const size_t &cols() const;
 
 	const Vector<bool>& operator [](const size_t &row) const;
 
