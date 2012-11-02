@@ -26,7 +26,7 @@ public:
 
 	void clear();
 	void random();
-	void setSize(const size_t &width, const size_t &height);
+	void setSize(const size_t &rows, const size_t &cols);
 
 protected:
 	virtual void paintEvent(QPaintEvent *event);

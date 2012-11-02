@@ -47,5 +47,5 @@ private slots:
 	void random();
 
 public slots:
-	void resize_ok(const size_t &width, const size_t &height);
+	void resize_ok(const size_t &rows, const size_t &cols);
 };

@@ -1,16 +1,16 @@
 #include "../GameOfLifeResizeDialog.hpp"
 
 GameOfLifeResizeDialog::GameOfLifeResizeDialog(QWidget *parent)
-	: super(parent), layout(this), width(this), height(this), ok_btn("OK", this)
+	: super(parent), layout(this), rows(this), cols(this), ok_btn("OK", this)
 {
-	this->width.setRange(5, 60);
-	this->height.setRange(5, 60);
+	this->rows.setRange(5, 60);
+	this->cols.setRange(5, 60);
 
-	this->width.setValue(GameOfLifeEngine::DEFAULT_ROWS);
-	this->height.setValue(GameOfLifeEngine::DEFAULT_COLS);
+	this->rows.setValue(GameOfLifeEngine::DEFAULT_ROWS);
+	this->cols.setValue(GameOfLifeEngine::DEFAULT_COLS);
 
-	this->layout.addRow("Width", &this->width);
-	this->layout.addRow("Height", &this->height);
+	this->layout.addRow("Rows", &this->rows);
+	this->layout.addRow("Cols", &this->cols);
 	this->layout.addRow(&this->ok_btn);
 	this->setLayout(&this->layout);
 
@@ -22,5 +22,5 @@ GameOfLifeResizeDialog::GameOfLifeResizeDialog(QWidget *parent)
 void GameOfLifeResizeDialog::ok_clicked()
 {
 	emit done(0);
-	emit ok(this->width.value(), this->height.value());
+	emit ok(this->rows.value(), this->cols.value());
 }

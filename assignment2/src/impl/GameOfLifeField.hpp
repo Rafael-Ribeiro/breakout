@@ -35,19 +35,19 @@ void GameOfLifeField::paintEvent(QPaintEvent *event)
 	for (size_t i = 0; i <= this->engine.rows(); i++)
 		painter.drawLine
 		(
-			(GameOfLifeField::CELL_SIZE + 1) * i,
 			0,
 			(GameOfLifeField::CELL_SIZE + 1) * i,
-			(GameOfLifeField::CELL_SIZE + 1) * this->engine.cols() + 1
+			(GameOfLifeField::CELL_SIZE + 1) * this->engine.cols() + 1,
+			(GameOfLifeField::CELL_SIZE + 1) * i
 		);
 
 	for (size_t j = 0; j <= this->engine.cols(); j++)
 		painter.drawLine
 		(
+			(GameOfLifeField::CELL_SIZE + 1) * j,
 			0,
 			(GameOfLifeField::CELL_SIZE + 1) * j,
-			(GameOfLifeField::CELL_SIZE + 1) * this->engine.rows() + 1,
-			(GameOfLifeField::CELL_SIZE + 1) * j
+			(GameOfLifeField::CELL_SIZE + 1) * this->engine.rows() + 1
 		);
 
 
@@ -67,10 +67,10 @@ void GameOfLifeField::mousePressEvent(QMouseEvent *e)
 {
 	QPoint pos = e->pos();
 
-	size_t x = (pos.x() - 1) / (GameOfLifeField::CELL_SIZE + 1);
-	size_t y = (pos.y() - 1) / (GameOfLifeField::CELL_SIZE + 1);
+	size_t row = (pos.y() - 1) / (GameOfLifeField::CELL_SIZE + 1);
+	size_t col = (pos.x() - 1) / (GameOfLifeField::CELL_SIZE + 1);
 
-	this->engine.toggle(y, x);
+	this->engine.toggle(row, col);
 	this->update();
 }
 
@@ -92,9 +92,9 @@ void GameOfLifeField::random()
 	this->update();
 }
 
-void GameOfLifeField::setSize(const size_t &width, const size_t &height)
+void GameOfLifeField::setSize(const size_t &rows, const size_t &cols)
 {
-	this->engine.resize(width, height);
+	this->engine.resize(rows, cols);
 	this->resize(this->minimumSizeHint());
 	this->update();
 }

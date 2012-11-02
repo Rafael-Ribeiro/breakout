@@ -43,9 +43,9 @@ void GameOfLifeEngine::resize(const size_t &rows, const size_t &cols)
 
 void GameOfLifeEngine::step()
 {
-	for (size_t i = 0; i < this->front->rows(); i++)
+	for (size_t i = 0; i < this->rows(); i++)
 	{
-		for (size_t j = 0; j < this->front->cols(); j++)
+		for (size_t j = 0; j < this->cols(); j++)
 		{
 			unsigned int neighbours = 0;
 
@@ -56,7 +56,7 @@ void GameOfLifeEngine::step()
 
 				neighbours += (unsigned int) (*this)[i - 1][j];
 
-				if (j < this->front->cols() - 1)
+				if (j < this->cols() - 1)
 					neighbours += (unsigned int) (*this)[i - 1][j + 1];
 
 			}
@@ -64,17 +64,17 @@ void GameOfLifeEngine::step()
 			if (j > 0)
 				neighbours += (unsigned int) (*this)[i][j - 1];
 
-			if (j < this->front->cols() - 1)
+			if (j < this->cols() - 1)
 				neighbours += (unsigned int) (*this)[i][j + 1];
 
-			if (i < this->front->cols() - 1)
+			if (i < this->cols() - 1)
 			{
 				if (j > 0)
 					neighbours += (unsigned int) (*this)[i + 1][j - 1];
 
 				neighbours += (unsigned int) (*this)[i + 1][j];
 
-				if (j < this->front->cols() - 1)
+				if (j < this->cols() - 1)
 					neighbours += (unsigned int) (*this)[i + 1][j + 1];
 
 			}

@@ -18,15 +18,15 @@ public:
 
 private:
 	QFormLayout layout;
-	QSpinBox width;
-	QSpinBox height;
+	QSpinBox rows;
+	QSpinBox cols;
 	QPushButton ok_btn;
 
 private slots:
 	void ok_clicked();
 
 signals:
-	void ok(const size_t &width, const size_t &height);
+	void ok(const size_t &rows, const size_t &cols);
 };
 
 #endif

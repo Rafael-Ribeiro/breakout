@@ -85,9 +85,9 @@ void GameOfLifeApp::resize()
 	this->resize_dialog.exec();
 }
 
-void GameOfLifeApp::resize_ok(const size_t &width, const size_t &height)
+void GameOfLifeApp::resize_ok(const size_t &rows, const size_t &cols)
 {
-	this->field.setSize(width, height);
+	this->field.setSize(rows, cols);
 }
 
 void GameOfLifeApp::clear()
