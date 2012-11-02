@@ -99,13 +99,8 @@ void GameOfLifeField::random()
 
 void GameOfLifeField::setSize(const size_t &rows, const size_t &cols)
 {
-<<<<<<< Updated upstream
 	this->engine.resize(rows, cols);
-	this->resize(this->minimumSizeHint());
-=======
-	this->engine.resize(width, height);
 
 	this->updateSize();
->>>>>>> Stashed changes
 	this->update();
 }
