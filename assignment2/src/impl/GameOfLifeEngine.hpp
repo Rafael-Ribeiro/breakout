@@ -67,7 +67,7 @@ void GameOfLifeEngine::step()
 			if (j < this->cols() - 1)
 				neighbours += (unsigned int) (*this)[i][j + 1];
 
-			if (i < this->cols() - 1)
+			if (i < this->rows() - 1)
 			{
 				if (j > 0)
 					neighbours += (unsigned int) (*this)[i + 1][j - 1];
