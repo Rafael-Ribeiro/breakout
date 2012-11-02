@@ -5,20 +5,25 @@ const size_t GameOfLifeField::CELL_SIZE = 10;
 GameOfLifeField::GameOfLifeField(QWidget *parent)
 	: super(parent)
 {
+	this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	this->updateSize();
 }
 
-QSize GameOfLifeField::minimumSizeHint() const
+void GameOfLifeField::updateSize()
 {
-	return QSize
-	(
-		(GameOfLifeField::CELL_SIZE + 1) * this->engine.cols() + 1,
-		(GameOfLifeField::CELL_SIZE + 1) * this->engine.rows() + 1
-	);
+	QSize size = this->sizeHint();
+
+	this->setMinimumSize(size);
+	this->setMaximumSize(size);
+	this->updateGeometry();
 }
 
 QSize GameOfLifeField::sizeHint() const
 {
-	return this->minimumSize();
+	return QSize(
+		(GameOfLifeField::CELL_SIZE + 1) * this->engine.cols() + 1,
+		(GameOfLifeField::CELL_SIZE + 1) * this->engine.rows() + 1
+	);
 }
 
 void GameOfLifeField::paintEvent(QPaintEvent *event)
@@ -94,7 +99,13 @@ void GameOfLifeField::random()
 
 void GameOfLifeField::setSize(const size_t &rows, const size_t &cols)
 {
+<<<<<<< Updated upstream
 	this->engine.resize(rows, cols);
 	this->resize(this->minimumSizeHint());
+=======
+	this->engine.resize(width, height);
+
+	this->updateSize();
+>>>>>>> Stashed changes
 	this->update();
 }

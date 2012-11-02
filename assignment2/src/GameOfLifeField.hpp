@@ -21,14 +21,15 @@ public:
 
 	const static size_t CELL_SIZE;
 
-	QSize minimumSizeHint() const;
-	QSize sizeHint() const;
-
 	void clear();
 	void random();
 	void setSize(const size_t &rows, const size_t &cols);
 
+	QSize sizeHint() const;
+
 protected:
+	void updateSize();
+
 	virtual void paintEvent(QPaintEvent *event);
 	virtual void mousePressEvent(QMouseEvent *e);
 

@@ -25,6 +25,9 @@ GameOfLifeApp::GameOfLifeApp(QWidget *parent)
 	this->layout.addWidget(&this->toolbar);
 	this->layout.addWidget(&this->field);
 
+	this->toolbar.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	this->layout.setSizeConstraint(QLayout::SetFixedSize);
+
 	this->setLayout(&this->layout);
 
 	connect(&this->timer, SIGNAL(timeout()), &this->field, SLOT(step()));
@@ -35,16 +38,6 @@ GameOfLifeApp::GameOfLifeApp(QWidget *parent)
 	);
 
 	this->setWindowTitle("Game of Life");
-}
-
-QSize GameOfLifeApp::minimumSizeHint() const
-{
-	return this->field.minimumSizeHint();
-}
-
-QSize GameOfLifeApp::sizeHint() const
-{
-	return this->field.sizeHint();
 }
 
 void GameOfLifeApp::play_pause()
@@ -88,6 +81,8 @@ void GameOfLifeApp::resize()
 void GameOfLifeApp::resize_ok(const size_t &rows, const size_t &cols)
 {
 	this->field.setSize(rows, cols);
+	this->layout.activate(); // force update of sizeHints
+	super::resize(this->sizeHint());
 }
 
 void GameOfLifeApp::clear()

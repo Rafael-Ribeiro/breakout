@@ -8,6 +8,7 @@
 #include <QIcon>
 #include <QSpinBox>
 #include <QPushButton>
+#include <QSizePolicy>
 
 #include "GameOfLifeField.hpp"
 #include "GameOfLifeResizeDialog.hpp"
@@ -20,9 +21,6 @@ class GameOfLifeApp
 public:
 	typedef QWidget super;
 	GameOfLifeApp(QWidget *parent = NULL);
-
-	QSize minimumSizeHint() const;
-	QSize sizeHint() const;
 
 private:
 	GameOfLifeResizeDialog resize_dialog;
