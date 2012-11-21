@@ -94,4 +94,3 @@ void GameOfLifeApp::random()
 {
 	this->field.random();
 }
-
