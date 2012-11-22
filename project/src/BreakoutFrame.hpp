@@ -1,13 +1,18 @@
+#pragma once
+
+#include <QFrame>
+
+#include "Engine.hpp"
+
 class BreakoutFrame
+	: public QFrame
 {
-	const Engine* engine;
+	Q_OBJECT
 
 public:
-	BreakoutFrame(const Engine* engine)
-		: engine(engine)
-	{
-	}
+	typedef QFrame super;
+	BreakoutFrame(const Engine *engine, QWidget *parent = NULL);
 
-	/* TODO override Qt's draw*/
-	void draw();
+private:
+	const Engine* engine;
 };

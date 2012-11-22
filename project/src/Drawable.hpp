@@ -1,25 +1,22 @@
-template <class S>
+#pragma once
+
+#include "Body.hpp"
+#include "Box.hpp"
+#include "Circle.hpp"
+
+/* forward declaration */
+class BreakoutFrame;
+
+template <class B>
 class Drawable
 {
-	Body<S>* body;
+	B *body;
 
 public:
-	Drawable(Body<S>* body)
+	Drawable(B *body)
 		: body(body)
 	{
 	}
 
-	void draw(BreakoutFrame& frame) const;
+	void draw(BreakoutFrame &frame) const;
 };
-
-template<>
-Drawable<Box>::draw(BreakoutFrame& frame) const
-{
-
-}
-
-template<>
-Drawable<Circle>::draw(BreakoutFrame& frame) const
-{
-
-}

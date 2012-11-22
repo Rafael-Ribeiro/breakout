@@ -1,18 +1,33 @@
+#pragma once
+
+#include "Contact.hpp"
+#include "Point.hpp"
+
 class Body
 {
-	Point position;
 
 protected:
-	Body(const Point& initial_position)
-		: position(initial_position)
+	Body() {}
+
+	Body(const Point &initial_position)
+		: _position(initial_position)
 	{
 	}
 
+	Point _position;
+
 public:
-	Contact do_collision(Body& other); 
-	virtual void on_collision(Body &other, Contact& contact);
+	Contact do_collision(Body &other); 
+	virtual void on_collision(Body &other, Contact &contact) = 0;
+
+	Point& position();
+	const Point& position() const;
 };
 
-Contact do_collision(Box& b1, Box& b2);
-Contact do_collision(Box& b, Circle& c);
-Contact do_collision(Circle& c1, Circle& c2);
+/* forward declarations */
+class Box;
+class Circle;
+
+Contact do_collision(Box &b1, Box &b2);
+Contact do_collision(Box &b, Circle &c);
+Contact do_collision(Circle &c1, Circle &c2);

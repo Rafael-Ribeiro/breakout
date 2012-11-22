@@ -1,9 +1,14 @@
-class Circle : Shape
+#pragma once
+
+#include "Body.hpp"
+
+class Circle : public virtual Body
 {
-	Point center;
 	double radius;
 
 public:
-	Contact do_collision(Box& other);
-	Contact do_collision(Circle& other);
+	Circle(const Point &initial_position, const double &radius)
+		: Body(initial_position) , radius(radius)
+	{	
+	}
 };

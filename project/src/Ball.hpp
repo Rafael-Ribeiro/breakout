@@ -1,12 +1,19 @@
-class Ball : MovingBody<Circle>
+#pragma once
+
+#include "Circle.hpp"
+#include "Movable.hpp"
+#include "Point.hpp"
+#include "Vector.hpp"
+
+class Ball : public Circle, public Movable
 {
-	typedef MovingBody super;
 	const double BASE_RADIUS = 10.0;
-	const Circle BASE_CIRCLE(Ball::RADIUS);
 
 public:
-	Ball(const Point& initial_position, const Vector& initial_velocity)
+	Ball(const Point &initial_position, const Vector &initial_velocity)
+		: Circle(initial_position, Ball::BASE_RADIUS), Movable(initial_velocity)
 	{
-		Ball::super(Circle::BASE_CIRCLE, DrawableCircle(this), initial_position, initial_velocity);
 	}
+
+	virtual void on_collision(Body &other, Contact &contact);
 };

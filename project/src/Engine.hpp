@@ -1,12 +1,17 @@
+#pragma once
+
 #include <set>
+
+#include "Body.hpp"
+#include "Movable.hpp"
 
 using namespace std;
 
 class Engine
 {
-	set<Body> static_bodies;
-	set<MovingBody> moving_bodies;
+	set<Body*> bodies;
+	set<Movable*> movables;
 
 public:
-	void step(const double& dt);
+	void step(const double &dt);
 };

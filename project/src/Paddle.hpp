@@ -1,14 +1,20 @@
-class Paddle : MovingBody<Box>
-{
-	typedef MovingBody super;
+#pragma once
 
+#include "Box.hpp"
+#include "Movable.hpp"
+#include "Point.hpp"
+#include "Vector.hpp"
+
+class Paddle : public Box, public Movable
+{
 	const double INITIAL_WIDTH = 50.0;
 	const double INITIAL_HEIGHT = 10.0;
-	const Box INITIAL_BOX(Paddle::INITIAL_WIDTH, Paddle::INITIAL_HEIGHT);
 
 public:
-	Paddle(const Point& initial_position, const Vector& initial_velocity)
+	Paddle(const Point &initial_position, const Vector &initial_velocity)
+		: Box(initial_position, Paddle::INITIAL_WIDTH, Paddle::INITIAL_HEIGHT), Movable(initial_velocity)
 	{
-		Paddle::super(Paddle::INITIAL_BOX, Drawable<Box>(this), initial_position, initial_velocity);
 	}
+
+	virtual void on_collision(Body &other, Contact &contact);
 };
