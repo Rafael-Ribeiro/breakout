@@ -17,14 +17,9 @@ int main(int argc, char *argv[])
 	return qapp.exec();
 */
 	Paddle b(Vector(0, 0), Vector(3, 0));
-	b.step(0.5);
+	Paddle c(Vector(0, 0), Vector(3, 0));
 
-	cout << b.position() << endl;
-
-	b.velocity() = Vector(0, 1);
-	b.step(0.5);
-
-	cout << b.position() << endl;
+	b.do_collision(c);
 
 	return 0;
 }
