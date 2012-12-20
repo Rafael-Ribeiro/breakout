@@ -1,6 +1,6 @@
 #include "../GameOfLifeField.hpp"
 
-const size_t GameOfLifeField::CELL_SIZE = 10;
+const size_t GameOfLifeField::CELL_SIZE = 2;
 
 GameOfLifeField::GameOfLifeField(QWidget *parent)
 	: super(parent)

@@ -1,22 +1,13 @@
 #pragma once
 
-#include "Body.hpp"
-#include "Box.hpp"
-#include "Circle.hpp"
+#include <QPainter>
 
-/* forward declaration */
-class BreakoutFrame;
-
-template <class B>
 class Drawable
 {
-	B *body;
 
 public:
-	Drawable(B *body)
-		: body(body)
-	{
-	}
+	Drawable() { };
+	virtual ~Drawable() { };
 
-	void draw(BreakoutFrame &frame) const;
+	virtual void draw(QPainter &frame) const = 0;
 };

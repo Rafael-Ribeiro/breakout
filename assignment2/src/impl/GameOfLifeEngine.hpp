@@ -1,7 +1,7 @@
 #include "../GameOfLifeEngine.hpp"
 
-const size_t GameOfLifeEngine::DEFAULT_ROWS = 50;
-const size_t GameOfLifeEngine::DEFAULT_COLS = 50;
+const size_t GameOfLifeEngine::DEFAULT_ROWS = 300;
+const size_t GameOfLifeEngine::DEFAULT_COLS = 300;
 
 GameOfLifeEngine::GameOfLifeEngine(const size_t &rows, const size_t &cols)
 {

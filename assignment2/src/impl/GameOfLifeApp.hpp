@@ -56,7 +56,7 @@ void GameOfLifeApp::play_pause()
 
 	} else
 	{
-		this->timer.start(1000 / 60);
+		this->timer.start(1000 / 120);
 		this->playing = true;
 		this->action_play_pause->setText("Pause");
 		this->action_play_pause->setIcon(QIcon::fromTheme("media-playback-pause"));

@@ -1,9 +1,35 @@
 #include <cmath>
 #include <limits>
+#include <cassert>
 
 #include "../Body.hpp"
+#include "../Box.hpp"
+#include "../Circle.hpp"
 
 using namespace std;
+
+const Vector Body::VELOCITY = Vector(0, 0);
+
+void Body::init(const double &density, const Point &position)
+{
+	this->_density = density;
+	this->_position = position;
+}
+
+const Vector& Body::velocity() const
+{
+	return Body::VELOCITY;
+}
+
+double& Body::density()
+{
+	return this->_density;
+}
+
+const double& Body::density() const
+{
+	return this->_density;
+}
 
 Point& Body::position()
 {
@@ -45,7 +71,22 @@ Contact Body::do_collision(Body &other)
 
 Contact do_collision(Box &b1, Box &b2)
 {
-	/* TODO do_collision */
+	double b1half_height, b1half_width, b2half_height, b2half_width;
+
+	b1half_height = b1.height() / 2;
+	b1half_width = b1.width() / 2;
+
+	b2half_height = b2.height() / 2;
+	b2half_width = b2.width() / 2;
+
+	double b1top, b1bottom, b1left, b1right;
+	double b2top, b2bottom, b2left, b2right;
+
+	b1top = b1.position().y() + b1half_height;
+	b1bottom = b1.position().y() - b1half_height;
+	b1left = b1.position().x() - b1half_width;
+	b1right = b1.position().x() + b1half_width;
+
 	return Contact();
 }
 
@@ -59,35 +100,42 @@ Contact do_collision(Circle &c1, Circle &c2)
 {
 	Contact contact;
 
-	Vector dx = c1.position() - c2.position();
-	double sqrd_distance = dx.sqrd_length();
-	double sqrd_radius = c1.radius() * c1.radius() + c2.radius() * c2.radius();
+	Vector dp = c1.position() - c2.position();
+	Vector dv = c1.velocity() - c2.velocity();
+
+	double sqrd_distance = dp.sqrd_length();
+	double sqrd_radius = c1.radius() + c2.radius();
+	sqrd_radius *= sqrd_radius;
 
 	/* no point collision */
 	if (sqrd_distance > sqrd_radius)
 		return contact;
 
-	if (dx.sqrd_length() > numeric_limits<double>::epsilon())
-	{
-		contact.normal() = dx;
-		contact.normal().normalize();
+	double a, b, c;
+	a = dv * dv;
+	b = dp * dv * 2;
+	c = dp * dp - sqrd_radius;
 
-	} else
-		contact.normal() = Vector(1, 0);
+	double discriminant = b * b - 4 * a * c;
+	double t;
 
-	/* single point collision */
-	if (fabs(sqrd_distance - sqrd_radius) < numeric_limits<double>::epsilon())
+	assert (discriminant > -numeric_limits<double>::epsilon());
+
+	if (discriminant < numeric_limits<double>::epsilon())
+		t = - b / (2 * a);
+	else
 	{
-		contact.points().push_back(c1.position() + contact.normal() * c1.radius());
-		return contact;
+		double t1, t2, sqrtdisc;
+		sqrtdisc = sqrt(discriminant);
+
+		t1 = (-b - sqrtdisc) / (2 * a);
+		t2 = (-b - sqrtdisc) / (2 * a);
+
+		t = std::min(t1, t2);
 	}
 
-	/* two point collision */
-	/* FIXME: missing dxx, dy */
-	Vector dxx = contact.normal() * 1;
-	Vector dy = contact.normal().normal() * 1;
-	contact.points().push_back(c1.position() + dxx + dy);
-	contact.points().push_back(c1.position() + dxx - dy);
-
+	contact.normal() = dp;
+	contact.normal().normalize();
+	contact.points().push_back(c1.position() + contact.normal() * c1.radius());
 	return contact;
 }

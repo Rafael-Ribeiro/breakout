@@ -6,11 +6,14 @@ class Circle : public virtual Body
 {
 	double _radius;
 
-public:
-	Circle(const Point &initial_position, const double &radius)
-		: Body(initial_position), _radius(radius)
-	{	
+protected:
+	Circle(const double &radius)
+		: _radius(radius)
+	{
 	}
+
+public:
+	virtual ~Circle() {};
 
 	double& radius();
 	const double& radius() const;

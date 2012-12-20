@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QWidget>
+#include <QVBoxLayout>
 
 #include "Engine.hpp"
 #include "BreakoutFrame.hpp"
@@ -16,5 +17,6 @@ public:
 
 private:
 	Engine engine;
+	QVBoxLayout layout;
 	BreakoutFrame frame;
 };

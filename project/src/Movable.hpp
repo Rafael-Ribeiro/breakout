@@ -10,11 +10,13 @@ class Movable : public virtual Body
 
 protected:
 	Movable(const Vector &initial_velocity)
-		: Body(), _velocity(initial_velocity)
+		: _velocity(initial_velocity)
 	{
 	}
 
 public:
+	virtual ~Movable() { };
+
 	Vector& velocity();
 	const Vector& velocity() const;
 	

@@ -5,79 +5,99 @@
 
 using namespace std;
 
+double& Vector::x()
+{
+	return this->_x;
+}
+
+const double& Vector::x() const
+{
+	return this->_x;
+}
+
+double& Vector::y()
+{
+	return this->_y;
+}
+
+const double& Vector::y() const
+{
+	return this->_y;
+}
+
 Vector& Vector::operator = (const Vector& other)
 {
-	this->x = other.x;
-	this->y = other.y;
+	this->_x = other._x;
+	this->_y = other._y;
 	return *this;
 }
 
 bool Vector::operator == (const Vector& other) const
 {
-	return fabs(this->x - other.x) < numeric_limits<double>::epsilon() && fabs(this->y - other.y) < numeric_limits<double>::epsilon();
+	return fabs(this->_x - other._x) < numeric_limits<double>::epsilon() && fabs(this->_y - other._y) < numeric_limits<double>::epsilon();
 }
 
 Vector Vector::operator + (const Vector& other) const
 {
-	return Vector(this->x + other.x, this->y + other.y);
+	return Vector(this->_x + other._x, this->_y + other._y);
 }
 
 Vector Vector::operator - (const Vector& other) const
 {
-	return Vector(this->x - other.x, this->y - other.y);
+	return Vector(this->_x - other._x, this->_y - other._y);
 }
 
 double Vector::operator * (const Vector& other) const
 {
-	return this->x * other.x + this->y * other.y;
+	return this->_x * other._x + this->_y * other._y;
 }
 
 Vector Vector::operator * (const double& ratio) const
 {
-	return Vector(this->x * ratio, this->y * ratio);
+	return Vector(this->_x * ratio, this->_y * ratio);
 }
 
 Vector Vector::operator / (const double& ratio) const
 {
-	return Vector(this->x / ratio, this->y / ratio);
+	return Vector(this->_x / ratio, this->_y / ratio);
 }
 
 Vector& Vector::operator += (const Vector& other)
 {
-	this->x += other.x;
-	this->y += other.y;
+	this->_x += other._x;
+	this->_y += other._y;
 	return *this;
 }
 
 Vector& Vector::operator -= (const Vector& other)
 {
-	this->x -= other.x;
-	this->y -= other.y;
+	this->_x -= other._x;
+	this->_y -= other._y;
 	return *this;
 }
 
 Vector& Vector::operator *= (const double& ratio)
 {
-	this->x *= ratio;
-	this->y *= ratio;
+	this->_x *= ratio;
+	this->_y *= ratio;
 	return *this;
 }
 
 Vector& Vector::operator /= (const double& ratio)
 {
-	this->x /= ratio;
-	this->y /= ratio;
+	this->_x /= ratio;
+	this->_y /= ratio;
 	return *this;
 }
 
 Vector Vector::operator - () const
 {
-	return Vector(-this->x, -this->y);	
+	return Vector(-this->_x, -this->_y);	
 }
 
 Vector Vector::normal() const
 {
-	return Vector(-this->y, this->x);
+	return Vector(-this->_y, this->_x);
 }
 
 Vector Vector::reflect(const Vector& incident) const
@@ -107,5 +127,5 @@ double Vector::sqrd_length() const
 
 ostream& operator << (ostream &out, const Vector &v)
 {
-	return out << "(" << v.x << ", " << v.y << ")";
+	return out << "(" << v.x() << ", " << v.y() << ")";
 }

@@ -9,9 +9,14 @@ using namespace std;
 
 class Engine
 {
-	set<Body*> bodies;
-	set<Movable*> movables;
+	set<Body*> _bodies;
+	set<Movable*> _movables;
 
 public:
+	Engine();
+	~Engine();
+
+    const set<Body*>& bodies() const;
+
 	void step(const double &dt);
 };

@@ -4,7 +4,7 @@
 
 QMAKE_CC = g++-4.7
 QMAKE_CXX = g++-4.7
-QMAKE_CXXFLAGS += -std=c++11
+QMAKE_CXXFLAGS += -std=c++11 -Wall -Wfatal-errors
 TEMPLATE = app
 TARGET = 
 DEPENDPATH += . impl

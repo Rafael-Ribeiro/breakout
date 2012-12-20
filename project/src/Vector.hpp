@@ -6,17 +6,23 @@ using namespace std;
 
 class Vector
 {
-	double x;
-	double y;
+	double _x;
+	double _y;
 
 	friend ostream& operator << (ostream &out, const Vector &v);
 
 public:
 	Vector(const double &x = 0.0, const double &y = 0.0)
-		: x(x), y(y)
+		: _x(x), _y(y)
 	{
 	}
 
+	double& x();
+	const double& x() const;
+
+	double& y();
+	const double& y() const;
+	
 	Vector& operator = (const Vector &other);
 	bool operator == (const Vector &other) const;
 
