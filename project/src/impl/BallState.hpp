@@ -1,3 +1,5 @@
+#include "../common.hpp"
+
 #include "../BallState.hpp"
 
 BallState::~BallState()

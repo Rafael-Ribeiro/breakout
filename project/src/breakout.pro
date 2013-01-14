@@ -24,7 +24,6 @@ breakout {
 				Movable.hpp \
 				Paddle.hpp \
 				Point.hpp \
-				Shape.hpp \
 				Vector.hpp \
 				impl/Ball.hpp \
 				impl/Body.hpp \
@@ -37,7 +36,6 @@ breakout {
 				impl/Engine.hpp \
 				impl/Movable.hpp \
 				impl/Paddle.hpp \
-				impl/Shape.hpp \
 				impl/Vector.hpp
 
 	SOURCES += impl.cpp main.cpp
@@ -65,7 +63,6 @@ test {
 				Movable.hpp \
 				Paddle.hpp \
 				Point.hpp \
-				Shape.hpp \
 				Vector.hpp \
 				impl/Ball.hpp \
 				impl/Body.hpp \
@@ -78,7 +75,6 @@ test {
 				impl/Engine.hpp \
 				impl/Movable.hpp \
 				impl/Paddle.hpp \
-				impl/Shape.hpp \
 				impl/Vector.hpp
 
 	SOURCES += impl.cpp test.cpp	
