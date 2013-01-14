@@ -6,21 +6,28 @@ BallState::~BallState()
 {
 }
 
-void BallState::setBall(Ball* ball)
+void BallState::set_ball(Ball* ball)
 {
 	this->ball = ball;
 }
 
-bool NormalBallState::pre_collision(Body &other)
+bool BallState::collision_filter(Body &other)
 {
-	/* TODO: Ball::on_collision */
+	/* collides with everything */
+	MARKUSED(other);
 	return true;
 }
 
-bool NormalBallState::post_collision(Contact &contact)
+bool NormalBallState::collision_updates_physics(Body &other)
+{
+	/* TODO */
+	return true;
+}
+
+bool NormalBallState::collision_handle(Contact &contact)
 {
 	this->ball->velocity() = contact.normal().reflect(this->ball->velocity());
-	return false;
+	return false;	
 }
 
 void NormalBallState::draw(QPainter& painter) const
@@ -36,16 +43,16 @@ void NormalBallState::draw(QPainter& painter) const
 	);
 }
 
-bool FireBallState::pre_collision(Body &other)
+bool FireBallState::collision_updates_physics(Body &other)
 {
-	/* TODO: Ball::on_collision */
+	/* TODO */
 	return true;
 }
 
-bool FireBallState::post_collision(Contact &contact)
+bool FireBallState::collision_handle(Contact &contact)
 {
 	this->ball->velocity() = contact.normal().reflect(this->ball->velocity());
-	return false;
+	return false;	
 }
 
 void FireBallState::draw(QPainter& painter) const
@@ -61,16 +68,16 @@ void FireBallState::draw(QPainter& painter) const
 	);
 }
 
-bool PhantomBallState::pre_collision(Body &other)
+bool PhantomBallState::collision_updates_physics(Body &other)
 {
-	/* TODO: Ball::on_collision */
+	/* TODO */
 	return true;
 }
 
-bool PhantomBallState::post_collision(Contact &contact)
+bool PhantomBallState::collision_handle(Contact &contact)
 {
 	this->ball->velocity() = contact.normal().reflect(this->ball->velocity());
-	return false;
+	return false;	
 }
 
 void PhantomBallState::draw(QPainter& painter) const

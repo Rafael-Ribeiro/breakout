@@ -14,14 +14,27 @@ Paddle::~Paddle()
 	delete this->state;
 }
 
-bool Paddle::pre_collision(Body &other)
+void Paddle::set_state(PaddleState *state)
 {
-	return this->state->pre_collision(other);
+	delete this->state;
+
+	this->state = state;
+	state->set_paddle(this);
 }
 
-bool Paddle::post_collision(Contact &contact)
+bool Paddle::collision_filter(Body &other)
 {
-	return this->state->post_collision(contact);
+	return this->state->collision_filter(other);
+}
+
+bool Paddle::collision_updates_physics(Body &other)
+{
+	return this->state->collision_updates_physics(other);
+}
+
+bool Paddle::collision_handle(Contact &contact)
+{
+	return this->state->collision_handle(contact);
 }
 
 void Paddle::draw(QPainter& painter) const
@@ -29,18 +42,10 @@ void Paddle::draw(QPainter& painter) const
 	this->state->draw(painter);
 }
 
-void Paddle::setState(PaddleState *state)
-{
-	delete this->state;
-
-	this->state = state;
-	state->setPaddle(this);
-}
-
 Paddle* PaddleFactory::makeNormalPaddle(const Point &initial_position)
 {
 	Paddle *paddle = new Paddle(initial_position);
-	paddle->setState(new NormalPaddleState());
+	paddle->set_state(new NormalPaddleState());
 
 	return paddle;
 }

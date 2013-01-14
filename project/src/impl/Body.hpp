@@ -37,52 +37,8 @@ void Body::step(const double &dt)
 	MARKUSED(dt);
 }
 
-bool Body::collides(Box &b1, Box &b2)
-{
-	Vector dp = b2.position() - b1.position();
-	double ddx = fabs(dp.x()) - b1.hwidth() - b2.hwidth();
-	double ddy = fabs(dp.y()) - b1.hheight() - b2.hheight();
 
-	return ddx <= numeric_limits<double>::epsilon() && ddy <= numeric_limits<double>::epsilon();
-}
-
-bool Body::collides(Box &b, Circle &c)
-{
-	double cx = fabs(c.position().x() - b.position().x());
-	double xd = b.hwidth() + c.radius();
-
-	if (cx > xd)
-		return false;
-
-	double cy = fabs(c.position().y() - b.position().y());
-	double yd = b.hheight() + c.radius();
-
-	if (cy > yd)
-		return false;
-
-	if (cx <= b.hwidth() || cy <= b.hheight())
-		return true;
-
-	double xcd = cx - b.hwidth();
-	double ycd = cy - b.hheight();
-	double xcds = xcd * xcd;
-	double ycds = ycd * ycd;
-	double maxcds = c.radius() * c.radius();
-
-	return xcds + ycds - maxcds <= numeric_limits<float>::epsilon();
-}
-
-bool Body::collides(Circle &c1, Circle &c2)
-{
-	Vector dp = c1.position() - c2.position();
-	double sqrd_distance = dp.sqrd_length();
-	double sqrd_radius = c1.radius() + c2.radius();
-	sqrd_radius *= sqrd_radius;
-
-	return sqrd_distance <= sqrd_radius;
-}
-
-Contact Body::do_collision(Body &other, const double& dt)
+Contact Body::get_collision_contact(Body &other, const double& dt)
 {
 	Contact contact;
 
@@ -96,21 +52,21 @@ Contact Body::do_collision(Body &other, const double& dt)
 	c2 = dynamic_cast<Circle*>(&other);
 
 	if (b1 && b2)
-		contact = Body::do_collision(*b1, *b2, dt);
+		contact = Body::get_collision_contact(*b1, *b2, dt);
 
 	else if (b1 && c2)
-		contact = Body::do_collision(*b1, *c2, dt);
+		contact = Body::get_collision_contact(*b1, *c2, dt);
 
 	else if (b2 && c1)
-		contact = Body::do_collision(*b2, *c1, dt);
+		contact = Body::get_collision_contact(*b2, *c1, dt);
 
 	else /* if (c1 && c2) */
-		contact = Body::do_collision(*c1, *c2, dt);
+		contact = Body::get_collision_contact(*c1, *c2, dt);
 
 	return contact;
 }
 
-Contact Body::do_collision(Box &b1, Box &b2, const double& dt)
+Contact Body::get_collision_contact(Box &b1, Box &b2, const double& dt)
 {
 	MARKUSED(dt);
 
@@ -178,7 +134,7 @@ Contact Body::do_collision(Box &b1, Box &b2, const double& dt)
 	return Contact(-tl, normal, &b1, &b2);
 }
 
-Contact Body::do_collision(Box &b, Circle &c, const double& dt)
+Contact Body::get_collision_contact(Box &b, Circle &c, const double& dt)
 {
 	if (!Body::collides(b, c))
 		return Contact();
@@ -254,7 +210,7 @@ Contact Body::do_collision(Box &b, Circle &c, const double& dt)
 	return Contact(high, normal, &b, &c);
 }
 
-Contact Body::do_collision(Circle &c1, Circle &c2, const double& dt)
+Contact Body::get_collision_contact(Circle &c1, Circle &c2, const double& dt)
 {
 	MARKUSED(dt);
 
@@ -294,4 +250,49 @@ Contact Body::do_collision(Circle &c1, Circle &c2, const double& dt)
 		return Contact(t, dp.normalize(), &c1, &c2);
 
 	return Contact(t, -dv.normalize(), &c1, &c2);
+}
+
+bool Body::collides(Box &b1, Box &b2)
+{
+	Vector dp = b2.position() - b1.position();
+	double ddx = fabs(dp.x()) - b1.hwidth() - b2.hwidth();
+	double ddy = fabs(dp.y()) - b1.hheight() - b2.hheight();
+
+	return ddx <= numeric_limits<double>::epsilon() && ddy <= numeric_limits<double>::epsilon();
+}
+
+bool Body::collides(Box &b, Circle &c)
+{
+	double cx = fabs(c.position().x() - b.position().x());
+	double xd = b.hwidth() + c.radius();
+
+	if (cx > xd)
+		return false;
+
+	double cy = fabs(c.position().y() - b.position().y());
+	double yd = b.hheight() + c.radius();
+
+	if (cy > yd)
+		return false;
+
+	if (cx <= b.hwidth() || cy <= b.hheight())
+		return true;
+
+	double xcd = cx - b.hwidth();
+	double ycd = cy - b.hheight();
+	double xcds = xcd * xcd;
+	double ycds = ycd * ycd;
+	double maxcds = c.radius() * c.radius();
+
+	return xcds + ycds - maxcds <= numeric_limits<float>::epsilon();
+}
+
+bool Body::collides(Circle &c1, Circle &c2)
+{
+	Vector dp = c1.position() - c2.position();
+	double sqrd_distance = dp.sqrd_length();
+	double sqrd_radius = c1.radius() + c2.radius();
+	sqrd_radius *= sqrd_radius;
+
+	return sqrd_distance <= sqrd_radius;
 }

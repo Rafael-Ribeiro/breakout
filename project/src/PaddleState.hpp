@@ -12,13 +12,16 @@ protected:
 	Paddle* paddle;
 
 	virtual ~PaddleState();
-	void setPaddle(Paddle* paddle);
+	void set_paddle(Paddle* paddle);
+
+	virtual bool collision_filter(Body &other);
 };
 
 class NormalPaddleState : public PaddleState
 {
 public:
-	bool pre_collision(Body &other);
-	bool post_collision(Contact &contact);
+	bool collision_updates_physics(Body &other);
+	bool collision_handle(Contact &contact);
+
 	void draw(QPainter& painter) const;
 };

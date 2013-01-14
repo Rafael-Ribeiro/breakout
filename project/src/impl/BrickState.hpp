@@ -6,9 +6,16 @@ BrickState::~BrickState()
 {
 }
 
-void BrickState::setBrick(Brick* brick)
+void BrickState::set_brick(Brick* brick)
 {
 	this->brick = brick;
+}
+
+bool BrickState::collision_filter(Body &other)
+{
+	/* collides only with balls */
+	Ball* ball = dynamic_cast<Ball*>(&other);
+	return ball;
 }
 
 NormalBrickState::NormalBrickState(unsigned int hits)
@@ -16,20 +23,14 @@ NormalBrickState::NormalBrickState(unsigned int hits)
 {	
 }
 
-bool NormalBrickState::pre_collision(Body &other)
+bool NormalBrickState::collision_updates_physics(Body &other)
 {
-	/* TODO: brick::on_collision */
+	/* TODO */
 	return true;
 }
 
-bool NormalBrickState::post_collision(Contact &contact)
+bool NormalBrickState::collision_handle(Contact &contact)
 {
-	Ball *a = dynamic_cast<Ball*>(contact.body_a());
-	Ball *b = dynamic_cast<Ball*>(contact.body_b());
-	
-	if (!a && !b)
-		return false;
-
 	this->hits--;
 	return this->hits == 0;
 }
@@ -48,15 +49,14 @@ void NormalBrickState::draw(QPainter& painter) const
 	);
 }
 
-bool GlassBrickState::pre_collision(Body &other)
+bool GlassBrickState::collision_updates_physics(Body &other)
 {
-	/* TODO: brick::on_collision */
+	/* TODO */
 	return false;
 }
 
-bool GlassBrickState::post_collision(Contact &contact)
+bool GlassBrickState::collision_handle(Contact &contact)
 {
-	MARKUSED(contact);
 	return true;
 }
 
@@ -74,16 +74,15 @@ void GlassBrickState::draw(QPainter& painter) const
 	);
 }
 
-bool ConcreteBrickState::pre_collision(Body &other)
+bool ConcreteBrickState::collision_updates_physics(Body &other)
 {
-	MARKUSED(other);
-	return true;
+	/* TODO */
+	return false;
 }
 
-bool ConcreteBrickState::post_collision(Contact &contact)
+bool ConcreteBrickState::collision_handle(Contact &contact)
 {
-	MARKUSED(contact);
-	return false;
+	return true;
 }
 
 void ConcreteBrickState::draw(QPainter& painter) const

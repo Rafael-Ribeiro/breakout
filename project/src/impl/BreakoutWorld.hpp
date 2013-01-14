@@ -28,12 +28,47 @@ void BreakoutWorld::add(Body *body)
 {
 	super::add(body);
 
-	/* TODO */
+	Ball* ball = dynamic_cast<Ball*>(ball);
+	if (ball)
+		this->_balls.insert(ball);
+
+	Brick* brick = dynamic_cast<Brick*>(brick);
+	if (brick)
+		this->_bricks.insert(brick);
+
+	Paddle* paddle = dynamic_cast<Paddle*>(paddle);
+	if (paddle)
+		this->_paddles.insert(paddle);
 }
 
 void BreakoutWorld::remove(Body *body)
 {
 	super::remove(body);
 
-	/* TODO */
+	Ball* ball = dynamic_cast<Ball*>(ball);
+	if (ball)
+		this->_balls.erase(ball);
+
+	Brick* brick = dynamic_cast<Brick*>(brick);
+	if (brick)
+		this->_bricks.erase(brick);
+
+	Paddle* paddle = dynamic_cast<Paddle*>(paddle);
+	if (paddle)
+		this->_paddles.erase(paddle);
+}
+
+const set<Ball*>& BreakoutWorld::balls() const
+{
+	return this->_balls;
+}
+
+const set<Brick*>& BreakoutWorld::bricks() const
+{
+	return this->_bricks;
+}
+
+const set<Paddle*>& BreakoutWorld::paddles() const
+{
+	return this->_paddles;
 }

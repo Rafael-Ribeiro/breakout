@@ -14,14 +14,27 @@ Brick::~Brick()
 	delete this->state;
 }
 
-bool Brick::pre_collision(Body &other)
+void Brick::set_state(BrickState *state)
 {
-	return this->state->pre_collision(other);
+	delete this->state;
+
+	this->state = state;
+	state->set_brick(this);
 }
 
-bool Brick::post_collision(Contact &contact)
+bool Brick::collision_filter(Body &other)
 {
-	return this->state->post_collision(contact);
+	return this->state->collision_filter(other);
+}
+
+bool Brick::collision_updates_physics(Body &other)
+{
+	return this->state->collision_updates_physics(other);
+}
+
+bool Brick::collision_handle(Contact &contact)
+{
+	return this->state->collision_handle(contact);
 }
 
 void Brick::draw(QPainter& painter) const
@@ -29,18 +42,10 @@ void Brick::draw(QPainter& painter) const
 	this->state->draw(painter);
 }
 
-void Brick::setState(BrickState *state)
-{
-	delete this->state;
-
-	this->state = state;
-	state->setBrick(this);
-}
-
 Brick* BrickFactory::makeNormalBrick(const Point &initial_position, unsigned int hits)
 {
 	Brick *brick = new Brick(initial_position);
-	brick->setState(new NormalBrickState(hits));
+	brick->set_state(new NormalBrickState(hits));
 
 	return brick;
 }
@@ -48,7 +53,7 @@ Brick* BrickFactory::makeNormalBrick(const Point &initial_position, unsigned int
 Brick* BrickFactory::makeGlassBrick(const Point &initial_position)
 {
 	Brick *brick = new Brick(initial_position);
-	brick->setState(new GlassBrickState());
+	brick->set_state(new GlassBrickState());
 
 	return brick;
 }
@@ -56,7 +61,7 @@ Brick* BrickFactory::makeGlassBrick(const Point &initial_position)
 Brick* BrickFactory::makeConcreteBrick(const Point &initial_position)
 {
 	Brick *brick = new Brick(initial_position);
-	brick->setState(new ConcreteBrickState());
+	brick->set_state(new ConcreteBrickState());
 
 	return brick;
 }

@@ -20,11 +20,13 @@ public:
 	Paddle(const Point &initial_position);
 	virtual ~Paddle();
 
-	bool pre_collision(Body &other);
-	bool post_collision(Contact &contact);
-	void draw(QPainter& painter) const;
+	void set_state(PaddleState* state);
 
-	void setState(PaddleState* state);
+	bool collision_filter(Body &other);
+	bool collision_updates_physics(Body &other);
+	bool collision_handle(Contact &contact);
+
+	void draw(QPainter& painter) const;
 };
 
 class PaddleFactory

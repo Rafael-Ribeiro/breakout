@@ -19,11 +19,13 @@ public:
 	Ball(const Point &initial_position, const Vector &initial_velocity);
 	virtual ~Ball();
 
-	bool pre_collision(Body &other);
-	bool post_collision(Contact &contact);
-	void draw(QPainter& painter) const;
+	void set_state(BallState* state);
 
-	void setState(BallState* state);
+	bool collision_filter(Body &other);
+	bool collision_updates_physics(Body &other);
+	bool collision_handle(Contact &contact);
+
+	void draw(QPainter& painter) const;
 };
 
 class BallFactory

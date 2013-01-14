@@ -20,11 +20,13 @@ public:
 	Brick(const Point &initial_position);
 	virtual ~Brick();
 
-	bool pre_collision(Body &other);
-	bool post_collision(Contact &contact);
-	void draw(QPainter& painter) const;
+	void set_state(BrickState* state);
 
-	void setState(BrickState* state);
+	bool collision_filter(Body &other);
+	bool collision_updates_physics(Body &other);
+	bool collision_handle(Contact &contact);
+
+	void draw(QPainter& painter) const;
 };
 
 class BrickFactory

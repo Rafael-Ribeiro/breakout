@@ -50,16 +50,12 @@ void World::step(const double& dt)
 			itb2 = ++itb;
 			--itb;
 
-			Movable* mb1 = dynamic_cast<Movable*>(*itb);
-
 			for (; itb2 != endb; itb2++)
 			{
-				Movable* mb2 = dynamic_cast<Movable*>(*itb2);
-
-				if (!mb1 && !mb2)
+				if (!(*itb)->collision_filter(**itb2))
 					continue;
 
-				Contact contact = (*itb)->do_collision(**itb2, dt - d);
+				Contact contact = (*itb)->get_collision_contact(**itb2, dt - d);
 
 				if (contact)
 					contacts.push_back(contact);
@@ -102,8 +98,8 @@ void World::step(const double& dt)
 			Body* a = contacts[i].body_a();
 			Body* b = contacts[i].body_b();
 
-			bool da = a->post_collision(contacts[i]);
-			bool db = b->post_collision(contacts[i]);
+			bool da = a->collision_handle(contacts[i]);
+			bool db = b->collision_handle(contacts[i]);
 
 			if (da)
 			{
