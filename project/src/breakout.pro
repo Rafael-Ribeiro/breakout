@@ -40,7 +40,8 @@ breakout {
 				impl/Paddle.hpp \
 				impl/Vector.hpp
 
-	SOURCES += impl.cpp main.cpp
+	SOURCES += impl.cpp jsoncpp/json_reader.cpp jsoncpp/json_writer.cpp jsoncpp/json_value.cpp main.cpp
+
 }
 
 test {
@@ -81,5 +82,5 @@ test {
 				impl/Paddle.hpp \
 				impl/Vector.hpp
 
-	SOURCES += impl.cpp test.cpp	
+	SOURCES += impl.cpp jsoncpp/json_reader.cpp jsoncpp/json_writer.cpp jsoncpp/json_value.cpp test.cpp	
 }

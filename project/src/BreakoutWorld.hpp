@@ -22,5 +22,7 @@ public:
 
 	const set<Ball*>& balls() const;
 	const set<Brick*>& bricks() const;
-	const set<Paddle*>& paddles() const;	
+	const set<Paddle*>& paddles() const;
+
+	bool load_level(string level_filename_path);
 };

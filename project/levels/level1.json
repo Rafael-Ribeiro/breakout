@@ -1,0 +1,107 @@
+{
+	"bricks":
+	{
+		"r":
+		{
+			"type": "normal",
+			"color": "red",
+			"hits": 3
+		},
+
+		"g":
+		{
+			"type": "concrete",
+			"color": "green",
+			"hits": 2
+		},
+
+		"b":
+		{
+			"type": "glass",
+			"color": "blue",
+			"hits": 1
+		},
+
+		"l":
+		{
+			"type": "normal",
+			"color": "black"
+		}
+	},
+
+	"map":
+	[
+		"                   ",
+		"                   ",
+		"                   ",
+		"                   ",
+		"                   ",
+		"                   ",
+		"                   ",
+		"                   ",
+		"                   ",
+		"                   ",
+		"lllllllllllllllllll",
+		"lllllllllllllllllll",
+		"llll           llll",
+		"bbbb           bbbb",
+		"lllllllllllllllllll",
+		"                   ",
+		"                   ",
+		"                   ",
+		"lllllllllllllllllll",
+		"gggg           gggg",
+		"rrrrrrrrrrrrrrrrrrr",
+		"gggg           gggg",
+		"lllllllllllllllllll",
+		"                   ",
+		"                   ",
+		"                   ",
+		"lllllllllllllllllll",
+		"bbbb           bbbb",
+		"llll           llll",
+		"lllllllllllllllllll",
+		"lllllllllllllllllll",
+		"                   ",
+		"                   ",
+		"                   ",
+		"                   ",
+		"                   ",
+		"                   ",
+		"                   ",
+		"                   ",
+		"                   "
+	],
+
+	"balls":
+	[
+		{
+			"type": "normal",
+			"radius": 5,
+			"position":
+			{
+				"x": 512.0,
+				"y": 50.0
+			},
+			"velocity":
+			{
+				"x": 0.0,
+				"y": 200.0
+			}
+		},
+		{
+			"type": "normal",
+			"radius": 5,
+			"position":
+			{
+				"x": 512.0,
+				"y": 718.0
+			},
+			"velocity":
+			{
+				"x": 0.0,
+				"y": -200.0
+			}
+		}
+	]
+}
