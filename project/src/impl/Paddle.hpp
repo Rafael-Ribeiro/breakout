@@ -1,31 +1,46 @@
-#include "../Paddle.hpp"
+#include "../Brick.hpp"
 
-const double Paddle::INITIAL_WIDTH = 50.0;
-const double Paddle::INITIAL_HEIGHT = 10.0;
+const unsigned int Paddle::BASE_WIDTH = 64;
+const unsigned int Paddle::BASE_HEIGHT = 10;
+
+Paddle::Paddle(const Point &initial_position)
+	: Box(Paddle::BASE_WIDTH, Paddle::BASE_HEIGHT), Movable(Vector(0, 0)), Drawable(), state(NULL)
+{
+	this->init(initial_position);
+}
+
+Paddle::~Paddle()
+{
+	delete this->state;
+}
 
 bool Paddle::pre_collision(Body &other)
 {
-	/* TODO: Ball::on_collision */
-	return true;
+	return this->state->pre_collision(other);
 }
 
 bool Paddle::post_collision(Contact &contact)
 {
-	this->velocity() = - this->velocity();
-	return false;
+	return this->state->post_collision(contact);
 }
 
-
 void Paddle::draw(QPainter& painter) const
-{ 
-	painter.setBrush(QBrush(Qt::white));
-	painter.setPen(Qt::red);
+{
+	this->state->draw(painter);
+}
 
-	painter.drawRect
-	(
-		this->position().x() - this->width() / 2,
-		this->position().y() - this->height() / 2,
-		this->width(),
-		this->height()
-	);
+void Paddle::setState(PaddleState *state)
+{
+	delete this->state;
+
+	this->state = state;
+	state->setPaddle(this);
+}
+
+Paddle* PaddleFactory::makeNormalPaddle(const Point &initial_position)
+{
+	Paddle *paddle = new Paddle(initial_position);
+	paddle->setState(new NormalPaddleState());
+
+	return paddle;
 }

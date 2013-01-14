@@ -40,7 +40,7 @@ Ball* BallFactory::makeNormalBall(const Point &initial_position, const Vector &i
 {
 	Ball *ball = new Ball(initial_position, initial_velocity);
 	ball->setState(new NormalBallState());
-
+	
 	return ball;
 }
 

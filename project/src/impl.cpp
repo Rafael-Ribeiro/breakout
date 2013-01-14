@@ -18,3 +18,4 @@
 #include "impl/BrickState.hpp"
 
 #include "impl/Paddle.hpp"
+#include "impl/PaddleState.hpp"
