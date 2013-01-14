@@ -2,4 +2,5 @@
 /*.o
 /moc_*
 /breakout
+/test
 /Makefile

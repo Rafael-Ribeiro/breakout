@@ -4,21 +4,29 @@
 
 class Box : public virtual Body
 {
-	double _width;
-	double _height;
+	double _hwidth;
+	double _hheight;
 
 protected:
 	Box(const double &width, const double &height)
-		: _width(width), _height(height)
+		: _hwidth(width / 2), _hheight(height / 2)
 	{
 	}
 
 public:
 	virtual ~Box() {};
 
-	double& width();
-	const double& width() const;
+	double& hwidth();
+	const double& hwidth() const;
 
-	double& height();
-	const double& height() const;
+	double& hheight();
+	const double& hheight() const;
+
+	double width() const;
+	double height() const;
+
+	double top() const;
+	double bottom() const;
+	double left() const;
+	double right() const;
 };

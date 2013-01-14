@@ -2,6 +2,9 @@
 
 #include <QWidget>
 #include <QVBoxLayout>
+#include <QTimer>
+
+#include <sys/time.h>
 
 #include "Engine.hpp"
 #include "BreakoutFrame.hpp"
@@ -18,5 +21,11 @@ public:
 private:
 	Engine engine;
 	QVBoxLayout layout;
+	QTimer timer;
 	BreakoutFrame frame;
+
+	struct timeval last_step;
+
+private slots:
+	void step();
 };

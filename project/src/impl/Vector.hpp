@@ -37,6 +37,11 @@ bool Vector::operator == (const Vector& other) const
 	return fabs(this->_x - other._x) < numeric_limits<double>::epsilon() && fabs(this->_y - other._y) < numeric_limits<double>::epsilon();
 }
 
+bool Vector::operator != (const Vector& other) const
+{
+	return fabs(this->_x - other._x) > numeric_limits<double>::epsilon() || fabs(this->_y - other._y) > numeric_limits<double>::epsilon();
+}
+
 Vector Vector::operator + (const Vector& other) const
 {
 	return Vector(this->_x + other._x, this->_y + other._y);
@@ -102,14 +107,14 @@ Vector Vector::normal() const
 
 Vector Vector::reflect(const Vector& incident) const
 {
-	return *this * (incident * *this * 2) - incident;
+	return - (*this * (incident * *this * 2) - incident);
 }
 
 Vector& Vector::normalize()
 {
 	double length = this->length();
 
-	if (fabs(length) > numeric_limits<double>::epsilon()) /* length != 0 */
+	if (length > numeric_limits<double>::epsilon()) /* length != 0 */
 		*this /= length;
 
 	return *this;

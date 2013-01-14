@@ -7,17 +7,23 @@
 
 using namespace std;
 
+class Body;
+
 class Contact
 {
+	double _toc;
 	Vector _normal;
-	vector<Point> _points;
+	Body* _body_a;
+	Body* _body_b;
 
 public:
-	Vector& normal();
+	Contact(const double& toc = 0, const Vector& normal = Vector(0,0), Body* const & body_a = NULL, Body* const & body_b = NULL);
+	
 	const Vector& normal() const;
+	const double& toc() const;
+	Body* const & body_a() const;
+	Body* const & body_b() const;
 
-	vector<Point>& points();
-	const vector<Point>& points() const;
-
-	bool operator () () const;
+	operator bool () const;
+	bool operator > (const Contact& other) const;
 };

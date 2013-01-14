@@ -1,8 +1,8 @@
 #include "../Contact.hpp"
 
-Vector& Contact::normal()
+Contact::Contact(const double& toc, const Vector& normal,  Body* const & body_a, Body* const & body_b)
+	: _toc(toc), _normal(normal), _body_a(body_a), _body_b(body_b)
 {
-	return this->_normal;
 }
 
 const Vector& Contact::normal() const
@@ -10,17 +10,27 @@ const Vector& Contact::normal() const
 	return this->_normal;
 }
 
-vector<Point>& Contact::points()
+const double& Contact::toc() const
 {
-	return this->_points;
+	return this->_toc;
 }
 
-const vector<Point>& Contact::points() const
+Body* const & Contact::body_a() const
 {
-	return this->_points;
+	return this->_body_a;
 }
 
-bool Contact::operator () () const
+Body* const & Contact::body_b() const
 {
-	return this->_points.size() != 0;
+	return this->_body_b;
+}
+
+Contact::operator bool () const
+{
+	return this->_normal != Vector(0, 0);
+}
+
+bool Contact::operator > (const Contact& other) const
+{
+	return this->_toc > other._toc;
 }

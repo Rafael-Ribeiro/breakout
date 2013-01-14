@@ -32,6 +32,9 @@ void BreakoutFrame::paintEvent(QPaintEvent *event)
 
 	QPainter painter(this);
 
+	painter.setBackground(Qt::black);
+	painter.eraseRect(this->rect());
+
 	set<Body*>::const_iterator it = this->engine->bodies().begin();
 	set<Body*>::const_iterator end = this->engine->bodies().end();
 
@@ -39,8 +42,9 @@ void BreakoutFrame::paintEvent(QPaintEvent *event)
 	{
 		Drawable* drawable = dynamic_cast<Drawable*>(*it);
 		if (!drawable)
+		{
 			continue;
-
+		}
 		drawable->draw(painter);
 	}
 }

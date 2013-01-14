@@ -3,7 +3,6 @@
 #include <ctime>
 
 #include "BreakoutApp.hpp"
-#include "Paddle.hpp"
 
 int main(int argc, char *argv[])
 {

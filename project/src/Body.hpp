@@ -3,6 +3,10 @@
 #include "Contact.hpp"
 #include "Point.hpp"
 
+/* forward declarations */
+class Box;
+class Circle;
+
 class Body
 {
 	const static Vector VELOCITY;
@@ -10,30 +14,30 @@ class Body
 protected:
 	Body() {}
 
-	void init(const double &density, const Point &osition);
+	void init(const Point &position);
 
-	double _density;
 	Point _position;
 
 public:
 	virtual ~Body() {};
 
 	virtual const Vector& velocity() const;
-
-	double& density();
-	const double& density() const;
+	virtual void step(const double &dt);
 
 	Point& position();
 	const Point& position() const;
 
-	Contact do_collision(Body &other); 
-	virtual void on_collision(Body &other, Contact &contact) = 0;
+	virtual bool pre_collision(Body &other) = 0;
+	virtual bool post_collision(Contact &contact) = 0;
+
+	static bool collides(Box &b1, Box &b2);
+	static bool collides(Box &b, Circle &c);
+	static bool collides(Circle &c1, Circle &c2);
+
+	Contact do_collision(Body &other, const double &dt); 
+	static Contact do_collision(Box &b1, Box &b2, const double &dt);
+	static Contact do_collision(Box &b, Circle &c, const double &dt);
+	static Contact do_collision(Circle &c1, Circle &c2, const double &dt);
 };
 
-/* forward declarations */
-class Box;
-class Circle;
 
-Contact do_collision(Box &b1, Box &b2);
-Contact do_collision(Box &b, Circle &c);
-Contact do_collision(Circle &c1, Circle &c2);

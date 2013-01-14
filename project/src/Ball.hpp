@@ -7,22 +7,29 @@
 #include "Point.hpp"
 #include "Vector.hpp"
 #include "Drawable.hpp"
+#include "BallState.hpp"
 
 class Ball : public Circle, public Movable, public Drawable
 {
 	static const double BASE_RADIUS;
-	static const double DENSITY;
+
+	BallState* state;
 
 public:
-	Ball(const Point &initial_position, const Vector &initial_velocity)
-		: Circle(Ball::BASE_RADIUS), Movable(initial_velocity), Drawable()
-	{
-		this->init(Ball::DENSITY, initial_position);
-	}
+	Ball(const Point &initial_position, const Vector &initial_velocity);
+	virtual ~Ball();
 
-	virtual ~Ball() {};
-
-	virtual void on_collision(Body &other, Contact &contact);
-
+	bool pre_collision(Body &other);
+	bool post_collision(Contact &contact);
 	void draw(QPainter& painter) const;
+
+	void setState(BallState* state);
+};
+
+class BallFactory
+{
+public:
+	static Ball* makeNormalBall(const Point &initial_position, const Vector &initial_velocity);
+	static Ball* makeFireBall(const Point &initial_position, const Vector &initial_velocity);
+	static Ball* makePhantomBall(const Point &initial_position, const Vector &initial_velocity);
 };
