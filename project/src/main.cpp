@@ -14,11 +14,4 @@ int main(int argc, char *argv[])
 	app.show();
 
 	return qapp.exec();
-
-/*	Paddle b(Vector(0, 0), Vector(3, 0));
-	Paddle c(Vector(0, 0), Vector(3, 0));
-
-	b.do_collision(c);
-*/
-	return 0;
 }

@@ -2,6 +2,8 @@
 #include <limits>
 #include <cassert>
 
+#include "../common.hpp"
+
 #include "../Body.hpp"
 #include "../Box.hpp"
 #include "../Circle.hpp"
@@ -32,6 +34,7 @@ const Point& Body::position() const
 
 void Body::step(const double &dt)
 {
+	MARKUSED(dt);
 }
 
 bool Body::collides(Box &b1, Box &b2)
@@ -109,6 +112,8 @@ Contact Body::do_collision(Body &other, const double& dt)
 
 Contact Body::do_collision(Box &b1, Box &b2, const double& dt)
 {
+	MARKUSED(dt);
+
 	if (!Body::collides(b1, b2))
 		return Contact();
 
@@ -251,6 +256,8 @@ Contact Body::do_collision(Box &b, Circle &c, const double& dt)
 
 Contact Body::do_collision(Circle &c1, Circle &c2, const double& dt)
 {
+	MARKUSED(dt);
+
 	if (!Body::collides(c1, c2))
 		return Contact();
 

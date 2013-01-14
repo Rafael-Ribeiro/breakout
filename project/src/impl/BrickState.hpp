@@ -1,3 +1,5 @@
+#include "../common.hpp"
+
 #include "../BrickState.hpp"
 
 BrickState::~BrickState()
@@ -54,6 +56,7 @@ bool GlassBrickState::pre_collision(Body &other)
 
 bool GlassBrickState::post_collision(Contact &contact)
 {
+	MARKUSED(contact);
 	return true;
 }
 
@@ -73,11 +76,13 @@ void GlassBrickState::draw(QPainter& painter) const
 
 bool ConcreteBrickState::pre_collision(Body &other)
 {
+	MARKUSED(other);
 	return true;
 }
 
 bool ConcreteBrickState::post_collision(Contact &contact)
 {
+	MARKUSED(contact);
 	return false;
 }
 

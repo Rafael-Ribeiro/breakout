@@ -11,7 +11,7 @@ bool Paddle::pre_collision(Body &other)
 
 bool Paddle::post_collision(Contact &contact)
 {
-	this->velocity() = - this->velocity();
+	MARKUSED(contact);
 	return false;
 }
 
