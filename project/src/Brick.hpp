@@ -11,12 +11,12 @@
 
 class Brick : public Box, public Drawable
 {
-	static const unsigned int BASE_WIDTH;
-	static const unsigned int BASE_HEIGHT;
-
 	BrickState* state;
 
 public:
+	static const unsigned int BASE_WIDTH;
+	static const unsigned int BASE_HEIGHT;
+
 	Brick(const Point &initial_position);
 	virtual ~Brick();
 

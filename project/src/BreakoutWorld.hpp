@@ -11,4 +11,6 @@ public:
 
 	void add(Body *body);
 	void remove(Body *body);
+
+	bool load_level(string level_filename_path);
 };
