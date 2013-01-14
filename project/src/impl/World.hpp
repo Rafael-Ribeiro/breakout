@@ -1,36 +1,15 @@
-#include "../Engine.hpp"
+#include "../World.hpp"
 
 #include "../Paddle.hpp"
 #include "../Ball.hpp"
 #include "../Brick.hpp"
 
-Engine::Engine()
+World::World()
 	: _bodies(), _movables()
 {
-	for (unsigned int i = 0; i < 25; i++)
-	{
-		for (unsigned int j = 0; j < 10; j++)
-		{
-			Brick* brick = BrickFactory::makeNormalBrick(Point(48 * i + 25, 16 * j + 100), 1);
-			this->_bodies.insert(brick);
-		}
-	}
-
-	for (unsigned int i = 0; i < 25; i++)
-	{
-		for (unsigned int j = 0; j < 10; j++)
-		{
-			Brick* brick = BrickFactory::makeNormalBrick(Point(48 * i + 25, 16 * j + 500), 1);
-			this->_bodies.insert(brick);
-		}
-	}
-
-	Ball* missile = BallFactory::makeNormalBall(Point(500, 400), Vector(3.0, -200));
-	this->_bodies.insert(missile);
-	this->_movables.insert(missile);
 }
 
-Engine::~Engine()
+World::~World()
 {
 	set<Body*>::iterator it = this->_bodies.begin();
 	set<Body*>::iterator end = this->_bodies.end();
@@ -39,12 +18,12 @@ Engine::~Engine()
 		delete *it;
 }
 
-const set<Body*>& Engine::bodies() const
+const set<Body*>& World::bodies() const
 {
 	return this->_bodies;
 }
 
-void Engine::step(const double& dt)
+void World::step(const double& dt)
 {
 	set<Movable*>::iterator it, end;	
 	set<Body*>::iterator itb, itb2, endb;
@@ -128,23 +107,13 @@ void Engine::step(const double& dt)
 
 			if (da)
 			{
-				this->_bodies.erase(a);
-	
-				Movable *ma = dynamic_cast<Movable*>(a);
-				if (ma)
-					this->_movables.erase(ma);
-
+				this->remove(a);
 				delete a;
 			}
 
 			if (db)
 			{
-				this->_bodies.erase(b);
-
-				Movable *mb = dynamic_cast<Movable*>(b);
-				if (mb)
-					this->_movables.erase(mb);
-
+				this->remove(b);
 				delete b;
 			}
 
@@ -152,4 +121,26 @@ void Engine::step(const double& dt)
 		}
 
 	}
+}
+
+void World::add(Body *body)
+{
+	this->_bodies.insert(body);
+
+	Movable *m = dynamic_cast<Movable*>(body);
+
+	if (m)
+		this->_movables.insert(m);
+
+}
+
+void World::remove(Body *body)
+{
+	this->_bodies.erase(body);
+
+	Movable *m = dynamic_cast<Movable*>(body);
+
+	if (m)
+		this->_movables.erase(m);
+
 }

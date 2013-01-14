@@ -5,8 +5,8 @@
 const unsigned int BreakoutFrame::WIDTH = 1024;
 const unsigned int BreakoutFrame::HEIGHT = 768;
 
-BreakoutFrame::BreakoutFrame(const Engine *engine, QWidget *parent)
-	: super(parent), engine(engine)
+BreakoutFrame::BreakoutFrame(const BreakoutWorld *world, QWidget *parent)
+	: super(parent), world(world)
 {
 	this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 	this->updateSize();
@@ -35,8 +35,8 @@ void BreakoutFrame::paintEvent(QPaintEvent *event)
 	painter.setBackground(Qt::black);
 	painter.eraseRect(this->rect());
 
-	set<Body*>::const_iterator it = this->engine->bodies().begin();
-	set<Body*>::const_iterator end = this->engine->bodies().end();
+	set<Body*>::const_iterator it = this->world->bodies().begin();
+	set<Body*>::const_iterator end = this->world->bodies().end();
 
 	for (; it != end; it++)
 	{

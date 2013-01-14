@@ -17,10 +17,11 @@ breakout {
 				Box.hpp \
 				BreakoutApp.hpp \
 				BreakoutFrame.hpp \
+				BreakoutWorld.hpp \
 				Circle.hpp \
 				Contact.hpp \
 				Drawable.hpp \
-				Engine.hpp \
+				World.hpp \
 				Movable.hpp \
 				Paddle.hpp \
 				Point.hpp \
@@ -30,10 +31,11 @@ breakout {
 				impl/Box.hpp \
 				impl/BreakoutApp.hpp \
 				impl/BreakoutFrame.hpp \
+				impl/BreakoutWorld.hpp \
 				impl/Circle.hpp \
 				impl/Contact.hpp \
 				impl/Drawable.hpp \
-				impl/Engine.hpp \
+				impl/World.hpp \
 				impl/Movable.hpp \
 				impl/Paddle.hpp \
 				impl/Vector.hpp
@@ -56,10 +58,11 @@ test {
 				Box.hpp \
 				BreakoutApp.hpp \
 				BreakoutFrame.hpp \
+				BreakoutWorld.hpp \
 				Circle.hpp \
 				Contact.hpp \
 				Drawable.hpp \
-				Engine.hpp \
+				World.hpp \
 				Movable.hpp \
 				Paddle.hpp \
 				Point.hpp \
@@ -69,10 +72,11 @@ test {
 				impl/Box.hpp \
 				impl/BreakoutApp.hpp \
 				impl/BreakoutFrame.hpp \
+				impl/BreakoutWorld.hpp \
 				impl/Circle.hpp \
 				impl/Contact.hpp \
 				impl/Drawable.hpp \
-				impl/Engine.hpp \
+				impl/World.hpp \
 				impl/Movable.hpp \
 				impl/Paddle.hpp \
 				impl/Vector.hpp

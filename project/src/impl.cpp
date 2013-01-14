@@ -1,11 +1,9 @@
 #include "impl/Body.hpp"
 #include "impl/Box.hpp"
-#include "impl/BreakoutApp.hpp"
-#include "impl/BreakoutFrame.hpp"
 #include "impl/Circle.hpp"
 #include "impl/Contact.hpp"
 #include "impl/Drawable.hpp"
-#include "impl/Engine.hpp"
+#include "impl/World.hpp"
 #include "impl/Movable.hpp"
 #include "impl/Vector.hpp"
 
@@ -19,3 +17,7 @@
 
 #include "impl/Paddle.hpp"
 #include "impl/PaddleState.hpp"
+
+#include "impl/BreakoutApp.hpp"
+#include "impl/BreakoutFrame.hpp"
+#include "impl/BreakoutWorld.hpp"

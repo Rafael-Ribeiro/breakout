@@ -1,7 +1,7 @@
 #include "../BreakoutApp.hpp"
 
 BreakoutApp::BreakoutApp(QWidget *parent)
-	: super(parent), layout(this), frame(&engine)
+	: super(parent), layout(this), frame(&world)
 {
 	this->layout.addWidget(&this->frame);
 
@@ -27,7 +27,7 @@ void BreakoutApp::step()
 	usecs = now.tv_usec - this->last_step.tv_usec;
 	dt = (secs + usecs/(1000.0 * 1000.0));
 
-	this->engine.step(dt);
+	this->world.step(dt);
 	this->frame.update();
 
 	this->last_step = now;

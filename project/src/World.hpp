@@ -7,16 +7,21 @@
 
 using namespace std;
 
-class Engine
+class World
 {
 	set<Body*> _bodies;
 	set<Movable*> _movables;
 
+protected:
+	World();
+
 public:
-	Engine();
-	~Engine();
+	virtual ~World();
 
     const set<Body*>& bodies() const;
+
+	virtual void add(Body* body);
+	virtual void remove(Body* body);
 
 	void step(const double &dt);
 };

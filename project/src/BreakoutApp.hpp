@@ -6,7 +6,7 @@
 
 #include <sys/time.h>
 
-#include "Engine.hpp"
+#include "BreakoutWorld.hpp"
 #include "BreakoutFrame.hpp"
 
 class BreakoutApp
@@ -19,7 +19,7 @@ public:
 	BreakoutApp(QWidget *parent = NULL);
 
 private:
-	Engine engine;
+	BreakoutWorld world;
 	QVBoxLayout layout;
 	QTimer timer;
 	BreakoutFrame frame;

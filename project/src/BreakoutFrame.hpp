@@ -2,7 +2,7 @@
 
 #include <QFrame>
 
-#include "Engine.hpp"
+#include "BreakoutWorld.hpp"
 
 class BreakoutFrame
 	: public QFrame
@@ -14,10 +14,10 @@ public:
 	static const unsigned int WIDTH;
 	static const unsigned int HEIGHT;
 
-	BreakoutFrame(const Engine *engine, QWidget *parent = NULL);
+	BreakoutFrame(const BreakoutWorld *world, QWidget *parent = NULL);
 
 private:
-	const Engine* engine;
+	const BreakoutWorld* world;
 
 public:
 	void updateSize();
