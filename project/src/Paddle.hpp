@@ -21,11 +21,8 @@ public:
 	virtual ~Paddle();
 
 	void set_state(PaddleState* state);
-
-	bool collision_filter(Body &other);
-	bool collision_updates_physics(Body &other);
-	bool collision_handle(Contact &contact);
-
+	PaddleState const *  get_state() const;
+		
 	void draw(QPainter& painter) const;
 };
 

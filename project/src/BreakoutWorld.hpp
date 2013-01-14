@@ -20,6 +20,10 @@ public:
 	void add(Body *body);
 	void remove(Body *body);
 
+	bool collision_filter(Body &a, Body &b);
+	bool collision_updates_physics(Body &a, Body &other);
+	void collision_handle(Contact &contact);
+
 	const set<Ball*>& balls() const;
 	const set<Brick*>& bricks() const;
 	const set<Paddle*>& paddles() const;

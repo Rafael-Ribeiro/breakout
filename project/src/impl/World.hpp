@@ -52,7 +52,7 @@ void World::step(const double& dt)
 
 			for (; itb2 != endb; itb2++)
 			{
-				if (!(*itb)->collision_filter(**itb2))
+				if (!this->collision_filter(**itb, **itb2))
 					continue;
 
 				Contact contact = (*itb)->get_collision_contact(**itb2, dt - d);
@@ -77,43 +77,33 @@ void World::step(const double& dt)
 		if (contacts.empty())
 			break;
 
-		for (int i = contacts.size() - 1; i >= 0; i--)
+		int i;
+		for (i = contacts.size() - 1; i >= 0; i--)
 		{
 			toc = contacts[i].toc();
 
 			Body* a = contacts[i].body_a();
 			Body* b = contacts[i].body_b();
 
-			bool updates = a->collision_updates_physics(*b) || b->collision_updates_physics(*a);
+			bool updates = this->collision_updates_physics(*a, *b);
 
 			if (updates)
 			{
-
 				it = this->_movables.begin();
 				end = this->_movables.end();
 
 				for (; it != end; it++)
 					(*it)->step(toc);
 			}
-
-			bool da = a->collision_handle(contacts[i]);
-			bool db = b->collision_handle(contacts[i]);
-
-			if (da)
-			{
-				this->remove(a);
-				delete a;
-			}
-
-			if (db)
-			{
-				this->remove(b);
-				delete b;
-			}
+			
+			this->collision_handle(contacts[i]);
 
 			if (updates)
 				break;
 		}
+
+		if (i < 0)
+			break;
 	}
 }
 

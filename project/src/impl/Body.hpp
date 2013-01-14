@@ -5,8 +5,8 @@
 #include "../common.hpp"
 
 #include "../Body.hpp"
-#include "../Box.hpp"
 #include "../Circle.hpp"
+#include "../Box.hpp"
 
 using namespace std;
 
@@ -36,7 +36,6 @@ void Body::step(const double &dt)
 {
 	MARKUSED(dt);
 }
-
 
 Contact Body::get_collision_contact(Body &other, const double& dt)
 {

@@ -21,12 +21,10 @@ public:
 	virtual ~Brick();
 
 	void set_state(BrickState* state);
-
-	bool collision_filter(Body &other);
-	bool collision_updates_physics(Body &other);
-	bool collision_handle(Contact &contact);
+	BrickState const *  get_state() const;
 
 	void draw(QPainter& painter) const;
+	bool hit();
 };
 
 class BrickFactory

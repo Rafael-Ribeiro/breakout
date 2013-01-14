@@ -4,10 +4,11 @@
 
 #include "Body.hpp"
 #include "Movable.hpp"
+#include "AbstractCollisionMediator.hpp"
 
 using namespace std;
 
-class World
+class World : public AbstractCollisionMediator
 {
 	set<Body*> _bodies;
 	set<Movable*> _movables;

@@ -20,10 +20,7 @@ public:
 	virtual ~Ball();
 
 	void set_state(BallState* state);
-
-	bool collision_filter(Body &other);
-	bool collision_updates_physics(Body &other);
-	bool collision_handle(Contact &contact);
+	BallState const *  get_state() const;
 
 	void draw(QPainter& painter) const;
 };

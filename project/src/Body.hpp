@@ -27,10 +27,6 @@ public:
 	Point& position();
 	const Point& position() const;
 
-	virtual bool collision_filter(Body &other) = 0;
-	virtual bool collision_updates_physics(Body &other) = 0;
-	virtual bool collision_handle(Contact &contact) = 0;
-
 	Contact get_collision_contact(Body &other, const double &dt); 
 
 	static Contact get_collision_contact(Box &b1, Box &b2, const double &dt);

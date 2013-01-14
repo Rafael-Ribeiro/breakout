@@ -21,19 +21,9 @@ void Ball::set_state(BallState *state)
 	state->set_ball(this);
 }
 
-bool Ball::collision_filter(Body &other)
+BallState const * Ball::get_state() const
 {
-	return this->state->collision_filter(other);
-}
-
-bool Ball::collision_updates_physics(Body &other)
-{
-	return this->state->collision_updates_physics(other);
-}
-
-bool Ball::collision_handle(Contact &contact)
-{
-	return this->state->collision_handle(contact);
+	return this->state;
 }
 
 void Ball::draw(QPainter& painter) const

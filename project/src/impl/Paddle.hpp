@@ -22,19 +22,9 @@ void Paddle::set_state(PaddleState *state)
 	state->set_paddle(this);
 }
 
-bool Paddle::collision_filter(Body &other)
+PaddleState const * Paddle::get_state() const
 {
-	return this->state->collision_filter(other);
-}
-
-bool Paddle::collision_updates_physics(Body &other)
-{
-	return this->state->collision_updates_physics(other);
-}
-
-bool Paddle::collision_handle(Contact &contact)
-{
-	return this->state->collision_handle(contact);
+	return this->state;
 }
 
 void Paddle::draw(QPainter& painter) const

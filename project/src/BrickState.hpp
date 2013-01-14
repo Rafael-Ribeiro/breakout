@@ -14,7 +14,7 @@ protected:
 	virtual ~BrickState();
 	void set_brick(Brick* brick);
 
-	virtual bool collision_filter(Body &other);
+	virtual bool hit() = 0;
 };
 
 class NormalBrickState : public BrickState
@@ -23,27 +23,21 @@ class NormalBrickState : public BrickState
 
 public:
 	NormalBrickState(unsigned int hits);
-	
-	bool collision_updates_physics(Body &other);
-	bool collision_handle(Contact &contact);
 
 	void draw(QPainter& painter) const;
+	bool hit();
 };
 
 class GlassBrickState : public BrickState
 {
 public:
-	bool collision_updates_physics(Body &other);
-	bool collision_handle(Contact &contact);
-
 	void draw(QPainter& painter) const;
+	bool hit();
 };
 
 class ConcreteBrickState : public BrickState
 {
 public:
-	bool collision_updates_physics(Body &other);
-	bool collision_handle(Contact &contact);
-
 	void draw(QPainter& painter) const;
+	bool hit();
 };

@@ -22,24 +22,19 @@ void Brick::set_state(BrickState *state)
 	state->set_brick(this);
 }
 
-bool Brick::collision_filter(Body &other)
+BrickState const * Brick::get_state() const
 {
-	return this->state->collision_filter(other);
-}
-
-bool Brick::collision_updates_physics(Body &other)
-{
-	return this->state->collision_updates_physics(other);
-}
-
-bool Brick::collision_handle(Contact &contact)
-{
-	return this->state->collision_handle(contact);
+	return this->state;
 }
 
 void Brick::draw(QPainter& painter) const
 {
 	this->state->draw(painter);
+}
+
+bool Brick::hit()
+{
+	return this->state->hit();
 }
 
 Brick* BrickFactory::makeNormalBrick(const Point &initial_position, unsigned int hits)
