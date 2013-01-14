@@ -81,22 +81,20 @@ void World::step(const double& dt)
 		{
 			toc = contacts[i].toc();
 
-			/* TODO: precolide
-
-			if (!precolide)
-				da = A.postcolide(B);
-				db = B.postcolide(A);
-				continue;
-			*/
-
-			it = this->_movables.begin();
-			end = this->_movables.end();
-
-			for (; it != end; it++)
-				(*it)->step(toc);
-
 			Body* a = contacts[i].body_a();
 			Body* b = contacts[i].body_b();
+
+			bool updates = a->collision_updates_physics(*b) || b->collision_updates_physics(*a);
+
+			if (updates)
+			{
+
+				it = this->_movables.begin();
+				end = this->_movables.end();
+
+				for (; it != end; it++)
+					(*it)->step(toc);
+			}
 
 			bool da = a->collision_handle(contacts[i]);
 			bool db = b->collision_handle(contacts[i]);
@@ -113,9 +111,9 @@ void World::step(const double& dt)
 				delete b;
 			}
 
-			break;
+			if (updates)
+				break;
 		}
-
 	}
 }
 
