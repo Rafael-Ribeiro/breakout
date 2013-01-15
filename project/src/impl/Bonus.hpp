@@ -221,8 +221,7 @@ void WidthBonus::execute(BreakoutWorld& world, Player& player)
 
 Bonus* BonusFactory::make_random_bonus(const Point &initial_position, const Vector& initial_velocity)
 {
-	// int choice = random_int(0, 5);
-	int choice = 4;
+	int choice = random_int(0, 5);
 
 	switch (choice)
 	{
