@@ -15,7 +15,6 @@ BreakoutApp::BreakoutApp(QWidget *parent)
 
 void BreakoutApp::step()
 {
-
 	struct timeval now;
 	double dt;
 	long secs, usecs;

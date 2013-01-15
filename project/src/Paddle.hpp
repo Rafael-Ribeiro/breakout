@@ -29,7 +29,7 @@ class Paddle : public Box, public Movable, public Drawable
 protected:
 	Paddle(const Point &initial_position);
 
-	Player* & player();
+	void player(Player *player);
 
 	void set_state(PaddleState *state);
 	PaddleState * const & state() const;

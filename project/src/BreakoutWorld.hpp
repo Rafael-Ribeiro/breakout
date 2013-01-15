@@ -11,14 +11,15 @@ class BreakoutWorld : public World
 {
 	typedef World super;
 
+	string level_filename_path;
+	Player* _players[2];
+
 	set<Ball*> _balls;
 	set<Brick*> _bricks;
 	set<Paddle*> _paddles;
 	set<Bonus*> _bonuses;
 	set<Drawable*> _drawables;
 	
-	Player* _players[2];
-
 public:
 	static const unsigned int WIDTH;
 	static const unsigned int HEIGHT;
@@ -27,7 +28,7 @@ public:
 	static const unsigned int BONUS_SCORE;
 	static const unsigned int BRICK_SCORE;
 
-	BreakoutWorld();
+	BreakoutWorld(string level_filename_path, Player *player_1, Player *player_2);
 
 	void add(Body *body);
 	void remove(Body *body);

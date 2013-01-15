@@ -11,10 +11,12 @@ class Player
 	unsigned int _score;
 
 protected:
-	Player(Paddle *paddle);
+	Player();
 	virtual ~Player();
 
 public:
+	void paddle(Paddle *paddle);
+
 	void left();
 	void right();
 	void stop();

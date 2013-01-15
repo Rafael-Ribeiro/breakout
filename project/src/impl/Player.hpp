@@ -1,13 +1,17 @@
 #include "../Player.hpp"
 
-Player::Player(Paddle *paddle)
-	: _paddle(paddle), _score(0)
+Player::Player()
+	: _paddle(NULL), _score(0)
 {
-	this->_paddle->player() = this;
 }
 
 Player::~Player()
 {
+}
+
+void Player::paddle(Paddle *paddle)
+{
+	this->_paddle = paddle;
 }
 
 void Player::left()

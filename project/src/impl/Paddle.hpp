@@ -15,9 +15,9 @@ Paddle::~Paddle()
 	delete this->_state;
 }
 
-Player* & Paddle::player()
+void Paddle::player(Player *player)
 {
-	return this->_player;
+	this->_player = player;
 }
 
 Player* const & Paddle::player() const

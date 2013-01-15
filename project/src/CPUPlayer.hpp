@@ -12,7 +12,7 @@ class CPUPlayer : public Player
 	const CPUStrategy *strategy;
 
 public:
-	CPUPlayer(Paddle *paddle, const CPUStrategy *strategy);
+	CPUPlayer(const CPUStrategy *strategy);
 
 	void step(const BreakoutWorld &world, const double &dt);
 };

@@ -13,30 +13,25 @@ const unsigned int BreakoutWorld::GOAL_SCORE = 100;
 const unsigned int BreakoutWorld::BONUS_SCORE = 25;
 const unsigned int BreakoutWorld::BRICK_SCORE = 5;
 
-BreakoutWorld::BreakoutWorld() : World()
+BreakoutWorld::BreakoutWorld(string level_filename_path, Player *player_1, Player *player_2) : World()
+	: level_filename_path(level_filename_path)
 {
 	Paddle *player_1_paddle = PaddleFactory::make_normal_paddle(Point(512, 748));
-	this->add(player_1_paddle);
-
 	Paddle *player_2_paddle = PaddleFactory::make_normal_paddle(Point(512, 20));
+
+	player_1_paddle->set_player(player_1);
+	player_2_paddle->set_player(player_2);
+
+	player_1->set_paddle(player_1_paddle);
+	player_2->set_paddle(player_2_paddle);
+
+	this->add(player_1_paddle);
 	this->add(player_2_paddle);
 
-	HumanPlayer *human_player = new HumanPlayer(player_1_paddle);
-	this->_players[0] = human_player;
+	this->_players[0] = player_1;
+	this->_players[1] = player_2;
 
-	human_player = new HumanPlayer(player_2_paddle, Qt::Key::Key_A, Qt::Key::Key_D);
-	this->_players[1] = human_player;
-
-	// CPUPlayer *cpu_player = new CPUPlayer(player_2_paddle, &CPUStrategyMultiton::get_closest_ball_cpu_strategy_instance());
-	// this->_players[1] = cpu_player;
-
-	// CPUPlayer *cpu_player = new CPUPlayer(player_2_paddle, &CPUStrategyMultiton::get_first_ball_cpu_strategy_instance());
-	// this->_players[1] = cpu_player;
-
-	// cpu_player = new CPUPlayer(player_1_paddle, &CPUStrategyMultiton::get_closest_ball_cpu_strategy_instance());
-	// this->_players[0] = cpu_player;
-
-	this->restart();
+	this->load_level(this->level_filename_path);
 }
 
 void BreakoutWorld::add(Body *body)
@@ -122,7 +117,7 @@ void BreakoutWorld::restart()
 	for (unsigned int i = 0; i < 2; i++)
 		this->_players[i]->restart();
 
-	this->load_level("../levels/level1.json");
+	this->load_level(this->level_filename_path);
 }
 
 bool BreakoutWorld::collision_filter(Body &a, Body &b)

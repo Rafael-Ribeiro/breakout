@@ -1,7 +1,7 @@
 #include "../CPUPlayer.hpp"
 
-CPUPlayer::CPUPlayer(Paddle *paddle, const CPUStrategy *strategy)
-	: super(paddle), strategy(strategy)
+CPUPlayer::CPUPlayer(const CPUStrategy *strategy)
+	: strategy(strategy)
 {
 }
 
