@@ -19,9 +19,13 @@ BreakoutWorld::BreakoutWorld() : World()
 	Paddle *player_1_paddle = PaddleFactory::makeNormalPaddle(Point(512, 748));
 	this->add(player_1_paddle);
 
+	Paddle *player_2_paddle = PaddleFactory::makeNormalPaddle(Point(512, 20));
+	this->add(player_2_paddle);
+
 	HumanPlayer *human_player = new HumanPlayer(player_1_paddle);
+	HumanPlayer *human_player2 = new HumanPlayer(player_2_paddle, Qt::Key::Key_A, Qt::Key::Key_D);
 	this->_players[0] = human_player;
-	this->_players[1] = NULL;
+	this->_players[1] = human_player2;
 }
 
 void BreakoutWorld::add(Body *body)
@@ -399,9 +403,7 @@ void BreakoutWorld::step(const double& dt)
 
 	}
 
-	// TODO: two players (2nd one is null now)
-	// for (unsigned int i = 0; i < 2; i++)
-	for (unsigned int i = 0; i < 1; i++)
+	for (unsigned int i = 0; i < 2; i++)
 	{
 		this->_players[i]->step(dt);
 

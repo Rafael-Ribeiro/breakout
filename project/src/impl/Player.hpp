@@ -27,6 +27,7 @@ void Player::stop()
 
 void Player::redeem(Bonus &bonus)
 {
+	/* TODO */
 }
 
 Paddle * const & Player::paddle() const
