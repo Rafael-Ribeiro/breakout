@@ -25,6 +25,7 @@ breakout {
 				Circle.hpp \
 				Contact.hpp \
 				Drawable.hpp \
+				HumanPlayer.hpp \
 				Keyboard.hpp \
 				Movable.hpp \
 				Paddle.hpp \
@@ -46,6 +47,7 @@ breakout {
 				impl/Circle.hpp \
 				impl/Contact.hpp \
 				impl/Drawable.hpp \
+				impl/HumanPlayer.hpp \
 				impl/Keyboard.hpp \
 				impl/Movable.hpp \
 				impl/Paddle.hpp \
@@ -82,6 +84,7 @@ test {
 				Circle.hpp \
 				Contact.hpp \
 				Drawable.hpp \
+				HumanPlayer.hpp \
 				Keyboard.hpp \
 				Movable.hpp \
 				Paddle.hpp \
@@ -103,6 +106,7 @@ test {
 				impl/Circle.hpp \
 				impl/Contact.hpp \
 				impl/Drawable.hpp \
+				impl/HumanPlayer.hpp \
 				impl/Keyboard.hpp \
 				impl/Movable.hpp \
 				impl/Paddle.hpp \

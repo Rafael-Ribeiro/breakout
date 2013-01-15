@@ -9,19 +9,25 @@
 #include "Drawable.hpp"
 #include "BrickState.hpp"
 
+class BrickFactory; // forward declaration (used "too soon")
+
 class Brick : public Box, public Drawable
 {
 	BrickState* state;
+
+	friend BrickFactory;
+
+protected:
+	Brick(const Point &initial_position);
+	void set_state(BrickState* state);
 
 public:
 	static const unsigned int BASE_WIDTH;
 	static const unsigned int BASE_HEIGHT;
 
-	Brick(const Point &initial_position);
 	virtual ~Brick();
 
-	void set_state(BrickState* state);
-	BrickState const *  get_state() const;
+	BrickState const * get_state() const;
 
 	void draw(QPainter& painter) const;
 	bool hit();

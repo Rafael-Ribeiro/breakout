@@ -2,6 +2,7 @@
 
 const unsigned int Paddle::BASE_WIDTH = 64;
 const unsigned int Paddle::BASE_HEIGHT = 10;
+const double Paddle::VELOCITY = 400.0;
 
 Paddle::Paddle(const Point &initial_position)
 	: Box(Paddle::BASE_WIDTH, Paddle::BASE_HEIGHT), Movable(Vector(0, 0)), Drawable(), player(NULL), state(NULL)

@@ -16,6 +16,7 @@ class Paddle : public Box, public Movable, public Drawable
 {
 	static const unsigned int BASE_WIDTH;
 	static const unsigned int BASE_HEIGHT;
+	static const double VELOCITY;
 
 	friend PaddleFactory;
 	friend Player;
@@ -24,11 +25,12 @@ class Paddle : public Box, public Movable, public Drawable
 	PaddleState *state;
 
 protected:
+	Paddle(const Point &initial_position);
+
 	void set_player(Player *player);
 	void set_state(PaddleState *state);
 
 public:
-	Paddle(const Point &initial_position);
 	virtual ~Paddle();
 
 	PaddleState const * get_state() const;

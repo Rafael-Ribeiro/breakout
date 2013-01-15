@@ -15,6 +15,9 @@ const unsigned int BreakoutWorld::HEIGHT = 768;
 BreakoutWorld::BreakoutWorld() : World()
 {
 	this->load_level("../levels/level1.json");
+
+	Paddle *player_1_paddle = PaddleFactory::makeNormalPaddle(Point(512, 748));
+	this->add(player_1_paddle);
 }
 
 void BreakoutWorld::add(Body *body)

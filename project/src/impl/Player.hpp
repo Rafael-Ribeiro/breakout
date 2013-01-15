@@ -12,20 +12,19 @@ Player::~Player()
 
 void Player::left()
 {
+	this->paddle->velocity() = Vector(-1, 0) * Paddle::VELOCITY;
 }
 
 void Player::right()
 {
+	this->paddle->velocity() = Vector(1, 0) * Paddle::VELOCITY;
 }
 
 void Player::stop()
 {
+	this->paddle->velocity() = Vector(0, 0);
 }
 
 void Player::redeem(Bonus &bonus)
-{
-}
-
-void Player::step(double &dt) = 0
 {
 }

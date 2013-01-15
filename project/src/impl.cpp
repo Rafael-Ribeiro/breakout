@@ -4,9 +4,9 @@
 #include "impl/Contact.hpp"
 #include "impl/Drawable.hpp"
 #include "impl/Keyboard.hpp"
-#include "impl/World.hpp"
 #include "impl/Movable.hpp"
 #include "impl/Vector.hpp"
+#include "impl/World.hpp"
 
 #include "impl/State.hpp"
 
@@ -18,6 +18,9 @@
 
 #include "impl/Paddle.hpp"
 #include "impl/PaddleState.hpp"
+
+#include "impl/Player.hpp"
+#include "impl/HumanPlayer.hpp"
 
 #include "impl/BreakoutApp.hpp"
 #include "impl/BreakoutFrame.hpp"

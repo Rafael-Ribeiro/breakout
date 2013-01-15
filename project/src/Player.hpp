@@ -20,5 +20,5 @@ protected:
 
 public:
 	void redeem(Bonus &bonus);
-	virtual void step(double &dt) = 0;
+	virtual void step(const double &dt) = 0;
 };
