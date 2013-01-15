@@ -37,10 +37,10 @@ bool Brick::hit()
 	return this->state->hit();
 }
 
-Brick* BrickFactory::makeNormalBrick(const Point &initial_position, unsigned int hits)
+Brick* BrickFactory::makeNormalBrick(const Point &initial_position, QColor color, unsigned int hits)
 {
 	Brick *brick = new Brick(initial_position);
-	brick->set_state(new NormalBrickState(hits));
+	brick->set_state(new NormalBrickState(color, hits));
 
 	return brick;
 }

@@ -19,10 +19,12 @@ protected:
 
 class NormalBrickState : public BrickState
 {
-	unsigned int hits;
+	QColor _color;
+	unsigned int _hits;
+	unsigned int _remaining;
 
 public:
-	NormalBrickState(unsigned int hits);
+	NormalBrickState(QColor color, unsigned int hits);
 
 	void draw(QPainter& painter) const;
 	bool hit();

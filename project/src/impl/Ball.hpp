@@ -1,6 +1,7 @@
 #include "../Ball.hpp"
 
 const double Ball::BASE_RADIUS = 10.0;
+const double Ball::BASE_VELOCITY = 300.0;
 
 Ball::Ball(const Point &initial_position, const Vector &initial_velocity)
 	: Circle(Ball::BASE_RADIUS), Movable(initial_velocity), Drawable(), state(NULL)

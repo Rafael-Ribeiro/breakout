@@ -4,28 +4,31 @@
 		"r":
 		{
 			"type": "normal",
-			"color": "red",
+			"color": "#7ADA22",
 			"hits": 3
-		},
-
-		"g":
-		{
-			"type": "concrete",
-			"color": "green",
-			"hits": 2
 		},
 
 		"b":
 		{
-			"type": "glass",
-			"color": "blue",
-			"hits": 1
+			"type": "normal",
+			"color": "#FF8421",
+			"hits": 2
 		},
 
-		"l":
+		"k":
 		{
 			"type": "normal",
-			"color": "black"
+			"color": "#4070FE"
+		},
+
+		"c":
+		{
+			"type": "concrete"
+		},
+
+		"g":
+		{
+			"type": "glass"
 		}
 	},
 
@@ -41,27 +44,27 @@
 		"                   ",
 		"                   ",
 		"                   ",
-		"lllllllllllllllllll",
-		"lllllllllllllllllll",
-		"llll           llll",
-		"bbbb           bbbb",
-		"lllllllllllllllllll",
+		"rrrrkkkkkgkkkkkrrrr",
+		"rrrkkkkk   kkkkkrrr",
+		"rrkkkkk     kkkkkrr",
+		"rkkkkkk     kkkkkkr",
+		"kkkkkkk     kkkkkkk",
+		"kkkkbkk     kkbkkkk",
+		"kkkbbkk     kkbbkkk",
+		"kkbbbkk     kkbbbkk",
+		"gbbbbkk     kkbbbbg",
+		"gbbbbcc     ccbbbbg",
+		"gbbbbcc     ccbbbbg",
+		"gbbbbkk     kkbbbbg",
+		"kkbbbkk     kkbbbkk",
+		"kkkbbkk     kkbbkkk",
+		"kkkkbkk     kkbkkkk",
+		"kkkkkkk     kkkkkkk",
+		"rkkkkkk     kkkkkkr",
+		"rrkkkkk     kkkkkrr",
+		"rrrkkkkk   kkkkkrrr",
+		"rrrrkkkkkgkkkkkrrrr",
 		"                   ",
-		"                   ",
-		"                   ",
-		"lllllllllllllllllll",
-		"gggg           gggg",
-		"rrrrrrrrrrrrrrrrrrr",
-		"gggg           gggg",
-		"lllllllllllllllllll",
-		"                   ",
-		"                   ",
-		"                   ",
-		"lllllllllllllllllll",
-		"bbbb           bbbb",
-		"llll           llll",
-		"lllllllllllllllllll",
-		"lllllllllllllllllll",
 		"                   ",
 		"                   ",
 		"                   ",
@@ -81,26 +84,7 @@
 			"position":
 			{
 				"x": 512.0,
-				"y": 50.0
-			},
-			"velocity":
-			{
-				"x": 0.0,
-				"y": 200.0
-			}
-		},
-		{
-			"type": "normal",
-			"radius": 5,
-			"position":
-			{
-				"x": 512.0,
-				"y": 718.0
-			},
-			"velocity":
-			{
-				"x": 0.0,
-				"y": -200.0
+				"y": 384.0
 			}
 		}
 	]

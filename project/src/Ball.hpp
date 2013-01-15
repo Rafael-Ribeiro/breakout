@@ -11,11 +11,12 @@
 
 class Ball : public Circle, public Movable, public Drawable
 {
-	static const double BASE_RADIUS;
-
 	BallState* state;
 
 public:
+	static const double BASE_RADIUS;
+	static const double BASE_VELOCITY;
+
 	Ball(const Point &initial_position, const Vector &initial_velocity);
 	virtual ~Ball();
 

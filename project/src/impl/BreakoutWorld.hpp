@@ -1,8 +1,16 @@
 #include <fstream>
+#include <random>
+#include <cmath>
+#include <sys/time.h>
 
 #include "jsoncpp/inc/json.h"
 
 #include "../BreakoutWorld.hpp"
+
+const double PI = std::atan(1.0) * 4;
+
+const unsigned int BreakoutWorld::WIDTH = 1024;
+const unsigned int BreakoutWorld::HEIGHT = 768;
 
 BreakoutWorld::BreakoutWorld() : World()
 {
@@ -251,8 +259,8 @@ bool BreakoutWorld::load_level(string level_filename_path)
 	const unsigned int X_BLOCKS = 19;
 	const unsigned int Y_BLOCKS = 40;
 
-	const double X_OFFSET = (BreakoutFrame::WIDTH - (X_BLOCKS - 1) * Brick::BASE_WIDTH) / 2;
-	const double Y_OFFSET = (BreakoutFrame::HEIGHT - (Y_BLOCKS - 1) * Brick::BASE_HEIGHT) / 2;
+	const double X_OFFSET = (BreakoutWorld::WIDTH - (X_BLOCKS - 1) * Brick::BASE_WIDTH) / 2;
+	const double Y_OFFSET = (BreakoutWorld::HEIGHT - (Y_BLOCKS - 1) * Brick::BASE_HEIGHT) / 2;
 
 	for (unsigned int i = 0; i < map.size(); i++)
 	{
@@ -274,8 +282,9 @@ bool BreakoutWorld::load_level(string level_filename_path)
 			if (!brick_type.compare(NORMAL_BRICK))
 			{
 				unsigned int hits = bricks[brick_type_alias].get("hits", 1).asUInt();
+				string color = bricks[brick_type_alias].get("color", "white").asString();
 
-				Brick *brick = BrickFactory::makeNormalBrick(position, hits);
+				Brick *brick = BrickFactory::makeNormalBrick(position, QColor(color.c_str()), hits);
 				this->add(brick);
 
 			} else if (!brick_type.compare(GLASS_BRICK))
@@ -305,6 +314,18 @@ bool BreakoutWorld::load_level(string level_filename_path)
 		double vx = balls[i]["velocity"].get("x", 0.0).asDouble();
 		double vy = balls[i]["velocity"].get("y", 0.0).asDouble();
 
+		if (vx == 0.0 && vy == 0.0)
+		{
+			std::default_random_engine generator;
+			generator.seed(time(NULL));
+
+			std::uniform_real_distribution<double> distribution(0, PI * 2);
+			double angle = distribution(generator);
+
+			vx = cos(angle) * Ball::BASE_VELOCITY;
+			vy = sin(angle) * Ball::BASE_VELOCITY;
+		}
+
 		string ball_type = balls[i]["type"].asString();
 		Point position(px, py);
 		Vector velocity(vx, vy);
@@ -326,9 +347,48 @@ bool BreakoutWorld::load_level(string level_filename_path)
 
 		} else
 			return false;
-
-
 	}
 
 	return true;
+}
+
+void BreakoutWorld::step(const double& dt)
+{
+	super::step(dt);
+
+	set<Ball*>::iterator it = this->_balls.begin();
+	set<Ball*>::iterator end = this->_balls.end();
+	
+	for (; it != end; it++)
+	{
+		if ((*it)->position().x() - (*it)->radius() <= 0)
+			(*it)->velocity() = (*it)->velocity() = Vector(1, 0).reflect((*it)->velocity());
+
+		else if ((*it)->position().x() + (*it)->radius() >= BreakoutWorld::WIDTH)
+			(*it)->velocity() = (*it)->velocity() = Vector(-1, 0).reflect((*it)->velocity());
+
+		bool delete_ball = false;
+
+		if ((*it)->position().y() <= 0)
+		{
+			delete_ball = true;
+
+			// TODO: SCORE
+			cout << "SCORE 2" << endl;
+
+		} else if ((*it)->position().y() >= BreakoutWorld::HEIGHT)
+		{
+			delete_ball = true;
+
+			// TODO: SCORE
+			cout << "SCORE 1" << endl;
+		}
+
+		if (delete_ball)
+		{
+			this->remove(*it);
+			delete *it;
+		}
+
+	}
 }

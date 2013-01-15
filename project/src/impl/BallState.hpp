@@ -13,8 +13,11 @@ void BallState::set_ball(Ball* ball)
 
 void NormalBallState::draw(QPainter& painter) const
 {
-	painter.setBrush(QBrush(Qt::white));
-	painter.setPen(Qt::white);
+	QColor color_brush(0x4A, 0x4A, 0x4A);
+	QColor color_pen = color_brush.darker(150);
+
+	painter.setBrush(color_brush);
+	painter.setPen(color_pen);
 	
 	painter.drawEllipse
 	(
@@ -26,9 +29,12 @@ void NormalBallState::draw(QPainter& painter) const
 
 void FireBallState::draw(QPainter& painter) const
 {
-	painter.setBrush(QBrush(QColor(0xff, 0x66, 0x00)));
-	painter.setPen(Qt::red);
+	QColor color_brush(0xEB, 0x22, 0x22);
+	QColor color_pen(0xEB, 0x72, 0x22);
 
+	painter.setBrush(color_brush);
+	painter.setPen(color_pen);
+	
 	painter.drawEllipse
 	(
 		QPointF(this->ball->position().x(), this->ball->position().y()),
@@ -39,9 +45,12 @@ void FireBallState::draw(QPainter& painter) const
 
 void PhantomBallState::draw(QPainter& painter) const
 {
-	painter.setBrush(QBrush(QColor(0xff, 0xff, 0xff, 0xcc)));
-	painter.setPen(Qt::white);
+	QColor color_brush(0x4A, 0x4A, 0x4A, 0x55);
+	QColor color_pen = color_brush.darker(150);
 
+	painter.setBrush(color_brush);
+	painter.setPen(color_pen);
+	
 	painter.drawEllipse
 	(
 		QPointF(this->ball->position().x(), this->ball->position().y()),

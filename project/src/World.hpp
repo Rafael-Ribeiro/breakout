@@ -24,5 +24,5 @@ public:
 	virtual void add(Body* body);
 	virtual void remove(Body* body);
 
-	void step(const double &dt);
+	virtual void step(const double &dt);
 };

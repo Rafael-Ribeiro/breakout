@@ -11,9 +11,6 @@ class BreakoutFrame
 
 public:
 	typedef QFrame super;
-	static const unsigned int WIDTH;
-	static const unsigned int HEIGHT;
-
 	BreakoutFrame(const BreakoutWorld *world, QWidget *parent = NULL);
 
 private:

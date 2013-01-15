@@ -2,9 +2,6 @@
 
 #include <QPainter>
 
-const unsigned int BreakoutFrame::WIDTH = 1024;
-const unsigned int BreakoutFrame::HEIGHT = 768;
-
 BreakoutFrame::BreakoutFrame(const BreakoutWorld *world, QWidget *parent)
 	: super(parent), world(world)
 {
@@ -23,7 +20,7 @@ void BreakoutFrame::updateSize()
 
 QSize BreakoutFrame::sizeHint() const
 {
-	return QSize(BreakoutFrame::WIDTH, BreakoutFrame::HEIGHT);
+	return QSize(BreakoutWorld::WIDTH, BreakoutWorld::HEIGHT);
 }
 
 void BreakoutFrame::paintEvent(QPaintEvent *event)
@@ -32,7 +29,7 @@ void BreakoutFrame::paintEvent(QPaintEvent *event)
 
 	QPainter painter(this);
 
-	painter.setBackground(Qt::black);
+//	painter.setBackground(Qt::black);
 	painter.eraseRect(this->rect());
 
 	set<Body*>::const_iterator it = this->world->bodies().begin();

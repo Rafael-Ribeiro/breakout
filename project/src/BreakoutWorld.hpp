@@ -15,6 +15,9 @@ class BreakoutWorld : public World
 	set<Paddle*> _paddles;
 
 public:
+	static const unsigned int WIDTH;
+	static const unsigned int HEIGHT;
+
 	BreakoutWorld();
 
 	void add(Body *body);
@@ -29,4 +32,6 @@ public:
 	const set<Paddle*>& paddles() const;
 
 	bool load_level(string level_filename_path);
+
+	virtual void step(const double& dt);
 };
