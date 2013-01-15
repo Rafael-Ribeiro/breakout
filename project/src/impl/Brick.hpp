@@ -42,7 +42,7 @@ bool Brick::hit_all()
 	return this->_state->hit_all();
 }
 
-Brick* BrickFactory::makeNormalBrick(const Point &initial_position, QColor color, unsigned int hits)
+Brick* BrickFactory::make_normal_brick(const Point &initial_position, QColor color, unsigned int hits)
 {
 	Brick *brick = new Brick(initial_position);
 	brick->set_state(new NormalBrickState(color, hits));
@@ -50,7 +50,7 @@ Brick* BrickFactory::makeNormalBrick(const Point &initial_position, QColor color
 	return brick;
 }
 
-Brick* BrickFactory::makeGlassBrick(const Point &initial_position)
+Brick* BrickFactory::make_glass_brick(const Point &initial_position)
 {
 	Brick *brick = new Brick(initial_position);
 	brick->set_state(new GlassBrickState());
@@ -58,7 +58,7 @@ Brick* BrickFactory::makeGlassBrick(const Point &initial_position)
 	return brick;
 }
 
-Brick* BrickFactory::makeConcreteBrick(const Point &initial_position)
+Brick* BrickFactory::make_concrete_brick(const Point &initial_position)
 {
 	Brick *brick = new Brick(initial_position);
 	brick->set_state(new ConcreteBrickState());

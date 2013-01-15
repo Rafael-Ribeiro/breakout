@@ -105,7 +105,7 @@ void BallBonus::draw(QPainter& painter) const
 
 void BallBonus::execute(BreakoutWorld& world, Player& player)
 {
-	Ball *ball = BallFactory::makeNormalBall
+	Ball *ball = BallFactory::make_normal_ball
 	(
 		Point(BreakoutWorld::WIDTH / 2, BreakoutWorld::HEIGHT / 2),
 		Vector::random_unitary() * Ball::BASE_VELOCITY

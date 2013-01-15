@@ -49,7 +49,7 @@ public:
 class BallFactory
 {
 public:
-	static Ball* makeNormalBall(const Point &initial_position, const Vector &initial_velocity);
-	static Ball* makeFireBall(const Point &initial_position, const Vector &initial_velocity);
-	static Ball* makePhantomBall(const Point &initial_position, const Vector &initial_velocity);
+	static Ball* make_normal_ball(const Point &initial_position, const Vector &initial_velocity);
+	static Ball* make_fire_ball(const Point &initial_position, const Vector &initial_velocity);
+	static Ball* make_phantom_ball(const Point &initial_position, const Vector &initial_velocity);
 };

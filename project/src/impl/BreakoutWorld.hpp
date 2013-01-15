@@ -15,10 +15,10 @@ const unsigned int BreakoutWorld::BRICK_SCORE = 5;
 
 BreakoutWorld::BreakoutWorld() : World()
 {
-	Paddle *player_1_paddle = PaddleFactory::makeNormalPaddle(Point(512, 748));
+	Paddle *player_1_paddle = PaddleFactory::make_normal_paddle(Point(512, 748));
 	this->add(player_1_paddle);
 
-	Paddle *player_2_paddle = PaddleFactory::makeNormalPaddle(Point(512, 20));
+	Paddle *player_2_paddle = PaddleFactory::make_normal_paddle(Point(512, 20));
 	this->add(player_2_paddle);
 
 	HumanPlayer *human_player = new HumanPlayer(player_1_paddle);
@@ -416,17 +416,17 @@ bool BreakoutWorld::load_level(string level_filename_path)
 				unsigned int hits = bricks[brick_type_alias].get("hits", 1).asUInt();
 				string color = bricks[brick_type_alias].get("color", "white").asString();
 
-				Brick *brick = BrickFactory::makeNormalBrick(position, QColor(color.c_str()), hits);
+				Brick *brick = BrickFactory::make_normal_brick(position, QColor(color.c_str()), hits);
 				this->add(brick);
 
 			} else if (!brick_type.compare(GLASS_BRICK))
 			{
-				Brick *brick = BrickFactory::makeGlassBrick(position);
+				Brick *brick = BrickFactory::make_glass_brick(position);
 				this->add(brick);
 
 			} else if (!brick_type.compare(CONCRETE_BRICK))
 			{
-				Brick *brick = BrickFactory::makeConcreteBrick(position);
+				Brick *brick = BrickFactory::make_concrete_brick(position);
 				this->add(brick);
 
 			} else
@@ -457,17 +457,17 @@ bool BreakoutWorld::load_level(string level_filename_path)
 
 		if (!ball_type.compare(NORMAL_BALL))
 		{
-			Ball *ball = BallFactory::makeNormalBall(position, velocity);
+			Ball *ball = BallFactory::make_normal_ball(position, velocity);
 			this->add(ball);
 
 		} else if (!ball_type.compare(FIRE_BALL))
 		{
-			Ball *ball = BallFactory::makeFireBall(position, velocity);
+			Ball *ball = BallFactory::make_fire_ball(position, velocity);
 			this->add(ball);
 
 		} else if (!ball_type.compare(PHANTOM_BALL))
 		{
-			Ball *ball = BallFactory::makePhantomBall(position, velocity);
+			Ball *ball = BallFactory::make_phantom_ball(position, velocity);
 			this->add(ball);
 
 		} else

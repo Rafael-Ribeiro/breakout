@@ -50,7 +50,7 @@ void Ball::grow()
 	this->radius() = min(Ball::MAX_RADIUS, this->radius() * 1.5);
 }
 
-Ball* BallFactory::makeNormalBall(const Point &initial_position, const Vector &initial_velocity)
+Ball* BallFactory::make_normal_ball(const Point &initial_position, const Vector &initial_velocity)
 {
 	Ball *ball = new Ball(initial_position, initial_velocity);
 	ball->set_state(new NormalBallState());
@@ -58,7 +58,7 @@ Ball* BallFactory::makeNormalBall(const Point &initial_position, const Vector &i
 	return ball;
 }
 
-Ball* BallFactory::makeFireBall(const Point &initial_position, const Vector &initial_velocity)
+Ball* BallFactory::make_fire_ball(const Point &initial_position, const Vector &initial_velocity)
 {
 	Ball *ball = new Ball(initial_position, initial_velocity);
 	ball->set_state(new FireBallState());
@@ -66,7 +66,7 @@ Ball* BallFactory::makeFireBall(const Point &initial_position, const Vector &ini
 	return ball;
 }
 
-Ball* BallFactory::makePhantomBall(const Point &initial_position, const Vector &initial_velocity)
+Ball* BallFactory::make_phantom_ball(const Point &initial_position, const Vector &initial_velocity)
 {
 	Ball *ball = new Ball(initial_position, initial_velocity);
 	ball->set_state(new PhantomBallState());

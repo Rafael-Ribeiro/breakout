@@ -45,5 +45,5 @@ public:
 class PaddleFactory
 {
 public:
-	static Paddle* makeNormalPaddle(const Point &initial_position);
+	static Paddle* make_normal_paddle(const Point &initial_position);
 };

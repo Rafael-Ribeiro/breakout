@@ -41,7 +41,7 @@ public:
 class BrickFactory
 {
 public:
-	static Brick* makeNormalBrick(const Point &initial_position, QColor color, unsigned int hits);
-	static Brick* makeGlassBrick(const Point &initial_position);
-	static Brick* makeConcreteBrick(const Point &initial_position);
+	static Brick* make_normal_brick(const Point &initial_position, QColor color, unsigned int hits);
+	static Brick* make_glass_brick(const Point &initial_position);
+	static Brick* make_concrete_brick(const Point &initial_position);
 };

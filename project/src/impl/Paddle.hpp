@@ -43,7 +43,7 @@ void Paddle::draw(QPainter& painter) const
 	this->_state->draw(painter);
 }
 
-Paddle* PaddleFactory::makeNormalPaddle(const Point &initial_position)
+Paddle* PaddleFactory::make_normal_paddle(const Point &initial_position)
 {
 	Paddle *paddle = new Paddle(initial_position);
 	paddle->set_state(new NormalPaddleState());
