@@ -17,17 +17,20 @@ BreakoutWorld::BreakoutWorld() : World()
 	Paddle *player_2_paddle = PaddleFactory::makeNormalPaddle(Point(512, 20));
 	this->add(player_2_paddle);
 
-	HumanPlayer *human_player = new HumanPlayer(player_1_paddle);
-	this->_players[0] = human_player;
+	// HumanPlayer *human_player = new HumanPlayer(player_1_paddle);
+	// this->_players[0] = human_player;
 
-	human_player = new HumanPlayer(player_2_paddle, Qt::Key::Key_A, Qt::Key::Key_D);
-	this->_players[1] = human_player;
+	// human_player = new HumanPlayer(player_2_paddle, Qt::Key::Key_A, Qt::Key::Key_D);
+	// this->_players[1] = human_player;
 
 	// CPUPlayer *cpu_player = new CPUPlayer(player_2_paddle, &CPUStrategyMultiton::get_closest_ball_cpu_strategy_instance());
 	// this->_players[1] = cpu_player;
 
-	// cpu_player = new CPUPlayer(player_1_paddle, &CPUStrategyMultiton::get_closest_ball_cpu_strategy_instance());
-	// this->_players[0] = cpu_player;
+	CPUPlayer *cpu_player = new CPUPlayer(player_2_paddle, &CPUStrategyMultiton::get_first_ball_cpu_strategy_instance());
+	this->_players[1] = cpu_player;
+
+	cpu_player = new CPUPlayer(player_1_paddle, &CPUStrategyMultiton::get_closest_ball_cpu_strategy_instance());
+	this->_players[0] = cpu_player;
 
 	this->restart();
 }
