@@ -71,10 +71,10 @@ bool BreakoutWorld::collision_filter(Body &a, Body &b)
 	if (ball_a || ball_b)
 	{
 		/* except if any of them is a phantom*/
-		if (ball_a && dynamic_cast<PhantomBallState const *>(ball_a->get_state()))
+		if (ball_a && dynamic_cast<PhantomBallState * const>(ball_a->state()))
 			return false;
 
-		if (ball_b && dynamic_cast<PhantomBallState const *>(ball_b->get_state()))
+		if (ball_b && dynamic_cast<PhantomBallState * const>(ball_b->state()))
 			return false;
 
 		return true;
@@ -108,10 +108,10 @@ bool BreakoutWorld::collision_updates_physics(Body &a, Body &b)
 
 			assert(brick_b);
 
-			if (dynamic_cast<ConcreteBrickState const *>(brick_b->get_state()))
+			if (dynamic_cast<ConcreteBrickState * const>(brick_b->state()))
 				return true;
 
-			if (dynamic_cast<GlassBrickState const *>(brick_b->get_state()) || dynamic_cast<PhantomBallState const *>(ball_a))
+			if (dynamic_cast<GlassBrickState * const>(brick_b->state()) || dynamic_cast<PhantomBallState * const>(ball_a))
 				return false;
 
 			return true;
@@ -169,7 +169,7 @@ void BreakoutWorld::collision_handle(Contact &contact)
 			assert(brick_b);
 
 			delete_b = brick_b->hit();
-			if (dynamic_cast<GlassBrickState const *>(brick_b->get_state()) || dynamic_cast<PhantomBallState const *>(ball_a->get_state()))
+			if (dynamic_cast<GlassBrickState * const>(brick_b->state()) || dynamic_cast<PhantomBallState * const>(ball_a->state()))
 				goto cleanup;
 
 			ball_a->velocity() = normal.reflect(ball_a->velocity());

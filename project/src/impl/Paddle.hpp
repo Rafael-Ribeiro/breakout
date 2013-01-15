@@ -5,14 +5,14 @@ const unsigned int Paddle::BASE_HEIGHT = 10;
 const double Paddle::VELOCITY = 400.0;
 
 Paddle::Paddle(const Point &initial_position)
-	: Box(Paddle::BASE_WIDTH, Paddle::BASE_HEIGHT), Movable(Vector(0, 0)), Drawable(), _player(NULL), state(NULL)
+	: Box(Paddle::BASE_WIDTH, Paddle::BASE_HEIGHT), Movable(Vector(0, 0)), Drawable(), _player(NULL), _state(NULL)
 {
 	this->init(initial_position);
 }
 
 Paddle::~Paddle()
 {
-	delete this->state;
+	delete this->_state;
 }
 
 Player* & Paddle::player()
@@ -27,20 +27,20 @@ Player* const & Paddle::player() const
 
 void Paddle::set_state(PaddleState *state)
 {
-	delete this->state;
+	delete this->_state;
 
-	this->state = state;
+	this->_state = state;
 	state->set_paddle(this);
 }
 
-PaddleState const * Paddle::get_state() const
+PaddleState * const & Paddle::state() const
 {
-	return this->state;
+	return this->_state;
 }
 
 void Paddle::draw(QPainter& painter) const
 {
-	this->state->draw(painter);
+	this->_state->draw(painter);
 }
 
 Paddle* PaddleFactory::makeNormalPaddle(const Point &initial_position)

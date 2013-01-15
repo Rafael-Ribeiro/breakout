@@ -4,37 +4,37 @@ const unsigned int Brick::BASE_WIDTH = 48;
 const unsigned int Brick::BASE_HEIGHT = 16;
 
 Brick::Brick(const Point &initial_position)
-	: Box(Brick::BASE_WIDTH, Brick::BASE_HEIGHT), Drawable(), state(NULL)
+	: Box(Brick::BASE_WIDTH, Brick::BASE_HEIGHT), Drawable(), _state(NULL)
 {
 	this->init(initial_position);
 }
 
 Brick::~Brick()
 {
-	delete this->state;
+	delete this->_state;
 }
 
 void Brick::set_state(BrickState *state)
 {
-	delete this->state;
+	delete this->_state;
 
-	this->state = state;
+	this->_state = state;
 	state->set_brick(this);
 }
 
-BrickState const * Brick::get_state() const
+BrickState * const & Brick::state() const
 {
-	return this->state;
+	return this->_state;
 }
 
 void Brick::draw(QPainter& painter) const
 {
-	this->state->draw(painter);
+	this->_state->draw(painter);
 }
 
 bool Brick::hit()
 {
-	return this->state->hit();
+	return this->_state->hit();
 }
 
 Brick* BrickFactory::makeNormalBrick(const Point &initial_position, QColor color, unsigned int hits)
