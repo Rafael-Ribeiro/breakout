@@ -231,7 +231,7 @@ void BreakoutWorld::collision_handle(Contact &contact)
 				ball_a->hit(*paddle_b->player());
 
 				/* push the ball */
-				ball_a->position() += paddle_b->velocity() * -contact.toc();
+				ball_a->position() += paddle_b->velocity() * contact.toc();
 
 				goto cleanup;
 			}
