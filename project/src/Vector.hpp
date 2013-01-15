@@ -12,6 +12,8 @@ class Vector
 	friend ostream& operator << (ostream &out, const Vector &v);
 
 public:
+	static Vector random_unitary();
+	
 	Vector(const double &x = 0.0, const double &y = 0.0)
 		: _x(x), _y(y)
 	{

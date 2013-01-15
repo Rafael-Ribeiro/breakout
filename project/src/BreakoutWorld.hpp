@@ -14,6 +14,7 @@ class BreakoutWorld : public World
 	set<Ball*> _balls;
 	set<Brick*> _bricks;
 	set<Paddle*> _paddles;
+	set<Bonus*> _bonuses;
 	Player* _players[2];
 
 public:
@@ -32,6 +33,7 @@ public:
 	const set<Ball*>& balls() const;
 	const set<Brick*>& bricks() const;
 	const set<Paddle*>& paddles() const;
+	const set<Bonus*>& bonuses() const;
 
 	bool load_level(string level_filename_path);
 

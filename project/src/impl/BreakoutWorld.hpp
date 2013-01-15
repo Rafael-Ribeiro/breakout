@@ -1,13 +1,9 @@
 #include <fstream>
-#include <random>
-#include <cmath>
 #include <sys/time.h>
 
 #include "jsoncpp/inc/json.h"
 
 #include "../BreakoutWorld.hpp"
-
-const double PI = std::atan(1.0) * 4;
 
 const unsigned int BreakoutWorld::WIDTH = 1024;
 const unsigned int BreakoutWorld::HEIGHT = 768;
@@ -43,6 +39,11 @@ void BreakoutWorld::add(Body *body)
 	Paddle* paddle = dynamic_cast<Paddle*>(body);
 	if (paddle)
 		this->_paddles.insert(paddle);
+
+	Bonus* bonus = dynamic_cast<Bonus*>(body);
+	if (bonus)
+		this->_bonuses.erase(bonus);
+
 }
 
 void BreakoutWorld::remove(Body *body)
@@ -60,6 +61,10 @@ void BreakoutWorld::remove(Body *body)
 	Paddle* paddle = dynamic_cast<Paddle*>(body);
 	if (paddle)
 		this->_paddles.erase(paddle);
+
+	Bonus* bonus = dynamic_cast<Bonus*>(body);
+	if (bonus)
+		this->_bonuses.erase(bonus);
 }
 
 bool BreakoutWorld::collision_filter(Body &a, Body &b)
@@ -67,29 +72,24 @@ bool BreakoutWorld::collision_filter(Body &a, Body &b)
 	Ball* ball_a = dynamic_cast<Ball*>(&a);
 	Ball* ball_b = dynamic_cast<Ball*>(&b);
 	
-/*
-	Brick* brick_a = dynamic_cast<Brick*>(&a);
-	Brick* brick_b = dynamic_cast<Brick*>(&b);
-*/
+	Bonus* bonus_a = dynamic_cast<Bonus*>(&a);
+	Bonus* bonus_b = dynamic_cast<Bonus*>(&b);
 
 	Paddle* paddle_a = dynamic_cast<Paddle*>(&a);
 	Paddle* paddle_b = dynamic_cast<Paddle*>(&b);
 	
-	/* balls collide with everything */
+	/* balls collide with all objects except */
 	if (ball_a || ball_b)
 	{
-		/* except if any of them is a phantom*/
-		if (ball_a && dynamic_cast<PhantomBallState * const>(ball_a->state()))
-			return false;
-
-		if (ball_b && dynamic_cast<PhantomBallState * const>(ball_b->state()))
+		/* bonuses */
+		if (bonus_a || bonus_b)
 			return false;
 
 		return true;
 	}
 
-	/* paddles collide with everything but other paddles */
-	if ((paddle_a && !paddle_b) || (paddle_b && !paddle_a)) // paddle_a ^ paddle_b
+	/* paddles collides with bonuses (and balls ^) */
+	if ((paddle_a && bonus_b) || (paddle_b && bonus_a))
 		return true;
 
 	return false;
@@ -103,6 +103,9 @@ bool BreakoutWorld::collision_updates_physics(Body &a, Body &b)
 	Brick* brick_a = dynamic_cast<Brick*>(&a);
 	Brick* brick_b = dynamic_cast<Brick*>(&b);
 
+	Bonus* bonus_a = dynamic_cast<Bonus*>(&a);
+	Bonus* bonus_b = dynamic_cast<Bonus*>(&b);
+
 	Paddle* paddle_a = dynamic_cast<Paddle*>(&a);
 	Paddle* paddle_b = dynamic_cast<Paddle*>(&b);
 
@@ -113,6 +116,9 @@ bool BreakoutWorld::collision_updates_physics(Body &a, Body &b)
 			/* ball vs everything */
 			if (ball_b || paddle_b)
 				return true;
+
+			if (bonus_b)
+				return false;
 
 			assert(brick_b);
 
@@ -125,13 +131,14 @@ bool BreakoutWorld::collision_updates_physics(Body &a, Body &b)
 			return true;
 		} else if (paddle_a)
 		{
-			/* paddle vs everything \ { ball } */
-			cout << "TODO: paddle vs bonus and stuff" << endl;
+			if (bonus_b)
+				return true;
 		}
 
 		swap(ball_a, ball_b);
 		swap(brick_a, brick_b);
 		swap(paddle_a, paddle_b);
+		swap(bonus_a, bonus_b);
 	}
 
 	assert(false);
@@ -150,6 +157,9 @@ void BreakoutWorld::collision_handle(Contact &contact)
 	
 	Brick* brick_a = dynamic_cast<Brick*>(a);
 	Brick* brick_b = dynamic_cast<Brick*>(b);
+
+	Bonus* bonus_a = dynamic_cast<Bonus*>(a);
+	Bonus* bonus_b = dynamic_cast<Bonus*>(b);
 
 	Paddle* paddle_a = dynamic_cast<Paddle*>(a);
 	Paddle* paddle_b = dynamic_cast<Paddle*>(b);
@@ -170,14 +180,38 @@ void BreakoutWorld::collision_handle(Contact &contact)
 
 			if (paddle_b)
 			{
+				ball_a->position() += paddle_b->velocity() * -contact.toc();
 				ball_a->velocity() = normal.reflect(ball_a->velocity());
+				ball_a->hit(*paddle_b->player());
+
 				goto cleanup;
 			}
 
 			assert(brick_b);
 
-			delete_b = brick_b->hit();
-			if (dynamic_cast<GlassBrickState * const>(brick_b->state()) || dynamic_cast<PhantomBallState * const>(ball_a->state()))
+			bool phantom = dynamic_cast<PhantomBallState * const>(ball_a->state());
+			bool fire = dynamic_cast<FireBallState * const>(ball_a->state());
+			bool concrete = dynamic_cast<ConcreteBrickState * const>(brick_b->state());
+
+			bool glass = dynamic_cast<GlassBrickState * const>(brick_b->state());
+
+			if (fire)
+				delete_b = brick_b->hit_all();
+			else
+				delete_b = brick_b->hit_once();			
+
+			if (phantom && !concrete)
+				delete_b = true;
+
+			if (delete_b && ball_a->last_player())
+			{
+				Vector velocity = (ball_a->last_player()->paddle()->position() - brick_b->position()).normalize() * Bonus::BASE_VELOCITY;
+
+				if (random_int(0, 5) == 0)
+					this->add(BonusFactory::make_random_bonus(brick_b->position(), velocity));  
+			}
+
+			if (glass || (phantom && !concrete))
 				goto cleanup;
 
 			ball_a->velocity() = normal.reflect(ball_a->velocity());
@@ -185,13 +219,19 @@ void BreakoutWorld::collision_handle(Contact &contact)
 
 		} else if (paddle_a)
 		{
-			/* paddle vs everything \ { ball } */
-			cout << "TODO: paddle vs bonus and stuff" << endl;
+			if (bonus_b)
+			{
+				paddle_a->player()->redeem(*bonus_b, *this);
+				delete_b = true;
+
+				goto cleanup;
+			}
 		}
 
 		swap(a, b);
 		swap(ball_a, ball_b);
 		swap(brick_a, brick_b);
+		swap(bonus_a, bonus_b);
 		swap(paddle_a, paddle_b);
 
 		normal = -normal;
@@ -224,6 +264,11 @@ const set<Brick*>& BreakoutWorld::bricks() const
 const set<Paddle*>& BreakoutWorld::paddles() const
 {
 	return this->_paddles;
+}
+
+const set<Bonus*>& BreakoutWorld::bonuses() const
+{
+	return this->_bonuses;
 }
 
 bool BreakoutWorld::load_level(string level_filename_path)
@@ -325,21 +370,14 @@ bool BreakoutWorld::load_level(string level_filename_path)
 		double vx = balls[i]["velocity"].get("x", 0.0).asDouble();
 		double vy = balls[i]["velocity"].get("y", 0.0).asDouble();
 
-		if (vx == 0.0 && vy == 0.0)
-		{
-			std::default_random_engine generator;
-			generator.seed(time(NULL));
-
-			std::uniform_real_distribution<double> distribution(0, PI * 2);
-			double angle = distribution(generator);
-
-			vx = cos(angle) * Ball::BASE_VELOCITY;
-			vy = sin(angle) * Ball::BASE_VELOCITY;
-		}
-
 		string ball_type = balls[i]["type"].asString();
 		Point position(px, py);
-		Vector velocity(vx, vy);
+
+		Vector velocity;
+		if (vx == 0.0 && vy == 0.0)
+			velocity = Vector::random_unitary() * Ball::BASE_VELOCITY;
+		else
+			velocity = Vector(vx, vy);
 
 		if (!ball_type.compare(NORMAL_BALL))
 		{
@@ -373,10 +411,15 @@ void BreakoutWorld::step(const double& dt)
 	for (; it != end; it++)
 	{
 		if ((*it)->position().x() - (*it)->radius() <= 0)
+		{
 			(*it)->velocity() = (*it)->velocity() = Vector(1, 0).reflect((*it)->velocity());
+			(*it)->position().x() = (*it)->radius() + numeric_limits<double>::epsilon();
 
-		else if ((*it)->position().x() + (*it)->radius() >= BreakoutWorld::WIDTH)
+		} else if ((*it)->position().x() + (*it)->radius() >= BreakoutWorld::WIDTH)
+		{
 			(*it)->velocity() = (*it)->velocity() = Vector(-1, 0).reflect((*it)->velocity());
+			(*it)->position().x() = BreakoutWorld::WIDTH - (*it)->radius() - numeric_limits<double>::epsilon();
+		}
 
 		bool delete_ball = false;
 
@@ -401,6 +444,18 @@ void BreakoutWorld::step(const double& dt)
 			delete *it;
 		}
 
+	}
+	
+	set<Bonus*>::iterator it_bonus = this->_bonuses.begin();
+	set<Bonus*>::iterator end_bonus = this->_bonuses.end();
+	
+	for (; it != end; it++)
+	{
+		if ((*it)->position().y() < 0 || (*it)->position().y() > BreakoutWorld::HEIGHT)
+		{
+			this->remove(*it);
+			delete *it;
+		}
 	}
 
 	for (unsigned int i = 0; i < 2; i++)

@@ -68,7 +68,6 @@ Contact Body::get_collision_contact(Body &other, const double& dt)
 Contact Body::get_collision_contact(Box &b1, Box &b2, const double& dt)
 {
 	MARKUSED(dt);
-
 	if (!Body::collides(b1, b2))
 		return Contact();
 
@@ -124,12 +123,11 @@ Contact Body::get_collision_contact(Box &b1, Box &b2, const double& dt)
 			tl = min((b1.top() - b2.bottom()) / dv.y(), tl);		
 	}
 
-	if (tf <= tl)
+	if (tf >= tl)
 		return Contact();
 
 	/* FIXME: normal vector not used yet so dont compute it */
 	Vector normal(1, 0);
-
 	return Contact(-tl, normal, &b1, &b2);
 }
 

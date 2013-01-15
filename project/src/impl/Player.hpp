@@ -25,9 +25,9 @@ void Player::stop()
 	this->_paddle->velocity() = Vector(0, 0);
 }
 
-void Player::redeem(Bonus &bonus)
+void Player::redeem(Bonus &bonus, BreakoutWorld& world)
 {
-	/* TODO */
+	bonus.execute(world, *this);
 }
 
 Paddle * const & Player::paddle() const

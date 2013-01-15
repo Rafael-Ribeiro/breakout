@@ -32,9 +32,14 @@ void Brick::draw(QPainter& painter) const
 	this->_state->draw(painter);
 }
 
-bool Brick::hit()
+bool Brick::hit_once()
 {
-	return this->_state->hit();
+	return this->_state->hit_once();
+}
+
+bool Brick::hit_all()
+{
+	return this->_state->hit_all();
 }
 
 Brick* BrickFactory::makeNormalBrick(const Point &initial_position, QColor color, unsigned int hits)

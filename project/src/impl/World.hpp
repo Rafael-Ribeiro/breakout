@@ -1,8 +1,8 @@
 #include "../World.hpp"
 
-#include "../Paddle.hpp"
-#include "../Ball.hpp"
-#include "../Brick.hpp"
+#include "../Bonus.hpp"
+
+const unsigned int World::MAX_STEP_ITERATIONS = 3;
 
 World::World()
 	: _bodies(), _movables()
@@ -31,6 +31,7 @@ void World::step(const double& dt)
 	vector<Contact> contacts;
 
 	double toc = 0;
+	unsigned int iterations = 0;
 
 	for (double d = 0; d < dt; d = dt + toc)
 	{
@@ -102,8 +103,10 @@ void World::step(const double& dt)
 				break;
 		}
 
-		if (i < 0)
+		if (i < 0 || iterations >= World::MAX_STEP_ITERATIONS)
 			break;
+
+		iterations++;
 	}
 }
 

@@ -1,9 +1,24 @@
 #include <cmath>
 #include <limits>
+#include <random>
+#include <chrono>
 
 #include "../Vector.hpp"
 
 using namespace std;
+
+const double PI = std::atan(1.0) * 4;
+
+Vector Vector::random_unitary()
+{
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+  	std::default_random_engine generator (seed);
+  	
+	std::uniform_real_distribution<double> distribution(0, PI * 2);
+	double angle = distribution(generator);
+
+	return Vector(cos(angle), sin(angle));
+}
 
 double& Vector::x()
 {

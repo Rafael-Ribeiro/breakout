@@ -32,7 +32,8 @@ public:
 	virtual ~Brick();
 
 	void draw(QPainter& painter) const;
-	bool hit();
+	bool hit_once();
+	bool hit_all();
 };
 
 class BrickFactory

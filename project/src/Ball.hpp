@@ -12,14 +12,18 @@
 class BallFactory; // forward declaration (used "too soon")
 class Player;
 class BreakoutWorld;
+class PhantomBonus;
+class FireBonus;
 
 class Ball : public Circle, public Movable, public Drawable
 {
 	BallState* _state;
 	Player* _last_player;
 
-	friend BallFactory;
-	friend BreakoutWorld;
+	friend BallFactory; /* access constructor */
+	friend BreakoutWorld; /* access state() */
+	friend PhantomBonus; /* access set_state() */
+	friend FireBonus; /* access set_state() */
 
 protected:
 	Ball(const Point &initial_position, const Vector &initial_velocity);
@@ -33,6 +37,9 @@ public:
 
 	virtual ~Ball();
 
+	Player* const & last_player() const;
+
+	void hit(Player& player);
 	void draw(QPainter& painter) const;
 };
 

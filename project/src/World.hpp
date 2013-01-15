@@ -10,6 +10,8 @@ using namespace std;
 
 class World : public AbstractCollisionMediator
 {
+	static const unsigned int MAX_STEP_ITERATIONS;
+
 	set<Body*> _bodies;
 	set<Movable*> _movables;
 

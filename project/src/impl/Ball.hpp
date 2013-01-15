@@ -6,7 +6,7 @@ const double Ball::BASE_RADIUS = 10.0;
 const double Ball::BASE_VELOCITY = 300.0;
 
 Ball::Ball(const Point &initial_position, const Vector &initial_velocity)
-	: Circle(Ball::BASE_RADIUS), Movable(initial_velocity), Drawable(), _state(NULL)
+	: Circle(Ball::BASE_RADIUS), Movable(initial_velocity), Drawable(), _state(NULL), _last_player(NULL)
 {
 	this->init(initial_position);
 }
@@ -29,9 +29,19 @@ BallState * const & Ball::state() const
 	return this->_state;
 }
 
+Player * const & Ball::last_player() const
+{
+	return this->_last_player;
+}
+
 void Ball::draw(QPainter& painter) const
 {
 	this->_state->draw(painter);
+}
+
+void Ball::hit(Player& player)
+{
+	this->_last_player = &player;
 }
 
 Ball* BallFactory::makeNormalBall(const Point &initial_position, const Vector &initial_velocity)

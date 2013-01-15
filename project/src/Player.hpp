@@ -19,7 +19,7 @@ protected:
 	void stop();
 
 public:
-	void redeem(Bonus &bonus);
+	void redeem(Bonus &bonus, BreakoutWorld& world);
 	virtual void step(const double &dt) = 0;
 
 	Paddle * const & paddle() const;

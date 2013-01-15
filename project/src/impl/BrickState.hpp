@@ -16,10 +16,15 @@ NormalBrickState::NormalBrickState(QColor color, unsigned int hits)
 {	
 }
 
-bool NormalBrickState::hit()
+bool NormalBrickState::hit_once()
 {
 	this->_remaining--;
 	return this->_remaining == 0;
+}
+
+bool NormalBrickState::hit_all()
+{
+	return true;
 }
 
 void NormalBrickState::draw(QPainter& painter) const
@@ -39,7 +44,12 @@ void NormalBrickState::draw(QPainter& painter) const
 	);
 }
 
-bool GlassBrickState::hit()
+bool GlassBrickState::hit_once()
+{
+	return true;
+}
+
+bool GlassBrickState::hit_all()
 {
 	return true;
 }
@@ -61,7 +71,12 @@ void GlassBrickState::draw(QPainter& painter) const
 	);
 }
 
-bool ConcreteBrickState::hit()
+bool ConcreteBrickState::hit_once()
+{
+	return false;
+}
+
+bool ConcreteBrickState::hit_all()
 {
 	return false;
 }

@@ -27,3 +27,5 @@
 #include "impl/BreakoutApp.hpp"
 #include "impl/BreakoutFrame.hpp"
 #include "impl/BreakoutWorld.hpp"
+
+#include "impl/common.hpp"
