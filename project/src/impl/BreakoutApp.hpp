@@ -12,6 +12,8 @@ BreakoutApp::BreakoutApp(QWidget *parent)
 	this->timer.start(1000/60);
 
 	gettimeofday(&this->last_step, NULL);
+
+	this->frame.setFocusPolicy(Qt::StrongFocus);
 }
 
 void BreakoutApp::step()

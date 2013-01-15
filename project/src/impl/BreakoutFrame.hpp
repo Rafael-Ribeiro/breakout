@@ -2,6 +2,8 @@
 
 #include <QPainter>
 
+#include "../Keyboard.hpp"
+
 BreakoutFrame::BreakoutFrame(const BreakoutWorld *world, QWidget *parent)
 	: super(parent), world(world)
 {
@@ -21,6 +23,16 @@ void BreakoutFrame::updateSize()
 QSize BreakoutFrame::sizeHint() const
 {
 	return QSize(BreakoutWorld::WIDTH, BreakoutWorld::HEIGHT);
+}
+
+void BreakoutFrame::keyPressEvent(QKeyEvent * event)
+{
+	Keyboard::get_instance().handle_event(event, true);
+}
+
+void BreakoutFrame::keyReleaseEvent(QKeyEvent * event)
+{
+	Keyboard::get_instance().handle_event(event, false);
 }
 
 void BreakoutFrame::paintEvent(QPaintEvent *event)

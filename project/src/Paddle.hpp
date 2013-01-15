@@ -9,19 +9,29 @@
 #include "Drawable.hpp"
 #include "PaddleState.hpp"
 
+class PaddleFactory; // forward declaration (used "too soon")
+class Player; // forward declaration (Paddle included on Player)
+
 class Paddle : public Box, public Movable, public Drawable
 {
 	static const unsigned int BASE_WIDTH;
 	static const unsigned int BASE_HEIGHT;
 
-	PaddleState* state;
+	friend PaddleFactory;
+	friend Player;
+
+	Player *player;
+	PaddleState *state;
+
+protected:
+	void set_player(Player *player);
+	void set_state(PaddleState *state);
 
 public:
 	Paddle(const Point &initial_position);
 	virtual ~Paddle();
 
-	void set_state(PaddleState* state);
-	PaddleState const *  get_state() const;
+	PaddleState const * get_state() const;
 		
 	void draw(QPainter& painter) const;
 };

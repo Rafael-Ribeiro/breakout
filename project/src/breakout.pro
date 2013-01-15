@@ -12,33 +12,48 @@ breakout {
 	INCLUDEPATH += . impl
 
 	# Input
-	HEADERS +=	Ball.hpp \
+	HEADERS +=	AbstractCollisionMediator.hpp \
+				Ball.hpp \
+				BallState.hpp \
 				Body.hpp \
 				Box.hpp \
 				BreakoutApp.hpp \
 				BreakoutFrame.hpp \
 				BreakoutWorld.hpp \
+				Brick.hpp \
+				BrickState.hpp \
 				Circle.hpp \
 				Contact.hpp \
 				Drawable.hpp \
-				World.hpp \
+				Keyboard.hpp \
 				Movable.hpp \
 				Paddle.hpp \
+				PaddleState.hpp \
+				Player.hpp \
 				Point.hpp \
+				State.hpp \
 				Vector.hpp \
+				World.hpp \
 				impl/Ball.hpp \
+				impl/BallState.hpp \
 				impl/Body.hpp \
 				impl/Box.hpp \
 				impl/BreakoutApp.hpp \
 				impl/BreakoutFrame.hpp \
 				impl/BreakoutWorld.hpp \
+				impl/Brick.hpp \
+				impl/BrickState.hpp \
 				impl/Circle.hpp \
 				impl/Contact.hpp \
 				impl/Drawable.hpp \
-				impl/World.hpp \
+				impl/Keyboard.hpp \
 				impl/Movable.hpp \
 				impl/Paddle.hpp \
-				impl/Vector.hpp
+				impl/PaddleState.hpp \
+				impl/Player.hpp \
+				impl/State.hpp \
+				impl/Vector.hpp \
+				impl/World.hpp
 
 	SOURCES += impl.cpp jsoncpp/json_reader.cpp jsoncpp/json_writer.cpp jsoncpp/json_value.cpp main.cpp
 
@@ -54,33 +69,48 @@ test {
 	INCLUDEPATH += . impl
 
 	# Input
-	HEADERS +=	Ball.hpp \
+	HEADERS +=	AbstractCollisionMediator.hpp \
+				Ball.hpp \
+				BallState.hpp \
 				Body.hpp \
 				Box.hpp \
 				BreakoutApp.hpp \
 				BreakoutFrame.hpp \
 				BreakoutWorld.hpp \
+				Brick.hpp \
+				BrickState.hpp \
 				Circle.hpp \
 				Contact.hpp \
 				Drawable.hpp \
-				World.hpp \
+				Keyboard.hpp \
 				Movable.hpp \
 				Paddle.hpp \
+				PaddleState.hpp \
+				Player.hpp \
 				Point.hpp \
+				State.hpp \
 				Vector.hpp \
+				World.hpp \
 				impl/Ball.hpp \
+				impl/BallState.hpp \
 				impl/Body.hpp \
 				impl/Box.hpp \
 				impl/BreakoutApp.hpp \
 				impl/BreakoutFrame.hpp \
 				impl/BreakoutWorld.hpp \
+				impl/Brick.hpp \
+				impl/BrickState.hpp \
 				impl/Circle.hpp \
 				impl/Contact.hpp \
 				impl/Drawable.hpp \
-				impl/World.hpp \
+				impl/Keyboard.hpp \
 				impl/Movable.hpp \
 				impl/Paddle.hpp \
-				impl/Vector.hpp
+				impl/PaddleState.hpp \
+				impl/Player.hpp \
+				impl/State.hpp \
+				impl/Vector.hpp \
+				impl/World.hpp
 
 	SOURCES += impl.cpp jsoncpp/json_reader.cpp jsoncpp/json_writer.cpp jsoncpp/json_value.cpp test.cpp	
 }

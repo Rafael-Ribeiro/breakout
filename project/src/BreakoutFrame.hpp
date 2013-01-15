@@ -20,5 +20,7 @@ public:
 	void updateSize();
 	QSize sizeHint() const;
 	
+	void keyPressEvent(QKeyEvent * event);
+	void keyReleaseEvent(QKeyEvent * event);
 	void paintEvent(QPaintEvent *event);
 };

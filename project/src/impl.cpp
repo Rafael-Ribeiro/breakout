@@ -3,6 +3,7 @@
 #include "impl/Circle.hpp"
 #include "impl/Contact.hpp"
 #include "impl/Drawable.hpp"
+#include "impl/Keyboard.hpp"
 #include "impl/World.hpp"
 #include "impl/Movable.hpp"
 #include "impl/Vector.hpp"
