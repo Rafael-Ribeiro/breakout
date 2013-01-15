@@ -28,7 +28,9 @@
 #include "impl/ClosestBallCPUStrategy.hpp"
 #include "impl/FirstBallCPUStrategy.hpp"
 
-#include "impl/BreakoutApp.hpp"
+#include "impl/BreakoutLauncher.hpp"
+#include "impl/BreakoutLauncherPlayer.hpp"
+#include "impl/BreakoutGame.hpp"
 #include "impl/BreakoutFrame.hpp"
 #include "impl/BreakoutWorld.hpp"
 

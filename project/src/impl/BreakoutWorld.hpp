@@ -13,17 +13,17 @@ const unsigned int BreakoutWorld::GOAL_SCORE = 100;
 const unsigned int BreakoutWorld::BONUS_SCORE = 25;
 const unsigned int BreakoutWorld::BRICK_SCORE = 5;
 
-BreakoutWorld::BreakoutWorld(string level_filename_path, Player *player_1, Player *player_2) : World()
-	: level_filename_path(level_filename_path)
+BreakoutWorld::BreakoutWorld(string level_filename_path, Player *player_1, Player *player_2) 
+	: World(), level_filename_path(level_filename_path)
 {
 	Paddle *player_1_paddle = PaddleFactory::make_normal_paddle(Point(512, 748));
 	Paddle *player_2_paddle = PaddleFactory::make_normal_paddle(Point(512, 20));
 
-	player_1_paddle->set_player(player_1);
-	player_2_paddle->set_player(player_2);
+	player_1_paddle->player(player_1);
+	player_2_paddle->player(player_2);
 
-	player_1->set_paddle(player_1_paddle);
-	player_2->set_paddle(player_2_paddle);
+	player_1->paddle(player_1_paddle);
+	player_2->paddle(player_2_paddle);
 
 	this->add(player_1_paddle);
 	this->add(player_2_paddle);

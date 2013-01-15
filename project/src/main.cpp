@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 
-#include "BreakoutApp.hpp"
+#include "BreakoutLauncher.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -10,8 +10,8 @@ int main(int argc, char *argv[])
 
 	QApplication qapp(argc, argv);
 
-	BreakoutApp app;
-	app.show();
+	BreakoutLauncher laucher;
+	laucher.show();
 
 	return qapp.exec();
 }

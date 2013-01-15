@@ -18,8 +18,10 @@ breakout {
 				Body.hpp \
 				Bonus.hpp \				
 				Box.hpp \
-				BreakoutApp.hpp \
 				BreakoutFrame.hpp \
+				BreakoutGame.hpp \
+				BreakoutLauncher.hpp \
+				BreakoutLauncherPlayer.hpp \
 				BreakoutWorld.hpp \
 				Brick.hpp \
 				BrickState.hpp \
@@ -46,8 +48,10 @@ breakout {
 				impl/Body.hpp \
 				impl/Bonus.hpp \
 				impl/Box.hpp \
-				impl/BreakoutApp.hpp \
 				impl/BreakoutFrame.hpp \
+				impl/BreakoutGame.hpp \
+				impl/BreakoutLauncher.hpp \
+				impl/BreakoutLauncherPlayer.hpp \
 				impl/BreakoutWorld.hpp \
 				impl/Brick.hpp \
 				impl/BrickState.hpp \
@@ -88,8 +92,9 @@ test {
 				Body.hpp \
 				Bonus.hpp \				
 				Box.hpp \
-				BreakoutApp.hpp \
 				BreakoutFrame.hpp \
+				BreakoutGame.hpp \
+				BreakoutLauncher.hpp \
 				BreakoutWorld.hpp \
 				Brick.hpp \
 				BrickState.hpp \
@@ -116,8 +121,9 @@ test {
 				impl/Body.hpp \
 				impl/Bonus.hpp \
 				impl/Box.hpp \
-				impl/BreakoutApp.hpp \
 				impl/BreakoutFrame.hpp \
+				impl/BreakoutGame.hpp \
+				impl/BreakoutLauncher.hpp \
 				impl/BreakoutWorld.hpp \
 				impl/Brick.hpp \
 				impl/BrickState.hpp \
