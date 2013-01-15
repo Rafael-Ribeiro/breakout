@@ -8,7 +8,7 @@ class Bonus;
 class Player
 {
 	Paddle *_paddle;
-	unsigned int score;
+	unsigned int _score;
 
 protected:
 	Player(Paddle *paddle);
@@ -25,5 +25,6 @@ public:
 	void add_score(int value);
 	void restart();
 	
+	const unsigned int& score() const;
 	Paddle * const & paddle() const;
 };

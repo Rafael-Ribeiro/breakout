@@ -347,6 +347,11 @@ const set<Drawable*>& BreakoutWorld::drawables() const
 	return this->_drawables;
 }
 
+Player* const * BreakoutWorld::players() const
+{
+	return this->_players;
+}
+
 bool BreakoutWorld::load_level(string level_filename_path)
 {
 	Json::Reader reader;
@@ -504,12 +509,12 @@ void BreakoutWorld::step(const double& dt)
 		if ((*prev)->position().y() <= 0)
 		{
 			delete_ball = true;
-			this->_players[1]->add_score(BreakoutWorld::GOAL_SCORE);
+			this->_players[0]->add_score(BreakoutWorld::GOAL_SCORE);
 
 		} else if ((*prev)->position().y() >= BreakoutWorld::HEIGHT)
 		{
 			delete_ball = true;
-			this->_players[0]->add_score(BreakoutWorld::GOAL_SCORE);
+			this->_players[1]->add_score(BreakoutWorld::GOAL_SCORE);
 		}
 
 		if (delete_ball)
