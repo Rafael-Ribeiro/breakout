@@ -59,7 +59,7 @@ void GlassBrickState::draw(QPainter& painter) const
 	QColor brush_color(0x40, 0x70, 0xFE, 0x55);
 	QColor pen_color = brush_color.darker(150);
 
-	painter.setBrush(QBrush(brush_color));
+	painter.setBrush(QBrush(brush_color, Qt::BDiagPattern));
 	painter.setPen(pen_color);
 
 	painter.drawRect

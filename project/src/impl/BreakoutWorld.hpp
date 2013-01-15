@@ -9,6 +9,10 @@
 const unsigned int BreakoutWorld::WIDTH = 1024;
 const unsigned int BreakoutWorld::HEIGHT = 768;
 
+const unsigned int BreakoutWorld::GOAL_SCORE = 100;
+const unsigned int BreakoutWorld::BONUS_SCORE = 25;
+const unsigned int BreakoutWorld::BRICK_SCORE = 5;
+
 BreakoutWorld::BreakoutWorld() : World()
 {
 	Paddle *player_1_paddle = PaddleFactory::makeNormalPaddle(Point(512, 748));
@@ -17,20 +21,20 @@ BreakoutWorld::BreakoutWorld() : World()
 	Paddle *player_2_paddle = PaddleFactory::makeNormalPaddle(Point(512, 20));
 	this->add(player_2_paddle);
 
-	// HumanPlayer *human_player = new HumanPlayer(player_1_paddle);
-	// this->_players[0] = human_player;
+	HumanPlayer *human_player = new HumanPlayer(player_1_paddle);
+	this->_players[0] = human_player;
 
-	// human_player = new HumanPlayer(player_2_paddle, Qt::Key::Key_A, Qt::Key::Key_D);
-	// this->_players[1] = human_player;
+	human_player = new HumanPlayer(player_2_paddle, Qt::Key::Key_A, Qt::Key::Key_D);
+	this->_players[1] = human_player;
 
 	// CPUPlayer *cpu_player = new CPUPlayer(player_2_paddle, &CPUStrategyMultiton::get_closest_ball_cpu_strategy_instance());
 	// this->_players[1] = cpu_player;
 
-	CPUPlayer *cpu_player = new CPUPlayer(player_2_paddle, &CPUStrategyMultiton::get_first_ball_cpu_strategy_instance());
-	this->_players[1] = cpu_player;
+	// CPUPlayer *cpu_player = new CPUPlayer(player_2_paddle, &CPUStrategyMultiton::get_first_ball_cpu_strategy_instance());
+	// this->_players[1] = cpu_player;
 
-	cpu_player = new CPUPlayer(player_1_paddle, &CPUStrategyMultiton::get_closest_ball_cpu_strategy_instance());
-	this->_players[0] = cpu_player;
+	// cpu_player = new CPUPlayer(player_1_paddle, &CPUStrategyMultiton::get_closest_ball_cpu_strategy_instance());
+	// this->_players[0] = cpu_player;
 
 	this->restart();
 }
@@ -38,6 +42,10 @@ BreakoutWorld::BreakoutWorld() : World()
 void BreakoutWorld::add(Body *body)
 {
 	super::add(body);
+
+	Drawable* drawable = dynamic_cast<Drawable*>(body);
+	if (drawable)
+		this->_drawables.insert(drawable);
 
 	Ball* ball = dynamic_cast<Ball*>(body);
 	if (ball)
@@ -60,6 +68,10 @@ void BreakoutWorld::add(Body *body)
 void BreakoutWorld::remove(Body *body)
 {
 	super::remove(body);
+
+	Drawable* drawable = dynamic_cast<Drawable*>(body);
+	if (drawable)
+		this->_drawables.erase(drawable);
 
 	Ball* ball = dynamic_cast<Ball*>(body);
 	if (ball)
@@ -106,6 +118,10 @@ void BreakoutWorld::clear()
 void BreakoutWorld::restart()
 {
 	this->clear();
+
+	for (unsigned int i = 0; i < 2; i++)
+		this->_players[i]->restart();
+
 	this->load_level("../levels/level1.json");
 }
 
@@ -229,7 +245,6 @@ void BreakoutWorld::collision_handle(Contact &contact)
 				double vy = ball_a->velocity().y() > 0 ? -1 : 1;
 				double vx = dp.x() / paddle_b->width() * 2;
 
-
 				ball_a->velocity() = Vector(vx, vy).normalize() * velocity;
 				ball_a->hit(*paddle_b->player());
 
@@ -259,6 +274,8 @@ void BreakoutWorld::collision_handle(Contact &contact)
 			{
 				Vector velocity = (ball_a->last_player()->paddle()->position() - brick_b->position()).normalize() * Bonus::BASE_VELOCITY;
 
+				ball_a->last_player()->add_score(BreakoutWorld::BRICK_SCORE);
+
 				if (random_int(0, 3) == 0)
 					this->add(BonusFactory::make_random_bonus(brick_b->position(), velocity));
 			}
@@ -274,6 +291,8 @@ void BreakoutWorld::collision_handle(Contact &contact)
 			if (bonus_b)
 			{
 				paddle_a->player()->redeem(*bonus_b, *this);
+				paddle_a->player()->add_score(BreakoutWorld::BONUS_SCORE);
+
 				delete_b = true;
 
 				goto cleanup;
@@ -321,6 +340,11 @@ const set<Paddle*>& BreakoutWorld::paddles() const
 const set<Bonus*>& BreakoutWorld::bonuses() const
 {
 	return this->_bonuses;
+}
+
+const set<Drawable*>& BreakoutWorld::drawables() const
+{
+	return this->_drawables;
 }
 
 bool BreakoutWorld::load_level(string level_filename_path)
@@ -480,16 +504,12 @@ void BreakoutWorld::step(const double& dt)
 		if ((*prev)->position().y() <= 0)
 		{
 			delete_ball = true;
-
-			// TODO: SCORE
-			cout << "SCORE 2" << endl;
+			this->_players[1]->add_score(BreakoutWorld::GOAL_SCORE);
 
 		} else if ((*prev)->position().y() >= BreakoutWorld::HEIGHT)
 		{
 			delete_ball = true;
-
-			// TODO: SCORE
-			cout << "SCORE 1" << endl;
+			this->_players[0]->add_score(BreakoutWorld::GOAL_SCORE);
 		}
 
 		if (delete_ball)

@@ -45,9 +45,20 @@ void Player::stop()
 //	this->_paddle->velocity() *= 0.7;
 }
 
+void Player::add_score(int value)
+{
+	this->score += value;
+}
+
 void Player::redeem(Bonus &bonus, BreakoutWorld& world)
 {
 	bonus.execute(world, *this);
+}
+
+void Player::restart()
+{
+	this->score = 0;
+	this->_paddle->hwidth() = Paddle::BASE_WIDTH/2;
 }
 
 Paddle * const & Player::paddle() const

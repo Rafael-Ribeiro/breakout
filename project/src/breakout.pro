@@ -5,7 +5,7 @@
 breakout {
 	QMAKE_CC = g++-4.7
 	QMAKE_CXX = g++-4.7
-	QMAKE_CXXFLAGS += -O3 -std=c++11 -Wall -Wfatal-errors
+	QMAKE_CXXFLAGS += -g -std=c++11 -Wall -Wfatal-errors
 	TEMPLATE = app
 	TARGET = 
 	DEPENDPATH += . impl

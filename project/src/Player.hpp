@@ -22,5 +22,8 @@ public:
 	void redeem(Bonus &bonus, BreakoutWorld& world);
 	virtual void step(const BreakoutWorld &world, const double &dt) = 0;
 
+	void add_score(int value);
+	void restart();
+	
 	Paddle * const & paddle() const;
 };

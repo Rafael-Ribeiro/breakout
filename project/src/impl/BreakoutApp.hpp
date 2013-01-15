@@ -1,19 +1,16 @@
 #include "../BreakoutApp.hpp"
 
 BreakoutApp::BreakoutApp(QWidget *parent)
-	: super(parent), layout(this), frame(&world)
+	: super(parent), frame(&world)
 {
-	this->layout.addWidget(&this->frame);
-
-	this->layout.setSizeConstraint(QLayout::SetFixedSize);
-	this->setLayout(&this->layout);
-
 	connect(&this->timer, SIGNAL(timeout()), this, SLOT(step()));
 	this->timer.start(1000/60);
 
 	gettimeofday(&this->last_step, NULL);
 
 	this->frame.setFocusPolicy(Qt::StrongFocus);
+	this->setCentralWidget(&this->frame);
+	this->showFullScreen();
 }
 
 void BreakoutApp::step()

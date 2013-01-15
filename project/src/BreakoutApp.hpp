@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QWidget>
+#include <QMainWindow>
 #include <QVBoxLayout>
 #include <QTimer>
 
@@ -10,17 +11,16 @@
 #include "BreakoutFrame.hpp"
 
 class BreakoutApp
-	: public QWidget
+	: public QMainWindow
 {
 	Q_OBJECT
 
 public:
-	typedef QWidget super;
+	typedef QMainWindow super;
 	BreakoutApp(QWidget *parent = NULL);
 
 private:
 	BreakoutWorld world;
-	QVBoxLayout layout;
 	QTimer timer;
 	BreakoutFrame frame;
 
