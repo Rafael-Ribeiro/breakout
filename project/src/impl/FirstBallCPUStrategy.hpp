@@ -1,7 +1,15 @@
 #include "../FirstBallCPUStrategy.hpp"
 
+FirstBallCPUStrategy FirstBallCPUStrategy::instance;
+
 FirstBallCPUStrategy::FirstBallCPUStrategy()
 {
+	CPUStrategyMultiton::add("First Ball", this);
+}
+
+const FirstBallCPUStrategy& FirstBallCPUStrategy::get_instance()
+{
+	return FirstBallCPUStrategy::instance;
 }
 
 void FirstBallCPUStrategy::step(Player &player, const BreakoutWorld &world, const double &dt) const

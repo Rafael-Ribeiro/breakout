@@ -4,7 +4,7 @@
 #include <map>
 
 #include "jsoncpp/inc/json.h"
-#include "CPUStrategyMultiton.hpp"
+#include "../CPUStrategyMultiton.hpp"
 
 #include "../BreakoutWorld.hpp"
 

@@ -18,8 +18,11 @@ BreakoutLauncherPlayer::BreakoutLauncherPlayer(bool first, QWidget *parent)
 	this->group.addButton(&this->cpu);
 	this->layout.addWidget(&this->cpu, 1, 0);
 	
-	this->cpu_strategy.insertItem(0, "Closest Ball");
-	this->cpu_strategy.insertItem(1, "First Ball");
+	CPUStrategyMultiton::map_t::const_iterator it = CPUStrategyMultiton::strategies().begin();
+	CPUStrategyMultiton::map_t::const_iterator end = CPUStrategyMultiton::strategies().end();
+
+	for (; it != end; ++it)
+		this->cpu_strategy.insertItem(numeric_limits<int>::max(), QString(it->first.c_str()));
 
 	this->layout.addWidget(&this->cpu_strategy, 1, 1);
 
@@ -45,10 +48,5 @@ Player* BreakoutLauncherPlayer::player()
 			return new HumanPlayer(Qt::Key::Key_A, Qt::Key::Key_D);
 
 	} else
-	{
-		if (this->cpu_strategy.currentIndex() == 0)
-			return new CPUPlayer(&CPUStrategyMultiton::get_closest_ball_cpu_strategy_instance());
-		else
-			return new CPUPlayer(&CPUStrategyMultiton::get_first_ball_cpu_strategy_instance());
-	}
+		return new CPUPlayer(CPUStrategyMultiton::get(this->cpu_strategy.currentText().toUtf8().constData()));
 }

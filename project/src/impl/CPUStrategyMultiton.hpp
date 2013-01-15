@@ -1,14 +1,28 @@
 #include "../CPUStrategyMultiton.hpp"
 
-const ClosestBallCPUStrategy CPUStrategyMultiton::closest_ball_cpu_strategy;
-const FirstBallCPUStrategy CPUStrategyMultiton::first_ball_cpu_strategy;
+CPUStrategyMultiton::map_t CPUStrategyMultiton::_strategies;
+const CPUStrategy* CPUStrategyMultiton::_default_strategy = NULL;
 
-const ClosestBallCPUStrategy& CPUStrategyMultiton::get_closest_ball_cpu_strategy_instance()
+CPUStrategyMultiton::CPUStrategyMultiton()
 {
-	return CPUStrategyMultiton::closest_ball_cpu_strategy;
 }
 
-const FirstBallCPUStrategy& CPUStrategyMultiton::get_first_ball_cpu_strategy_instance()
+void CPUStrategyMultiton::add(const std::string& name, const CPUStrategy* strategy)
 {
-	return CPUStrategyMultiton::first_ball_cpu_strategy;
+	CPUStrategyMultiton::_strategies[name] = strategy;
+}
+
+const CPUStrategy* CPUStrategyMultiton::get(const std::string& name)
+{
+	CPUStrategyMultiton::map_t::const_iterator it = CPUStrategyMultiton::_strategies.find(name);
+
+	if (it == CPUStrategyMultiton::_strategies.end())
+		return CPUStrategyMultiton::_default_strategy;
+
+	return it->second;
+}
+
+const CPUStrategyMultiton::map_t& CPUStrategyMultiton::strategies()
+{
+	return CPUStrategyMultiton::_strategies;
 }

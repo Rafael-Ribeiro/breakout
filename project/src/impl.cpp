@@ -25,6 +25,8 @@
 #include "impl/CPUPlayer.hpp"
 #include "impl/HumanPlayer.hpp"
 
+#include "impl/CPUStrategyMultiton.hpp"
+#include "impl/NullCPUStrategy.hpp"
 #include "impl/ClosestBallCPUStrategy.hpp"
 #include "impl/FirstBallCPUStrategy.hpp"
 

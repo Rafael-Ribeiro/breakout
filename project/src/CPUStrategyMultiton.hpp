@@ -1,14 +1,26 @@
 #pragma once
 
-#include "ClosestBallCPUStrategy.hpp"
-#include "FirstBallCPUStrategy.hpp"
+#include <map>
+#include <string>
+
+class CPUStrategy;
+class NullCPUStrategy;
 
 class CPUStrategyMultiton
 {
-	static const ClosestBallCPUStrategy closest_ball_cpu_strategy;
-	static const FirstBallCPUStrategy first_ball_cpu_strategy;
-
 public:
-	static const ClosestBallCPUStrategy& get_closest_ball_cpu_strategy_instance();
-	static const FirstBallCPUStrategy& get_first_ball_cpu_strategy_instance();
+	typedef std::map<const std::string, const CPUStrategy*> map_t;
+
+	static void add(const std::string& name, const CPUStrategy* strategy);
+	static const CPUStrategy* get(const std::string& name);
+
+	static const map_t& strategies();
+
+protected:
+	CPUStrategyMultiton();
+
+	static map_t _strategies;
+	static const CPUStrategy* _default_strategy;
+
+	friend NullCPUStrategy;
 };

@@ -8,11 +8,12 @@ class CPUStrategyMultiton; // forward declaration (CPUStrategyMultiton already i
 
 class ClosestBallCPUStrategy : public CPUStrategy
 {
-	friend CPUStrategyMultiton;
+	static ClosestBallCPUStrategy instance;
 
 protected:
 	ClosestBallCPUStrategy();
 
 public:
+	const ClosestBallCPUStrategy& get_instance();
 	void step(Player &player, const BreakoutWorld &world, const double &dt) const;
 };

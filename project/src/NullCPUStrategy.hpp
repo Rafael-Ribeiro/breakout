@@ -1,4 +1,5 @@
 #pragma once
+#pragma once
 
 #include "BreakoutWorld.hpp"
 #include "CPUStrategy.hpp"
@@ -6,14 +7,14 @@
 
 class CPUStrategyMultiton; // forward declaration (CPUStrategyMultiton already includes CPUStrategy)
 
-class FirstBallCPUStrategy : public CPUStrategy
+class NullCPUStrategy : public CPUStrategy
 {
-	static FirstBallCPUStrategy instance;
+	static NullCPUStrategy instance;
 
 protected:
-	FirstBallCPUStrategy();
+	NullCPUStrategy();
 
 public:
-	const FirstBallCPUStrategy& get_instance();
+	const NullCPUStrategy& get_instance();
 	void step(Player &player, const BreakoutWorld &world, const double &dt) const;
 };

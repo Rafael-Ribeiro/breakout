@@ -1,7 +1,17 @@
 #include "../ClosestBallCPUStrategy.hpp"
 
+#include "../CPUStrategyMultiton.hpp"
+
+ClosestBallCPUStrategy ClosestBallCPUStrategy::instance;
+
 ClosestBallCPUStrategy::ClosestBallCPUStrategy()
 {
+	CPUStrategyMultiton::add("Closest Ball", this);
+}
+
+const ClosestBallCPUStrategy& ClosestBallCPUStrategy::get_instance()
+{
+	return ClosestBallCPUStrategy::instance;
 }
 
 void ClosestBallCPUStrategy::step(Player &player, const BreakoutWorld &world, const double &dt) const
