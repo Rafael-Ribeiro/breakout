@@ -190,7 +190,37 @@ void FireBonus::execute(BreakoutWorld& world, Player& player)
 		(*it)->set_state(new FireBallState());
 }
 
+GlassBonus::GlassBonus(const Point &initial_position, const Vector& initial_velocity)
+	: Bonus(initial_position, initial_velocity)
+{
+}
 
+void GlassBonus::draw(QPainter& painter) const
+{
+	QColor brush_color = QColor(0x55, 0x55, 0xff);
+	QColor pen_color = brush_color.darker(150);
+
+	painter.setBrush(QBrush(brush_color));
+	painter.setPen(pen_color);
+
+	painter.drawRect
+	(
+		this->position().x() - this->hwidth() + 0.5,
+		this->position().y() - this->hheight() + 0.5,
+		this->width() - 1,
+		this->height() -1
+	);
+}
+
+void GlassBonus::execute(BreakoutWorld& world, Player& player)
+{
+	set<Brick*>::iterator it = world.bricks().begin();
+	set<Brick*>::iterator end = world.bricks().end();
+	
+	for (; it != end; ++it)
+		if (!dynamic_cast<ConcreteBrickState*>((*it)->state()))
+			(*it)->set_state(new GlassBrickState());
+}
 
 WidthBonus::WidthBonus(const Point &initial_position, const Vector& initial_velocity)
 	: Bonus(initial_position, initial_velocity)
@@ -221,8 +251,7 @@ void WidthBonus::execute(BreakoutWorld& world, Player& player)
 
 Bonus* BonusFactory::make_random_bonus(const Point &initial_position, const Vector& initial_velocity)
 {
-	int choice = random_int(0, 5);
-	cout << choice << endl;
+	int choice = random_int(0, 6);
 
 	switch (choice)
 	{
@@ -244,6 +273,10 @@ Bonus* BonusFactory::make_random_bonus(const Point &initial_position, const Vect
 
 		case 4:
 			return BonusFactory::make_fire_bonus(initial_position, initial_velocity);
+			break;
+
+		case 5:
+			return BonusFactory::make_glass_bonus(initial_position, initial_velocity);
 			break;
 
 		default:
@@ -275,6 +308,11 @@ PhantomBonus* BonusFactory::make_phantom_bonus(const Point &initial_position, co
 FireBonus* BonusFactory::make_fire_bonus(const Point &initial_position, const Vector& initial_velocity)
 {
 	return new FireBonus(initial_position, initial_velocity);
+}
+
+GlassBonus* BonusFactory::make_glass_bonus(const Point &initial_position, const Vector& initial_velocity)
+{
+	return new GlassBonus(initial_position, initial_velocity);
 }
 
 WidthBonus* BonusFactory::make_width_bonus(const Point &initial_position, const Vector& initial_velocity)

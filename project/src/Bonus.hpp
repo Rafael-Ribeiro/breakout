@@ -71,6 +71,15 @@ public:
 	void execute(BreakoutWorld& world, Player& player);
 };
 
+class GlassBonus : public Bonus
+{
+public:
+	GlassBonus(const Point &initial_position, const Vector& initial_velocity);
+
+	void draw(QPainter& painter) const;
+	void execute(BreakoutWorld& world, Player& player);
+};
+
 class WidthBonus : public Bonus
 {
 public:
@@ -91,6 +100,9 @@ public:
 	static BallBonus* make_ball_bonus(const Point &initial_position, const Vector& initial_velocity);
 	static PhantomBonus* make_phantom_bonus(const Point &initial_position, const Vector& initial_velocity);
 	static FireBonus* make_fire_bonus(const Point &initial_position, const Vector& initial_velocity);
+
+	/* adds effects to bricks*/
+	static GlassBonus* make_glass_bonus(const Point &initial_position, const Vector& initial_velocity);
 
 	/* adds effects to paddles */
 	static WidthBonus* make_width_bonus(const Point &initial_position, const Vector& initial_velocity);

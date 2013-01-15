@@ -11,7 +11,6 @@ const unsigned int BreakoutWorld::HEIGHT = 768;
 
 BreakoutWorld::BreakoutWorld() : World()
 {
-
 	Paddle *player_1_paddle = PaddleFactory::makeNormalPaddle(Point(512, 748));
 	this->add(player_1_paddle);
 
@@ -51,7 +50,7 @@ void BreakoutWorld::add(Body *body)
 
 	Bonus* bonus = dynamic_cast<Bonus*>(body);
 	if (bonus)
-		this->_bonuses.erase(bonus);
+		this->_bonuses.insert(bonus);
 
 }
 
@@ -96,6 +95,7 @@ void BreakoutWorld::clear()
 	{
 		Body *b = *this->_bonuses.begin();
 		this->remove(b);
+
 		delete b;
 	}
 }
@@ -231,7 +231,7 @@ void BreakoutWorld::collision_handle(Contact &contact)
 				ball_a->hit(*paddle_b->player());
 
 				/* push the ball */
-				ball_a->position() += paddle_b->velocity() * contact.toc();
+				ball_a->position() += paddle_b->velocity() * -contact.toc();
 
 				goto cleanup;
 			}
@@ -257,7 +257,7 @@ void BreakoutWorld::collision_handle(Contact &contact)
 				Vector velocity = (ball_a->last_player()->paddle()->position() - brick_b->position()).normalize() * Bonus::BASE_VELOCITY;
 
 				if (random_int(0, 3) == 0)
-					this->add(BonusFactory::make_random_bonus(brick_b->position(), velocity));  
+					this->add(BonusFactory::make_random_bonus(brick_b->position(), velocity));
 			}
 
 			if (glass || (phantom && !concrete))
@@ -455,9 +455,8 @@ void BreakoutWorld::step(const double& dt)
 	super::step(dt);
 
 	set<Ball*>::iterator it = this->_balls.begin();
-	set<Ball*>::iterator end = this->_balls.end();
 	
-	for (; it != end; it++)
+	while (it != this->_balls.end())
 	{
 		if ((*it)->position().x() - (*it)->radius() <= 0)
 		{
@@ -472,14 +471,17 @@ void BreakoutWorld::step(const double& dt)
 
 		bool delete_ball = false;
 
-		if ((*it)->position().y() <= 0)
+		set<Ball*>::iterator prev = it;
+		it++;
+
+		if ((*prev)->position().y() <= 0)
 		{
 			delete_ball = true;
 
 			// TODO: SCORE
 			cout << "SCORE 2" << endl;
 
-		} else if ((*it)->position().y() >= BreakoutWorld::HEIGHT)
+		} else if ((*prev)->position().y() >= BreakoutWorld::HEIGHT)
 		{
 			delete_ball = true;
 
@@ -489,21 +491,24 @@ void BreakoutWorld::step(const double& dt)
 
 		if (delete_ball)
 		{
-			this->remove(*it);
-			delete *it;
+			this->remove(*prev);
+			delete *prev;
 		}
 
 	}
 	
 	set<Bonus*>::iterator it_bonus = this->_bonuses.begin();
-	set<Bonus*>::iterator end_bonus = this->_bonuses.end();
 	
-	for (; it_bonus != end_bonus; it_bonus++)
+	while (it_bonus != this->_bonuses.end())
 	{
-		if ((*it)->position().y() < 0 || (*it)->position().y() > BreakoutWorld::HEIGHT)
+		set<Bonus*>::iterator prev = it_bonus;
+		it_bonus++;
+
+		if ((*prev)->position().y() < 0 || (*prev)->position().y() > BreakoutWorld::HEIGHT)
 		{
-			this->remove(*it);
-			delete *it;
+
+			this->remove(*prev);
+			delete *prev;
 		}
 	}
 

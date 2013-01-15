@@ -11,6 +11,7 @@
 
 class BrickFactory; // forward declaration (used "too soon")
 class BreakoutWorld;
+class GlassBonus;
 
 class Brick : public Box, public Drawable
 {
@@ -18,7 +19,8 @@ class Brick : public Box, public Drawable
 
 	friend BrickFactory;
 	friend BreakoutWorld;
-
+	friend GlassBonus;
+	
 protected:
 	Brick(const Point &initial_position);
 	void set_state(BrickState* state);

@@ -86,7 +86,7 @@ void ConcreteBrickState::draw(QPainter& painter) const
 	QColor brush_color(0xB8, 0xB8, 0xB8);
 	QColor pen_color = brush_color.darker(150);
 
-	painter.setBrush(QBrush(brush_color));
+	painter.setBrush(QBrush(brush_color, Qt::Dense5Pattern));
 	painter.setPen(pen_color);
 
 	painter.drawRect
