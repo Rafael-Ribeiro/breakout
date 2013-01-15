@@ -32,6 +32,10 @@ void BreakoutFrame::keyPressEvent(QKeyEvent * event)
 
 void BreakoutFrame::keyReleaseEvent(QKeyEvent * event)
 {
+	// FIXME
+	if (event->key() == Qt::Key::Key_Escape)
+		exit(0);
+
 	Keyboard::get_instance().handle_event(event, false);
 }
 

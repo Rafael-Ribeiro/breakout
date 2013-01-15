@@ -22,7 +22,11 @@
 #include "impl/Bonus.hpp"
 
 #include "impl/Player.hpp"
+#include "impl/CPUPlayer.hpp"
 #include "impl/HumanPlayer.hpp"
+
+#include "impl/ClosestBallCPUStrategy.hpp"
+#include "impl/FirstBallCPUStrategy.hpp"
 
 #include "impl/BreakoutApp.hpp"
 #include "impl/BreakoutFrame.hpp"

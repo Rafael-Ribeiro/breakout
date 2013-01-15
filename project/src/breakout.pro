@@ -24,8 +24,13 @@ breakout {
 				Brick.hpp \
 				BrickState.hpp \
 				Circle.hpp \
+				ClosestBallCPUStrategy.hpp \
 				Contact.hpp \
+				CPUPlayer.hpp \
+				CPUStrategy.hpp \
+				CPUStrategyMultiton.hpp \
 				Drawable.hpp \
+				FirstBallCPUStrategy.hpp \
 				HumanPlayer.hpp \
 				Keyboard.hpp \
 				Movable.hpp \
@@ -47,8 +52,12 @@ breakout {
 				impl/Brick.hpp \
 				impl/BrickState.hpp \
 				impl/Circle.hpp \
+				impl/ClosestBallCPUStrategy.hpp \
 				impl/Contact.hpp \
+				impl/CPUPlayer.hpp \
+				impl/CPUStrategyMultiton.hpp \
 				impl/Drawable.hpp \
+				impl/FirstBallCPUStrategy.hpp \
 				impl/HumanPlayer.hpp \
 				impl/Keyboard.hpp \
 				impl/Movable.hpp \
@@ -77,6 +86,7 @@ test {
 				Ball.hpp \
 				BallState.hpp \
 				Body.hpp \
+				Bonus.hpp \				
 				Box.hpp \
 				BreakoutApp.hpp \
 				BreakoutFrame.hpp \
@@ -84,8 +94,13 @@ test {
 				Brick.hpp \
 				BrickState.hpp \
 				Circle.hpp \
+				ClosestBallCPUStrategy.hpp \
 				Contact.hpp \
+				CPUPlayer.hpp \
+				CPUStrategy.hpp \
+				CPUStrategyMultiton.hpp \
 				Drawable.hpp \
+				FirstBallCPUStrategy.hpp \
 				HumanPlayer.hpp \
 				Keyboard.hpp \
 				Movable.hpp \
@@ -99,6 +114,7 @@ test {
 				impl/Ball.hpp \
 				impl/BallState.hpp \
 				impl/Body.hpp \
+				impl/Bonus.hpp \
 				impl/Box.hpp \
 				impl/BreakoutApp.hpp \
 				impl/BreakoutFrame.hpp \
@@ -106,8 +122,12 @@ test {
 				impl/Brick.hpp \
 				impl/BrickState.hpp \
 				impl/Circle.hpp \
+				impl/ClosestBallCPUStrategy.hpp \
 				impl/Contact.hpp \
+				impl/CPUPlayer.hpp \
+				impl/CPUStrategyMultiton.hpp \
 				impl/Drawable.hpp \
+				impl/FirstBallCPUStrategy.hpp \
 				impl/HumanPlayer.hpp \
 				impl/Keyboard.hpp \
 				impl/Movable.hpp \

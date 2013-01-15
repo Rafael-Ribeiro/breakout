@@ -1,3 +1,5 @@
+#pragma once
+
 #include <QKeyEvent>
 
 #include "Paddle.hpp"
@@ -12,5 +14,5 @@ class HumanPlayer : public Player
 public:
 	HumanPlayer(Paddle *paddle, Qt::Key left_key = Qt::Key::Key_Left, Qt::Key right_key = Qt::Key::Key_Right);
 
-	void step(const double &dt);
+	void step(const BreakoutWorld &world, const double &dt);
 };

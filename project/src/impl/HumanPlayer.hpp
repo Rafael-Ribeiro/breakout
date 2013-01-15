@@ -1,3 +1,5 @@
+#include "../common.hpp"
+
 #include "../HumanPlayer.hpp"
 
 #include "../Keyboard.hpp"
@@ -7,8 +9,10 @@ HumanPlayer::HumanPlayer(Paddle *paddle, Qt::Key left_key, Qt::Key right_key)
 {
 }
 
-void HumanPlayer::step(const double &dt)
+void HumanPlayer::step(const BreakoutWorld &world, const double &dt)
 {
+	MARKUSED(world);
+
 	bool key_left = Keyboard::get_instance()[this->left_key];
 	bool key_right = Keyboard::get_instance()[this->right_key];
 

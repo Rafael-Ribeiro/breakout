@@ -2,6 +2,7 @@
 #include <sys/time.h>
 
 #include "jsoncpp/inc/json.h"
+#include "CPUStrategyMultiton.hpp"
 
 #include "../BreakoutWorld.hpp"
 
@@ -19,9 +20,13 @@ BreakoutWorld::BreakoutWorld() : World()
 	this->add(player_2_paddle);
 
 	HumanPlayer *human_player = new HumanPlayer(player_1_paddle);
-	HumanPlayer *human_player2 = new HumanPlayer(player_2_paddle, Qt::Key::Key_A, Qt::Key::Key_D);
 	this->_players[0] = human_player;
-	this->_players[1] = human_player2;
+
+	CPUPlayer *cpu_player = new CPUPlayer(player_2_paddle, &CPUStrategyMultiton::get_closest_ball_cpu_strategy_instance());
+	this->_players[1] = cpu_player;
+
+	// cpu_player = new CPUPlayer(player_1_paddle, &CPUStrategyMultiton::get_closest_ball_cpu_strategy_instance());
+	// this->_players[0] = cpu_player;
 }
 
 void BreakoutWorld::add(Body *body)
@@ -460,7 +465,7 @@ void BreakoutWorld::step(const double& dt)
 
 	for (unsigned int i = 0; i < 2; i++)
 	{
-		this->_players[i]->step(dt);
+		this->_players[i]->step(*this, dt);
 
 		double x_correction = 0;
 		if (this->_players[i]->paddle()->left() < 0)

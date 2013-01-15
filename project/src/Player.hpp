@@ -14,13 +14,13 @@ protected:
 	Player(Paddle *paddle);
 	virtual ~Player();
 
+public:
 	void left();
 	void right();
 	void stop();
 
-public:
 	void redeem(Bonus &bonus, BreakoutWorld& world);
-	virtual void step(const double &dt) = 0;
+	virtual void step(const BreakoutWorld &world, const double &dt) = 0;
 
 	Paddle * const & paddle() const;
 };

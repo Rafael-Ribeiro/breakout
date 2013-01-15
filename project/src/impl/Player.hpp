@@ -12,17 +12,19 @@ Player::~Player()
 
 void Player::left()
 {
-	this->_paddle->velocity() = Vector(-1, 0) * Paddle::VELOCITY;
+	// this->_paddle->velocity() = Vector(-1, 0) * Paddle::VELOCITY;
+	this->_paddle->velocity() += Vector(-20, 0);
 }
 
 void Player::right()
 {
-	this->_paddle->velocity() = Vector(1, 0) * Paddle::VELOCITY;
+	// this->_paddle->velocity() = Vector(1, 0) * Paddle::VELOCITY;
+	this->_paddle->velocity() += Vector(20, 0);
 }
 
 void Player::stop()
 {
-	this->_paddle->velocity() = Vector(0, 0);
+	this->_paddle->velocity() *= 0.5;
 }
 
 void Player::redeem(Bonus &bonus, BreakoutWorld& world)
