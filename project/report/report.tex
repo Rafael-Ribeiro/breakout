@@ -53,38 +53,20 @@
 % \end{center}
 
 \section{Introduction}
+
 \section{Architecture Overview}
-%% TODO: GUI
-% \texttt{BreakoutLauncher}
-% \texttt{BreakoutLauncherPlayer}
-% \texttt{BreakoutGame}
-% \texttt{BreakoutFrame}
+\subsection{GUI}
 
-%% TODO: Physics
-% \texttt{World}
-% \texttt{Body}
-% \texttt{Movable}
-% \texttt{Box}
-% \texttt{Circle}
-% \texttt{Contact}
-% \texttt{AbstractCollisionMediator}
+No inicio da aplicação cria-se um \emph{widget} \texttt{BreakoutLauncher}. Neste, é possível escolher o nível a jogar, definido num ficheiro em formato JSON, e os dois participantes. Ao escolher estas definições é criada a janela principal do jogo \texttt{BreakoutGame} que contém um \texttt{BreakoutFrame}. Em conjunto estes dois objectos permitem a visualização e interação com o estado do jogo \texttt{BreakoutWorld}.
 
-%% TODO: Game
-% \texttt{BreakoutWorld}
-% \texttt{Drawable}
-% \texttt{Paddle} (mention states and PaddleFactory)
-% \texttt{Ball} (mention states and BallFactory)
-% \texttt{Brick} (mention states and BrickFactory)
-% \texttt{Bonus} (mention BonusFactory)
-% \texttt{BallBonus}
-% \texttt{FireBonus}
-% \texttt{GlassBonus}
-% \texttt{PhantomBonus}
-% \texttt{RadiusBonus}
-% \texttt{SpeedBonus}
-% \texttt{WidthBonus}
+\subsection{Physics}
+O \emph{namespace} \texttt{physics} engloba as classes relativas ao motor de física. O mundo, caracterizado pela classe abstracta \texttt{World}, permite a interacção de objectos \texttt{Body}. Dois tipos primitivos de objecto são suportados: \texttt{Body} e \texttt{Circle}. Por si, estes objectos não modelam o conceito de velocidade, existindo para este efeito a classe \texttt{Movable} que pode ser utilizada através de herança múltipla. A cada \emph{step} são actualizadas as posições dos objectos, e procede-se a detecção de colisão. Para tal são utilizadas as funções definidas como \emph{pure virtual} em \texttt{AbstractCollisionMediator}, interface que \texttt{World} extende (mas não implementa). Estas funções manipulam objectos \texttt{Contact}, que representam as propriedades de colissões entre dois objectos \texttt{Body}. 
+
+\subsection{Game}
+Os restantes objectos permitem definir as propriedades do jogo \emph{Breakout}. Para tal são definidos quatro tipos de objecto: \texttt{Paddle}, \texttt{Ball}, \texttt{Brick} e \texttt{Bonus}. Estes extendem por herança uma classe base do \emph{namespace} \texttt{physics} (\texttt{Body} ou \texttt{Ball}) e implementam a interface \texttt{Drawable} que serve como ponto de accesso para a GUI (\texttt{BreakoutFrame}). A criação de objectos deste tipo é facilitada através de \emph{helper classes} \texttt{PaddleFactory}, \texttt{BallFactory}, \texttt{BrickFactory} e \texttt{BonusFactory} respectivamente. Durante o decorrer do jogo as propriedades destes objectos são modificadas. Tal reflecte-se em objectos \texttt{PaddleState}, \texttt{BallState}, \texttt{BrickState}. A transição entre os estados, assim como a modificação de outras propriedades do \texttt{World} acontece quando-se se apanham um objecto \texttt{Bonus}. Estes podem ser \texttt{BallBonus}, \texttt{FireBonus}, \texttt{GlassBonus}, \texttt{RadiusBonus}, \texttt{SpeedBonus}, \texttt{WidthBonus}.
 
 \subsection{Gameplay}
+\label{subsec:gameplay}
 \noindent Por cada \texttt{BreakoutLauncherPlayer}, um \texttt{Player} e um \texttt{Paddle} são criados. A classe \texttt{Player} é abstracta, uma vez que o método \texttt{step} é puramente abstracto; tal acontece para obrigar à sua implementação pelas classes \texttt{HumanPlayer} e \texttt{CPUPlayer}. A classe \texttt{Player} contém 3 métodos que permitem controlar o seu \texttt{Paddle} (\texttt{left}, \texttt{right} e \texttt{stop}), chamados nessa implementação de \texttt{step}. No caso de \texttt{HumanPlayer}, a invocação destas funções é dependente de um método de \textit{input}, o teclado (recorrendo à classe \texttt{Keyboard}); por outro lado, um \texttt{CPUPlayer} vê os seus métodos de controlo invocados por uma \texttt{CPUStrategy} (abstracta). As suas concretizações são \texttt{ClosestBallCPUStrategy} e \texttt{FirstBallCPUStrategy}, estratégias distintas de decisão. O acesso a estas estratégias é feito através de \texttt{CPUStrategyMultiton}, onde as várias estratégias se registam.
 
 \clearpage
@@ -120,6 +102,7 @@
 
 \subsubsection{State}
 %% 
+O \texttt{Brick} possuí três estados: \texttt{GlassBrickState} onde a colisão com qualquer bola parte-o imediatamente sem existir reflecção, \texttt{NormalBrickState} onde este parte após um número de hits pré-definido e \texttt{ConcreteBrickState} um tipo que não pode ser quebrado. De forma similar existem três tipos para \texttt{Ball}. \texttt{NormalBallState} define uma bola que colide com bricks, \texttt{FireBallState} representa uma bola que destroí numa só colisão \texttt{Brick}s que normalmente precisariam multiplas, e \texttt{PhantomBallState} que permite também que as bolas atravessem \texttt{Brick}s sem mudar de direcção. O Paddle apenas possuí um estado \texttt{NormalPaddleState} no entanto este é mantido 
 
 \subsubsection{Strategy}
 %% 

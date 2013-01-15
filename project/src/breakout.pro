@@ -5,7 +5,7 @@
 breakout {
 	QMAKE_CC = g++-4.7
 	QMAKE_CXX = g++-4.7
-	QMAKE_CXXFLAGS += -g -std=c++11 -Wall -Wfatal-errors
+	QMAKE_CXXFLAGS += -O3 -std=c++11 -Wall -Wfatal-errors
 	TEMPLATE = app
 	TARGET = 
 	DEPENDPATH += . impl
@@ -35,6 +35,7 @@ breakout {
 				FirstBallCPUStrategy.hpp \
 				HumanPlayer.hpp \
 				Keyboard.hpp \
+				NullCPUStrategy.hpp \
 				Movable.hpp \
 				Paddle.hpp \
 				PaddleState.hpp \
@@ -64,6 +65,7 @@ breakout {
 				impl/FirstBallCPUStrategy.hpp \
 				impl/HumanPlayer.hpp \
 				impl/Keyboard.hpp \
+				impl/NullCPUStrategy.hpp \
 				impl/Movable.hpp \
 				impl/Paddle.hpp \
 				impl/PaddleState.hpp \	
