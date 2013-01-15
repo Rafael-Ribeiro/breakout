@@ -1,16 +1,18 @@
+#pragma once
+
 #include <QKeyEvent>
 
+#include "CPUStrategy.hpp"
 #include "Paddle.hpp"
 
 class CPUPlayer : public Player
 {
 	typedef Player super;
 
-	Qt::Key left_key;
-	Qt::Key right_key;
+	const CPUStrategy *strategy;
 
 public:
-	CPUPlayer(Paddle *paddle);
+	CPUPlayer(Paddle *paddle, const CPUStrategy *strategy);
 
-	void step(const double &dt);
+	void step(const BreakoutWorld &world, const double &dt);
 };
