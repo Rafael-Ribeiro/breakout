@@ -12,5 +12,5 @@ class HumanPlayer : public Player
 public:
 	HumanPlayer(Paddle *paddle, Qt::Key left_key = Qt::Key::Key_Left, Qt::Key right_key = Qt::Key::Key_Right);
 
-	void step(const double &dt) = 0;
+	void step(const double &dt);
 };

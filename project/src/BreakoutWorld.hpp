@@ -5,6 +5,7 @@
 #include "Ball.hpp"
 #include "Brick.hpp"
 #include "Paddle.hpp"
+#include "Player.hpp"
 
 class BreakoutWorld : public World
 {
@@ -13,6 +14,7 @@ class BreakoutWorld : public World
 	set<Ball*> _balls;
 	set<Brick*> _bricks;
 	set<Paddle*> _paddles;
+	Player* _players[2];
 
 public:
 	static const unsigned int WIDTH;

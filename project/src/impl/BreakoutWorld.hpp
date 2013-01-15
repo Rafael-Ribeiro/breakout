@@ -18,6 +18,10 @@ BreakoutWorld::BreakoutWorld() : World()
 
 	Paddle *player_1_paddle = PaddleFactory::makeNormalPaddle(Point(512, 748));
 	this->add(player_1_paddle);
+
+	HumanPlayer *human_player = new HumanPlayer(player_1_paddle);
+	this->_players[0] = human_player;
+	this->_players[1] = NULL;
 }
 
 void BreakoutWorld::add(Body *body)
@@ -393,5 +397,25 @@ void BreakoutWorld::step(const double& dt)
 			delete *it;
 		}
 
+	}
+
+	// TODO: two players (2nd one is null now)
+	// for (unsigned int i = 0; i < 2; i++)
+	for (unsigned int i = 0; i < 1; i++)
+	{
+		this->_players[i]->step(dt);
+
+		double x_correction = 0;
+		if (this->_players[i]->paddle()->left() < 0)
+			x_correction = -this->_players[i]->paddle()->left();
+
+		else if (this->_players[i]->paddle()->right() > BreakoutWorld::WIDTH)
+			x_correction = BreakoutWorld::WIDTH - this->_players[i]->paddle()->right();
+
+		if (x_correction != 0)
+		{
+			this->_players[i]->paddle()->position() += Vector(x_correction, 0);
+			this->_players[i]->paddle()->velocity() = Vector(0, 0);
+		}
 	}
 }
