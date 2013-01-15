@@ -19,6 +19,8 @@
 #include "impl/Paddle.hpp"
 #include "impl/PaddleState.hpp"
 
+#include "impl/Bonus.hpp"
+
 #include "impl/Player.hpp"
 #include "impl/HumanPlayer.hpp"
 

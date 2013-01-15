@@ -10,10 +10,12 @@
 #include "BallState.hpp"
 
 class BallFactory; // forward declaration (used "too soon")
+class Player;
 
 class Ball : public Circle, public Movable, public Drawable
 {
 	BallState* state;
+	Player* last_player;
 
 	friend BallFactory;
 

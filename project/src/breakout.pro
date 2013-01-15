@@ -16,6 +16,7 @@ breakout {
 				Ball.hpp \
 				BallState.hpp \
 				Body.hpp \
+				Bonus.hpp \				
 				Box.hpp \
 				BreakoutApp.hpp \
 				BreakoutFrame.hpp \
@@ -38,6 +39,7 @@ breakout {
 				impl/Ball.hpp \
 				impl/BallState.hpp \
 				impl/Body.hpp \
+				impl/Bonus.hpp \
 				impl/Box.hpp \
 				impl/BreakoutApp.hpp \
 				impl/BreakoutFrame.hpp \

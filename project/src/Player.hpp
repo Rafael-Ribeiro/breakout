@@ -7,7 +7,7 @@ class Bonus;
 
 class Player
 {
-	Paddle *paddle;
+	Paddle *_paddle;
 	unsigned int score;
 
 protected:
@@ -21,4 +21,6 @@ protected:
 public:
 	void redeem(Bonus &bonus);
 	virtual void step(const double &dt) = 0;
+
+	Paddle * const & paddle() const;
 };

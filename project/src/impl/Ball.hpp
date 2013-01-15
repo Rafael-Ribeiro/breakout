@@ -1,5 +1,7 @@
 #include "../Ball.hpp"
 
+#include "../Player.hpp"
+
 const double Ball::BASE_RADIUS = 10.0;
 const double Ball::BASE_VELOCITY = 300.0;
 

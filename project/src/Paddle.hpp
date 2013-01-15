@@ -21,20 +21,21 @@ class Paddle : public Box, public Movable, public Drawable
 	friend PaddleFactory;
 	friend Player;
 
-	Player *player;
+	Player *_player;
 	PaddleState *state;
 
 protected:
 	Paddle(const Point &initial_position);
 
-	void set_player(Player *player);
+	Player*& player();
 	void set_state(PaddleState *state);
 
 public:
 	virtual ~Paddle();
 
 	PaddleState const * get_state() const;
-		
+	Player* const & player() const;
+
 	void draw(QPainter& painter) const;
 };
 

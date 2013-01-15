@@ -5,7 +5,7 @@ const unsigned int Paddle::BASE_HEIGHT = 10;
 const double Paddle::VELOCITY = 400.0;
 
 Paddle::Paddle(const Point &initial_position)
-	: Box(Paddle::BASE_WIDTH, Paddle::BASE_HEIGHT), Movable(Vector(0, 0)), Drawable(), player(NULL), state(NULL)
+	: Box(Paddle::BASE_WIDTH, Paddle::BASE_HEIGHT), Movable(Vector(0, 0)), Drawable(), _player(NULL), state(NULL)
 {
 	this->init(initial_position);
 }
@@ -15,10 +15,14 @@ Paddle::~Paddle()
 	delete this->state;
 }
 
-void Paddle::set_player(Player *player)
+Player* & Paddle::player()
 {
-	assert(!this->player);
-	this->player = player;
+	return this->_player;
+}
+
+Player* const & Paddle::player() const
+{
+	return this->_player;
 }
 
 void Paddle::set_state(PaddleState *state)
