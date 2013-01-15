@@ -11,7 +11,6 @@ const unsigned int BreakoutWorld::HEIGHT = 768;
 
 BreakoutWorld::BreakoutWorld() : World()
 {
-	this->load_level("../levels/level1.json");
 
 	Paddle *player_1_paddle = PaddleFactory::makeNormalPaddle(Point(512, 748));
 	this->add(player_1_paddle);
@@ -22,11 +21,16 @@ BreakoutWorld::BreakoutWorld() : World()
 	HumanPlayer *human_player = new HumanPlayer(player_1_paddle);
 	this->_players[0] = human_player;
 
-	CPUPlayer *cpu_player = new CPUPlayer(player_2_paddle, &CPUStrategyMultiton::get_closest_ball_cpu_strategy_instance());
-	this->_players[1] = cpu_player;
+	human_player = new HumanPlayer(player_2_paddle, Qt::Key::Key_A, Qt::Key::Key_D);
+	this->_players[1] = human_player;
+
+	// CPUPlayer *cpu_player = new CPUPlayer(player_2_paddle, &CPUStrategyMultiton::get_closest_ball_cpu_strategy_instance());
+	// this->_players[1] = cpu_player;
 
 	// cpu_player = new CPUPlayer(player_1_paddle, &CPUStrategyMultiton::get_closest_ball_cpu_strategy_instance());
 	// this->_players[0] = cpu_player;
+
+	this->restart();
 }
 
 void BreakoutWorld::add(Body *body)
@@ -70,6 +74,36 @@ void BreakoutWorld::remove(Body *body)
 	Bonus* bonus = dynamic_cast<Bonus*>(body);
 	if (bonus)
 		this->_bonuses.erase(bonus);
+}
+
+void BreakoutWorld::clear()
+{
+	while (!this->_balls.empty())
+	{
+		Body *b = *this->_balls.begin();
+		this->remove(b);
+		delete b;
+	}
+
+	while (!this->_bricks.empty())
+	{
+		Body *b = *this->_bricks.begin();
+		this->remove(b);
+		delete b;
+	}
+
+	while (!this->_bonuses.empty())
+	{
+		Body *b = *this->_bonuses.begin();
+		this->remove(b);
+		delete b;
+	}
+}
+
+void BreakoutWorld::restart()
+{
+	this->clear();
+	this->load_level("../levels/level1.json");
 }
 
 bool BreakoutWorld::collision_filter(Body &a, Body &b)
@@ -185,9 +219,19 @@ void BreakoutWorld::collision_handle(Contact &contact)
 
 			if (paddle_b)
 			{
-				ball_a->position() += paddle_b->velocity() * -contact.toc();
-				ball_a->velocity() = normal.reflect(ball_a->velocity());
+				double velocity = ball_a->velocity().length();
+
+				Vector dp = ball_a->position() - paddle_b->position();
+
+				double vy = ball_a->velocity().y() > 0 ? -1 : 1;
+				double vx = dp.x() / paddle_b->width() * 2;
+
+
+				ball_a->velocity() = Vector(vx, vy).normalize() * velocity;
 				ball_a->hit(*paddle_b->player());
+
+				/* push the ball */
+				ball_a->position() += paddle_b->velocity() * -contact.toc();
 
 				goto cleanup;
 			}
@@ -212,7 +256,7 @@ void BreakoutWorld::collision_handle(Contact &contact)
 			{
 				Vector velocity = (ball_a->last_player()->paddle()->position() - brick_b->position()).normalize() * Bonus::BASE_VELOCITY;
 
-				if (random_int(0, 5) == 0)
+				if (random_int(0, 3) == 0)
 					this->add(BonusFactory::make_random_bonus(brick_b->position(), velocity));  
 			}
 
@@ -454,7 +498,7 @@ void BreakoutWorld::step(const double& dt)
 	set<Bonus*>::iterator it_bonus = this->_bonuses.begin();
 	set<Bonus*>::iterator end_bonus = this->_bonuses.end();
 	
-	for (; it != end; it++)
+	for (; it_bonus != end_bonus; it_bonus++)
 	{
 		if ((*it)->position().y() < 0 || (*it)->position().y() > BreakoutWorld::HEIGHT)
 		{
@@ -480,4 +524,8 @@ void BreakoutWorld::step(const double& dt)
 			this->_players[i]->paddle()->velocity() = Vector(0, 0);
 		}
 	}
+
+	if (this->_balls.size() == 0)
+		this->restart();
+
 }

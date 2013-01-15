@@ -3,6 +3,7 @@
 #include "../Player.hpp"
 
 const double Ball::BASE_RADIUS = 10.0;
+const double Ball::MAX_RADIUS = 20.0;
 const double Ball::BASE_VELOCITY = 300.0;
 
 Ball::Ball(const Point &initial_position, const Vector &initial_velocity)
@@ -42,6 +43,11 @@ void Ball::draw(QPainter& painter) const
 void Ball::hit(Player& player)
 {
 	this->_last_player = &player;
+}
+
+void Ball::grow()
+{
+	this->radius() = min(Ball::MAX_RADIUS, this->radius() * 1.5);
 }
 
 Ball* BallFactory::makeNormalBall(const Point &initial_position, const Vector &initial_velocity)

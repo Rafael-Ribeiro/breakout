@@ -44,8 +44,8 @@
 		"                   ",
 		"                   ",
 		"                   ",
-		"rrrrkkkkgggkkkkrrrr",
-		"rrrkkkkk   kkkkkrrr",
+		"rrrrkkkgggggkkkrrrr",
+		"rrrkkkkg   gkkkkrrr",
 		"rrkkkkk     kkkkkrr",
 		"rkkkkkk     kkkkkkr",
 		"kkkkkkk     kkkkkkk",
@@ -62,8 +62,8 @@
 		"kkkkkkk     kkkkkkk",
 		"rkkkkkk     kkkkkkr",
 		"rrkkkkk     kkkkkrr",
-		"rrrkkkkk   kkkkkrrr",
-		"rrrrkkkkgggkkkkrrrr",
+		"rrrkkkkg   gkkkkrrr",
+		"rrrrkkkgggggkkkrrrr",
 		"                   ",
 		"                   ",
 		"                   ",
@@ -84,7 +84,16 @@
 			"position":
 			{
 				"x": 512.0,
-				"y": 384.0
+				"y": 364.0
+			}
+		},
+		{
+			"type": "normal",
+			"radius": 5,
+			"position":
+			{
+				"x": 512.0,
+				"y": 404.0
 			}
 		}
 	]

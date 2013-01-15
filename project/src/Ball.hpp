@@ -32,6 +32,7 @@ protected:
 	BallState * const & state() const;
 
 public:
+	static const double MAX_RADIUS;
 	static const double BASE_RADIUS;
 	static const double BASE_VELOCITY;
 
@@ -40,6 +41,8 @@ public:
 	Player* const & last_player() const;
 
 	void hit(Player& player);
+	void grow();
+
 	void draw(QPainter& painter) const;
 };
 

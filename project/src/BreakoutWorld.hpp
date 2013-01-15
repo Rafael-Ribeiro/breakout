@@ -26,6 +26,10 @@ public:
 	void add(Body *body);
 	void remove(Body *body);
 
+	void clear();
+	void restart();
+	bool load_level(string level_filename_path);
+
 	bool collision_filter(Body &a, Body &b);
 	bool collision_updates_physics(Body &a, Body &other);
 	void collision_handle(Contact &contact);
@@ -34,8 +38,6 @@ public:
 	const set<Brick*>& bricks() const;
 	const set<Paddle*>& paddles() const;
 	const set<Bonus*>& bonuses() const;
-
-	bool load_level(string level_filename_path);
 
 	virtual void step(const double& dt);
 };

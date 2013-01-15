@@ -77,7 +77,7 @@ void RadiusBonus::execute(BreakoutWorld& world, Player& player)
 	set<Ball*>::iterator end = world.balls().end();
 	
 	for (; it != end; it++)
-		(*it)->radius() *= 2;
+		(*it)->grow();
 }
 
 
@@ -222,6 +222,7 @@ void WidthBonus::execute(BreakoutWorld& world, Player& player)
 Bonus* BonusFactory::make_random_bonus(const Point &initial_position, const Vector& initial_velocity)
 {
 	int choice = random_int(0, 5);
+	cout << choice << endl;
 
 	switch (choice)
 	{

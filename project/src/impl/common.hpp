@@ -5,9 +5,9 @@
 
 int random_int(int min, int max)
 {
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-  	std::default_random_engine generator (seed);
-	std::uniform_int_distribution<int> distribution(min, max);
+    std::random_device rd;
+    std::mt19937 gen(rd());
+   	std::uniform_int_distribution<int> distribution(min, max);
 
-	return distribution(generator);
+	return distribution(gen);
 }
