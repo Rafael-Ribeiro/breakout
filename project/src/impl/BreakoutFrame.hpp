@@ -4,6 +4,9 @@
 #include <QApplication>
 #include <QDesktopWidget>
 
+#include <string>
+#include <sstream>
+
 #include "../Keyboard.hpp"
 
 BreakoutFrame::BreakoutFrame(const BreakoutWorld *world, QWidget *parent)
@@ -48,8 +51,6 @@ void BreakoutFrame::paintEvent(QPaintEvent *event)
 
 	QPainter painter(this);
 
-
-
 	unsigned int dx = (this->width() - BreakoutWorld::WIDTH) / 2;
 	unsigned int dy = (this->height() - BreakoutWorld::HEIGHT) / 2;
 
@@ -65,4 +66,17 @@ void BreakoutFrame::paintEvent(QPaintEvent *event)
 
 	for (; it != end; it++)
 		(*it)->draw(painter);
+
+	const unsigned int font_size = 40;
+	painter.setFont(QFont("Helvetica [Cronyx]", font_size, QFont::Bold));
+
+	painter.setPen(QColor("black"));
+
+	stringstream score_1;
+	score_1 << this->world->players()[0]->score();
+	painter.drawText(QPoint(BreakoutWorld::WIDTH + 50, BreakoutWorld::HEIGHT/2 + 100 + font_size/2), score_1.str().c_str());
+
+	stringstream score_2;
+	score_2 << this->world->players()[1]->score();
+	painter.drawText(QPoint(BreakoutWorld::WIDTH + 50, BreakoutWorld::HEIGHT/2 - 100 + font_size/2), score_2.str().c_str());
 }

@@ -45,6 +45,7 @@ public:
 	const set<Paddle*>& paddles() const;
 	const set<Bonus*>& bonuses() const;
 	const set<Drawable*>& drawables() const;
+	Player* const * players() const; 
 
 	virtual void step(const double& dt);
 };
