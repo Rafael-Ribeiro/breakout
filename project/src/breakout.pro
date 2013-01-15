@@ -66,7 +66,7 @@ breakout {
 				impl/Keyboard.hpp \
 				impl/Movable.hpp \
 				impl/Paddle.hpp \
-				impl/PaddleState.hpp \
+				impl/PaddleState.hpp \	
 				impl/Player.hpp \
 				impl/State.hpp \
 				impl/Vector.hpp \

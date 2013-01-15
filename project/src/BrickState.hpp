@@ -11,8 +11,11 @@ class BrickState : public State
 protected:
 	Brick* brick;
 
+public:
 	virtual ~BrickState();
 	void set_brick(Brick* brick);
+
+	virtual BrickState * clone() const = 0 ;
 
 	virtual bool hit_once() = 0;
 	virtual bool hit_all() = 0;
@@ -24,8 +27,11 @@ class NormalBrickState : public BrickState
 	unsigned int _hits;
 	unsigned int _remaining;
 
+
 public:
 	NormalBrickState(QColor color, unsigned int hits);
+
+	BrickState * clone() const;
 
 	void draw(QPainter& painter) const;
 	bool hit_once();
@@ -35,6 +41,8 @@ public:
 class GlassBrickState : public BrickState
 {
 public:
+	BrickState * clone() const;
+
 	void draw(QPainter& painter) const;
 	bool hit_once();
 	bool hit_all();
@@ -43,6 +51,8 @@ public:
 class ConcreteBrickState : public BrickState
 {
 public:
+	BrickState * clone() const;
+
 	void draw(QPainter& painter) const;
 	bool hit_once();
 	bool hit_all();

@@ -9,6 +9,14 @@ Brick::Brick(const Point &initial_position)
 	this->init(initial_position);
 }
 
+Brick * Brick::clone()
+{
+	Brick * brick = new Brick(this->position());
+	brick->set_state(this->_state->clone());
+
+	return brick;
+}
+
 Brick::~Brick()
 {
 	delete this->_state;

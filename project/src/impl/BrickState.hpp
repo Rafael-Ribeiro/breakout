@@ -16,6 +16,14 @@ NormalBrickState::NormalBrickState(QColor color, unsigned int hits)
 {	
 }
 
+BrickState* NormalBrickState::clone() const
+{
+	NormalBrickState *state = new NormalBrickState(this->_color, this->_hits);
+	state->_remaining = this->_remaining;
+
+	return state;
+}
+
 bool NormalBrickState::hit_once()
 {
 	this->_remaining--;
@@ -44,6 +52,11 @@ void NormalBrickState::draw(QPainter& painter) const
 	);
 }
 
+BrickState* GlassBrickState::clone() const
+{
+	return new GlassBrickState();
+}
+
 bool GlassBrickState::hit_once()
 {
 	return true;
@@ -69,6 +82,11 @@ void GlassBrickState::draw(QPainter& painter) const
 		this->brick->width() - 1,
 		this->brick->height() -1
 	);
+}
+
+BrickState* ConcreteBrickState::clone() const
+{
+	return new ConcreteBrickState();
 }
 
 bool ConcreteBrickState::hit_once()

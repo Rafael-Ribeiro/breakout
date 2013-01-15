@@ -23,11 +23,13 @@ class Brick : public Box, public Drawable
 	
 protected:
 	Brick(const Point &initial_position);
-	void set_state(BrickState* state);
 
+	void set_state(BrickState* state);
 	BrickState * const & state() const;
 
 public:
+	Brick * clone();
+
 	static const unsigned int BASE_WIDTH;
 	static const unsigned int BASE_HEIGHT;
 
