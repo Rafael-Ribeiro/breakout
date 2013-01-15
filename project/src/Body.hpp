@@ -2,6 +2,7 @@
 
 #include "Contact.hpp"
 #include "Point.hpp"
+#include "BodyMemento.hpp"
 
 /* forward declarations */
 class Box;
@@ -26,6 +27,9 @@ public:
 
 	Point& position();
 	const Point& position() const;
+
+	virtual BodyMemento save() const;
+	virtual void restore(const BodyMemento& memento);
 
 	Contact get_collision_contact(Body &other, const double &dt); 
 

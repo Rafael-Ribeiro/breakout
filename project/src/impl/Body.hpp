@@ -32,6 +32,16 @@ const Point& Body::position() const
 	return this->_position;
 }
 
+BodyMemento Body::save() const
+{
+	return BodyMemento(this->_position);
+}
+
+void Body::restore(const BodyMemento& memento)
+{
+	this->_position = memento.position;
+}
+
 void Body::step(const double &dt)
 {
 	MARKUSED(dt);
@@ -143,8 +153,8 @@ Contact Body::get_collision_contact(Box &b, Circle &c, const double& dt)
 	double high = 0;
 	double middle;
 
-	Point bp = b.position();
-	Point cp = c.position();
+	BodyMemento b_memento = b.save();
+	BodyMemento c_memento = c.save();
 
 	while (delta_t > numeric_limits<double>::epsilon())
 	{
@@ -159,8 +169,8 @@ Contact Body::get_collision_contact(Box &b, Circle &c, const double& dt)
 		else
 			low = middle;
 
-		b.position() = bp;
-		c.position() = cp;
+		b.restore(b_memento);
+		c.restore(c_memento);
 	}
 
 	b.step(high);
@@ -201,8 +211,8 @@ Contact Body::get_collision_contact(Box &b, Circle &c, const double& dt)
 			normal = Vector(0, 1);
 	}
 
-	b.position() = bp;
-	c.position() = cp;
+	b.restore(b_memento);
+	c.restore(c_memento);
 
 	return Contact(high, normal, &b, &c);
 }
