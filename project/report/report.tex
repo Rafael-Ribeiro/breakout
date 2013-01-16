@@ -28,6 +28,7 @@
 \usepackage[pdftex]{graphicx}
 \usepackage[table]{xcolor}
 \usepackage{caption}
+\usepackage{pdfpages}
 
 \marginsize{3.5cm}{3.5cm}{3cm}{3cm}
 
@@ -89,8 +90,7 @@ Os restantes objectos permitem definir as propriedades do jogo \emph{Breakout}. 
 \noindent Este padrão encontra-se patente no \textit{handling} de \textit{key events}, uma vez que estes são \textit{handled} pelo \texttt{BreakoutFrame} antes de, caso não sejam tratados pelo mesmo, serem responsabilizados à classe \texttt{Keyboard}. Esta classe, em última instância, modifica o seu estado interno de acordo com as teclas premidas actualmente no teclado. A implementação do CoR pareceu-nos óbvia neste contexto, uma vez que algumas teclas têm o seu comportamento mapeado à aplicação, enquanto que algumas devem ser tratadas pela janela de jogo apenas.
 
 \subsubsection{Mediator}
-%% TODO
-\noindent TODO
+\noindent O pattern \texttt{Mediator} é utilizado para facilitar o \emph{decoupling} objectos, mantendo a capacidade de comunicação entre eles. No nosso caso é utilizado para o \emph{handling} das colisões entre objectos. \texttt{BreakoutWorld} assume o \emph{role} de \texttt{Mediator} e implementa a interface \texttt{AbstractCollisionMediator}. Através dos métodos \texttt{add()/remove()} os objectos \texttt{Body} (\texttt{Participant}) podem se registar como entidades que collidem com outras entidades. O mediator é responsável por filtrar colisões entre pares de objectos, e decidir como proceder para a resolução de cada uma.
 
 \subsubsection{Memento}
 \noindent Na detecção de colisões por parte do motor físico, um dos métodos necessita de fazer uma procura binária que necessita de, temporariamente, modificar a posição de dois objectos (os objectos a testar). Como tal, implementámos o padrão de projecto \texttt{Memento} como forma de guardar o estado dos corpos antes do teste para poder, após o teste, ser restaurado no corpo para que este continue intacto na simulação.
@@ -99,8 +99,9 @@ Os restantes objectos permitem definir as propriedades do jogo \emph{Breakout}. 
 \noindent Após a implementação das estratégias de \texttt{ClosestBallCPUStrategy} e \texttt{FirstBallCPUStrategy}, tornou-se evidente a necessidade de implementar uma estratégia neutra ao funcionamento do jogo, a NullCPUStrategy. Esta estratégia é devolvida pelo \texttt{CPUStrategyMultiton} aquando da tentativa de aceder a uma estratégia inexistste, de forma a que a invocação dos métodos sobre a estratégia seja inerte.
 
 \subsubsection{State}
-O \texttt{Brick} possuí três estados: \texttt{GlassBrickState} onde a colisão com qualquer bola parte-o imediatamente sem existir reflecção, \texttt{NormalBrickState} onde este parte após um número de hits pré-definido e \texttt{ConcreteBrickState} um tipo que não pode ser quebrado. De forma similar existem três tipos para \texttt{Ball}. \texttt{NormalBallState} define uma bola que colide com bricks, \texttt{FireBallState} representa uma bola que destroí numa só colisão \texttt{Brick}s que normalmente precisariam multiplas, e \texttt{PhantomBallState} que permite também que as bolas atravessem \texttt{Brick}s sem mudar de direcção. O Paddle apenas possuí um estado \texttt{NormalPaddleState} no entanto este é mantido %% TODO FIXME
-TODO FIXME
+\noindent Desde a conceptualização do jogo considerou-se a possibilidade de existirem vários tipos de \texttt{Brick}, \texttt{Ball} e \texttt{Paddle}. Consoante o tipo, a representação e interação deste objecto muda. Inicialmente optámos pela solução tradicional de utilizar herança. No entanto, com a introdução de objectos \texttt{Bonus} surgiu a necessidade deste mapeamento occorrer de forma dinâmica, permitindo mudar o estado de um objecto sem ter que criar outro objecto. O patern \texttt{State} serve para este efeito.
+
+O \texttt{Brick} possuí três estados: \texttt{GlassBrickState} onde a colisão com qualquer bola parte-o imediatamente sem existir reflecção, \texttt{NormalBrickState} onde este parte após um número de hits pré-definido e \texttt{ConcreteBrickState} um tipo que não pode ser quebrado. De forma similar existem três tipos para \texttt{Ball}. \texttt{NormalBallState} define uma bola que colide com bricks, \texttt{FireBallState} representa uma bola que destroí numa só colisão \texttt{Brick}s que normalmente precisariam multiplas, e \texttt{PhantomBallState} que permite também que as bolas atravessem \texttt{Brick}s sem mudar de direcção. O Paddle apenas possuí um estado \texttt{NormalPaddleState} no entanto este é mantido por modularidade.
 
 \subsubsection{Strategy}
 \noindent O padrão \texttt{Strategy}, como já mencionado, é utilizado para separar os dois tipos de comportamento artificial do CPUPlayer. Uma vez que a estratégia pode ser escolhida em \textit{runtime}, esta escolha pareceu-nos adequada, permitindo assim a futura extensão do jogo com novas estratégias. A estratégia é executada de forma a avaliar o mundo (neste caso, as bolas em jogo), de forma a decidir qual a próxima acção a tomar segundo um conjunto de critérios (diferentes entre estratégias).
@@ -111,5 +112,15 @@ TODO FIXME
 
 \section{Conclusion}
 \noindent Como qualquer trabalho de Engenharia do Software, a especificação do projecto foi sendo alterada a cada iteração de produção, à medida que se encontravam problemas e se procuravam arranjar soluções que se mostrassem genéricas e duradouras. A implementação de ``Design Patterns'' foi um dos maiores impulsionadores do desenvolvimento do trabalho, uma vez que ofereciam resoluções-modelo para situações e problemas frequentes. Fomos procurando conhecer os vários Padrões de Projecto para escolher a solução mais adequada, uma vez que alguns apresentam semelhanças. No final, ficámos satisfeitos com a qualidade final do projecto, e ficamos confiantes de que uma grande quantidade das suas características são facilmente extensíveis com poucas ou nenhumas restruturações no restante código.
+
+\includepdf[pages=-,scale=.8,pagecommand={}]{images/class_breakout_world__inherit__graph.pdf}
+\includepdf[pages=-,scale=.8,pagecommand={}]{images/class_body__inherit__graph.pdf}
+\includepdf[pages=-,scale=.8,pagecommand={}]{images/class_contact__coll__graph.pdf}
+\includepdf[pages=-,scale=.8,pagecommand={}]{images/class_drawable__inherit__graph.pdf}
+\includepdf[pages=-,scale=.8,pagecommand={}]{images/class_state__inherit__graph.pdf}
+\includepdf[pages=-,scale=.8,pagecommand={}]{images/class_player__inherit__graph.pdf}
+\includepdf[pages=-,scale=.8,pagecommand={}]{images/class_c_p_u_strategy__inherit__graph.pdf}
+\includepdf[pages=-,scale=.8,pagecommand={}]{images/class_c_p_u_strategy_multiton__coll__graph.pdf}
+\includepdf[pages=-,scale=.8,pagecommand={}]{images/class_keyboard__coll__graph.pdf}
 
 \end{document}
