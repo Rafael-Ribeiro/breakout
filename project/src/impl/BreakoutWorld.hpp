@@ -245,8 +245,14 @@ void BreakoutWorld::collision_handle(Contact &contact)
 				ball_a->velocity() = Vector(vx, vy).normalize() * velocity;
 				ball_a->hit(*paddle_b->player());
 
+				/* add friction*/
+				const double friction_coef = 0.1;
+				double cos_angle = dp.normalized() * paddle_b->velocity().normalized();
+				if (cos_angle > 0)
+					ball_a->velocity() += paddle_b->velocity() * cos_angle * friction_coef;
+
 				/* push the ball */
-				ball_a->position() += paddle_b->velocity() * -contact.toc();
+				// ball_a->position() += paddle_b->velocity() * -contact.toc();
 
 				goto cleanup;
 			}

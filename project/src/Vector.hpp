@@ -46,6 +46,8 @@ public:
 	Vector reflect(const Vector &incident) const;
 
 	Vector& normalize();
+	Vector normalized();
+	
 	double length() const;
 	double sqrd_length() const;
 };

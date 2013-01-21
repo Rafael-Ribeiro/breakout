@@ -135,6 +135,16 @@ Vector& Vector::normalize()
 	return *this;
 }
 
+Vector Vector::normalized()
+{
+	double length = this->length();
+
+	if (length > numeric_limits<double>::epsilon()) /* length != 0 */
+		return *this / length;
+
+	return Vector(this->_x, this->_y);
+}
+
 double Vector::length() const
 {
 	return sqrt(this->sqrd_length());
